@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Arvin&#39;s</title>
+  <subtitle>Arvin&#39;s blog</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-04-20T02:30:59.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Arvin&#39;s</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hello hexo</title>
+    <link href="http://yoursite.com/2017/04/19/hello-hexo/"/>
+    <id>http://yoursite.com/2017/04/19/hello-hexo/</id>
+    <published>2017-04-19T07:35:34.000Z</published>
+    <updated>2017-04-20T02:30:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="测试搭建博客"><a href="#测试搭建博客" class="headerlink" title="测试搭建博客"></a>测试搭建博客</h2><ul>
+<li>测试代码</li>
+</ul>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/avatar.jpg?imageView/1/w/300/h/300" alt="测试图片"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, i &lt; <span class="number">10</span>, i++) &#123;</div><div class="line">	<span class="built_in">NSLog</span>(<span class="string">@"%d"</span>,i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;测试搭建博客&quot;&gt;&lt;a href=&quot;#测试搭建博客&quot; class=&quot;headerlink&quot; title=&quot;测试搭建博客&quot;&gt;&lt;/a&gt;测试搭建博客&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;测试代码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bk
+    
+    </summary>
+    
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+</feed>
