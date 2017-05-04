@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-22T03:54:59.000Z</updated>
+  <updated>2017-05-04T03:27:53.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,32 +16,94 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>hello hexo</title>
+    <title>利用 Hexo 搭建博客</title>
     <link href="http://yoursite.com/2017/04/19/hello-hexo/"/>
     <id>http://yoursite.com/2017/04/19/hello-hexo/</id>
     <published>2017-04-19T07:35:34.000Z</published>
-    <updated>2017-04-22T03:54:59.000Z</updated>
+    <updated>2017-05-04T03:27:53.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="测试搭建博客"><a href="#测试搭建博客" class="headerlink" title="测试搭建博客"></a>测试搭建博客</h2><ul>
-<li>测试代码</li>
-</ul>
-<p><img src="http://oonis1a4c.bkt.clouddn.com/avatar.jpg?imageView/1/w/300/h/300" alt="测试图片"></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, i &lt; <span class="number">10</span>, i++) &#123;</div><div class="line">	<span class="built_in">NSLog</span>(<span class="string">@"%d"</span>,i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/hexo-logo.png" alt=""></p>
+<p>看到越来越多人搭建了漂亮的个人博客网站，一直心里痒痒想着自己也弄一个，刚好最近项目告一段落了有点空闲时间，于是网上找了教程就开始(zhuangbility)啦！</p>
+<p>当然写本文的目的只是为了记录我自己的搭建过程及踩的坑，更详细的建站等细节大家可以查看<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">Hexo的官方文档</a>，而且本文只是针对Mac OSX 系统平台, Windows系统的表示不会(话说很多年没用过了，忘记Windows长啥样啦(づ｡◕‿‿◕｡)づ)。所以还是建议大家看官方文档吧，各平台都有说明，好啦，废话不多说。</p>
+<p>目前搭建免费博客有两种方式：<br>一是：<code>github Pages + Hexo</code>； 二是：<code>github Pages + Jekyll</code>；<br>两者都是利用github既免费又稳定的空间作为托管，对比了下，<strong>Hexo</strong> 更简洁高效更多人使用，有非常详细的建站文档，当然 <strong>Jekyll</strong> 也有文档提供，感兴趣的童鞋可以<a href="http://jekyllcn.com/docs/home/" target="_blank" rel="external">看这里</a>，但是相比Hexo定制性更高，更有丰富的Theme可以自定义，如果你是一名前端开发者，甚至可以自己写Theme；so！Hexo 绝对是爱折腾兼完美主义者的不二之选。</p>
+<h3 id="一-Github-Account"><a href="#一-Github-Account" class="headerlink" title="一. Github Account"></a>一. Github Account</h3><p>对于一个开发者来说，以下步骤我想可以忽略吧。</p>
+<p>1.1. 你需要一个GitHub帐号，到<a href="https://github.com/" target="_blank" rel="external">GitHub官网</a>按照步骤注册即可。</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/join-github.png" alt="join GitHub"></p>
+<p>1.2. 注册成功后，你需要创建一个新的仓库。</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/new-repo.png?imageView/1/w/500/h/300" alt="new repository"> </p>
+<p>1.3. 创建仓库过程说明，这里需要注意的是仓库名称的命名规则，必须是<code>注册名.github.io</code>这种格式，后续就可以通过<code>https://注册名.github.io/</code>来访问你的博客网站啦。</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/create-repo.png" alt="create repository"></p>
+<h3 id="二-环境准备"><a href="#二-环境准备" class="headerlink" title="二. 环境准备"></a>二. 环境准备</h3><h3 id="1-Git"><a href="#1-Git" class="headerlink" title="1. Git"></a>1. <a href="https://git-scm.com/" target="_blank" rel="external">Git</a></h3><p>首先安装Git，后续的操作全部依赖它，安装教程<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="external">看官方文档</a>So Easy，或者自行Google。<br>PS: 相信做开发的童鞋都不陌生, iOS 开发者更不用说，xcode 自带！</p>
+<h3 id="2-Node-js"><a href="#2-Node-js" class="headerlink" title="2. Node.js"></a>2. <a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></h3><p>在安装Node之前，需要先安装Node版本管理工具<code>nvm</code>，用于Node版本切换，安装方式有两种，先来看第一种，<a href="https://brew.sh/index_zh-cn.html" target="_blank" rel="external">Homebrew</a> 安装方式，比较麻烦，并且这种方式安装后Node版本切换有问题，因此不推荐这种方式，安装完后不需要重启终端，依次执行下列命令即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ brew install nvm  </div><div class="line">$ mkdir ~/.nvm</div><div class="line">$ export NVM_DIR=~/.nvm</div><div class="line">$ . $(brew --prefix nvm)/nvm.sh</div></pre></td></tr></table></figure>
+<p>第二种安装方式：</p>
+<p><strong>curl</strong>安装方式，如果没有使用<code>Homebrew</code>安装过，直接跳过前面的命令执行最后一条即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># 查看已经安装在全局的模块，以便删除这些全局模块后再按照不同的 node 版本重新进行全局安装 </div><div class="line">$ npm ls -g --depth=0 </div><div class="line"></div><div class="line"># 删除全局 node_modules 目录</div><div class="line">$ sudo rm -rf /usr/local/lib/node_modules </div><div class="line"></div><div class="line"># 删除 node </div><div class="line">$ sudo rm /usr/local/bin/node </div><div class="line"></div><div class="line"># 删除全局 node 模块注册的软链</div><div class="line">$ cd /usr/local/bin &amp;&amp; ls -l | grep &quot;../lib/node_modules/&quot; | awk &apos;&#123;print $9&#125;&apos;| xargs rm  </div><div class="line"></div><div class="line"># 最后，安装nvm的正确姿势</div><div class="line">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash</div></pre></td></tr></table></figure>
+<p>然后可以看到下载<code>nvm</code>成功并安装，并且在<code>~/.zshrc</code>中已经自动加入了环境变量，现在需要重启你的终端。（什么是<code>zshrc</code>？后面再专门写篇文章来讲，这里先略过）</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/install-nvm.png" alt="install nvm"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</div><div class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm</div></pre></td></tr></table></figure>
+<p>这里附上一篇<a href="http://www.imooc.com/article/14617" target="_blank" rel="external">《正确的安装和使用nvm(mac)》</a>文章链接，写的非常详细，大家可以参考。 </p>
+<p>重启终端后，执行以下命令即可安装<strong>Node.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 安装node，版本5以上</div><div class="line">$ nvm install 5</div></pre></td></tr></table></figure>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/install-node.png" alt="install node"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 查看node版本</div><div class="line">$ nvm ls</div></pre></td></tr></table></figure>
+<h3 id="3-Hexo"><a href="#3-Hexo" class="headerlink" title="3. Hexo"></a>3. <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a></h3><p>以上环境安装完了，最后我们就可以安装<strong>Hexo</strong>啦！<br>执行以下命令，这里需要申请sudo权限，输入管理员密码即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 安装hexo</div><div class="line">$ sudo npm install hexo-cli -g</div></pre></td></tr></table></figure>
+<p>此时命令行哗啦啦输出好多东西，稍等片刻就安装好了。</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/install-hexo.png" alt="install hexo"></p>
+<p>最后，再安装 <strong><a href="$ npm install hexo-deployer-git --save">博客自动部署工具</a></strong> 帮助我们将编写的文章发布并部署到github服务器。<br>注意后面的<code>--save</code>一定要带上，不然部署到github时会报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 安装git自动部署工具</div><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
+<p><strong><em>到此为止，已经成功安装好所有环境，建站完成。Yahoo！</em></strong></p>
+<h3 id="三-网站配置"><a href="#三-网站配置" class="headerlink" title="三. 网站配置"></a>三. 网站配置</h3><p>建站完成后，在根目录<code>xxx.github.io</code>文件夹的目录如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── _config.yml		# 网站的 配置 信息，可以在这里配置大部分的参数。</div><div class="line">├── db.json		# 缓存文件</div><div class="line">├── debug.log		# 调试信息</div><div class="line">├── node_modules	# 安装的node文件夹</div><div class="line">├── nvm			# 安装的nvm文件</div><div class="line">├── package.json 	# 应用程序的信息。</div><div class="line">├── scaffolds		# 模版文件夹，新建文章时，Hexo 会根据 scaffold 来建立文件。</div><div class="line">├── source		# 资源文件夹是存放用户资源的地方。除 _posts 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。 </div><div class="line">|   ├── _drafts		# 草稿。</div><div class="line">|   └── _posts		# 新建的文章.md 会放到这个文件夹。</div><div class="line">└── themes		# 主题文件夹，Hexo 会根据主题来生成静态页面。</div></pre></td></tr></table></figure>
+<p>若要修改网站配置，使用vim编辑器打开<code>_config.yml</code>文件，按<code>i</code>即可进行编辑。<br>以下是我的站点配置，你需要修改的是你的网站标题和最下面的<code>deploy</code>配置，修改<code>repo</code>为你的github仓库地址即可，其它可选；</p>
+<p>说一下<code>theme</code>字段，这个是主题设置，默认为<code>next</code>主题，我选择的是<a href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank" rel="external">Hueman</a>主题，更多主题可以<a href="https://hexo.io/themes/" target="_blank" rel="external">看这里</a>，实在太多，任君选择。（主题替换还是有点坑，后面再写一篇文章专门讲）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line"># Hexo Configuration             # hexo 配置</div><div class="line">## Docs: https://hexo.io/docs/configuration.html</div><div class="line">## Source: https://github.com/hexojs/hexo/</div><div class="line"></div><div class="line"># Site                           # 网站</div><div class="line">title: Arvin&apos;s                   # 网站标题</div><div class="line">subtitle: Arvin&apos;s blog           # 网站副标题</div><div class="line">description: 有幸站在互联网技术革命的浪潮之上, 奋勇前行. # 网站描述</div><div class="line">author: Arvin&apos;s                  # 您的名字</div><div class="line">language: zh-CN                  # 网站使用的语言</div><div class="line">timezone:                        # 网站时区。Hexo 默认使用您电脑的时区。时区列表。比如说：America/New_York, Japan, 和 UTC 。</div><div class="line"></div><div class="line"># URL                            # 链接格式</div><div class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;</div><div class="line">url: http://yoursite.com                # 网址</div><div class="line">root: /                                 # 网站根目录</div><div class="line">permalink: :year/:month/:day/:title/    # 文章的 永久链接 格式</div><div class="line">permalink_defaults:                     # 永久链接中各部分的默认值</div><div class="line"></div><div class="line"># RSS订阅支持</div><div class="line">plugin:</div><div class="line">- hexo-generator-feed</div><div class="line"></div><div class="line"># Feed Atom</div><div class="line">feed:</div><div class="line">type: atom</div><div class="line">path: atom.xml</div><div class="line">limit: 20</div><div class="line"></div><div class="line"># Directory                      # 目录</div><div class="line">source_dir: source               # 资源文件夹，这个文件夹用来存放内容。</div><div class="line">public_dir: public               # 公共文件夹，这个文件夹用于存放生成的站点文件。</div><div class="line">tag_dir: tags                    # 标签文件夹</div><div class="line">archive_dir: archives            # 归档文件夹</div><div class="line">category_dir: categories         # 分类文件夹</div><div class="line">code_dir: downloads/code         # Include code 文件夹</div><div class="line">i18n_dir: :lang                  # 国际化（i18n）文件夹</div><div class="line">skip_render:                     # 跳过指定文件的渲染，您可使用 glob 表达式来匹配路径。</div><div class="line"></div><div class="line"># Writing                                               # 文章</div><div class="line">new_post_name: :title.md # File name of new posts       # 新文章的文件名称</div><div class="line">default_layout: post                                    # 预设布局</div><div class="line">titlecase: false # Transform title into titlecase       # 把标题转换为 title case</div><div class="line">external_link: true # Open external links in new tab    # 在新标签中打开链接</div><div class="line">filename_case: 0                                        # 把文件名称转换为 (1) 小写或 (2) 大写</div><div class="line">render_drafts: false                                    # 显示草稿</div><div class="line">post_asset_folder: false                                # 启动 Asset 文件夹</div><div class="line">relative_link: false                                    # 把链接改为与根目录的相对位址</div><div class="line">future: true                                            # 显示未来的文章</div><div class="line">highlight:                                              # 代码块的设置</div><div class="line">  enable: true                   # 是否启用</div><div class="line">  line_number: true              # 显示行号</div><div class="line">  auto_detect: false             #</div><div class="line">  tab_replace:</div><div class="line"></div><div class="line"># Category &amp; Tag                 # 分类和标签</div><div class="line">default_category: uncategorized  # 默认分类</div><div class="line">category_map:                    # 分类别名</div><div class="line">tag_map:                         # 标签别名</div><div class="line"></div><div class="line"># Date / Time format             # 日期时间格式</div><div class="line">## Hexo uses Moment.js to parse and display date</div><div class="line">## You can customize the date format as defined in</div><div class="line">## http://momentjs.com/docs/#/displaying/format/</div><div class="line">date_format: YYYY-MM-DD          # 日期格式</div><div class="line">time_format: HH:mm:ss            # 时间格式</div><div class="line"></div><div class="line"># Pagination                     # 分页</div><div class="line">## Set per_page to 0 to disable pagination</div><div class="line">per_page: 10                     # 每页显示的文章量 (0 = 关闭分页功能)</div><div class="line">pagination_dir: page             # 分页目录</div><div class="line"></div><div class="line"># Extensions                     # 拓展插件</div><div class="line">## Plugins: https://hexo.io/plugins/</div><div class="line">## Themes: https://hexo.io/themes/</div><div class="line">theme: hueman                    # 当前主题名称。值为false时禁用主题</div><div class="line"></div><div class="line"># Deployment                     # 部署</div><div class="line">## Docs: https://hexo.io/docs/deployment.html</div><div class="line">deploy:                          # 部署部分的设置</div><div class="line">  type: git</div><div class="line">  repo: git@github.com:kejiasir/kejiasir.github.io.git</div><div class="line">  branch: master</div><div class="line">  message:</div></pre></td></tr></table></figure>
+<h3 id="四-文章发布"><a href="#四-文章发布" class="headerlink" title="四. 文章发布"></a>四. 文章发布</h3><h4 id="1-文章新建"><a href="#1-文章新建" class="headerlink" title="1. 文章新建"></a>1. 文章新建</h4><p>执行下列命令来创建一篇新文章。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># layout 可以不写，默认为post，可以通过修改 _config.yml 中的 default_layout 参数来指定默认布局。</div><div class="line"># title 文章标题，如果有空格，需使用双引号包括，例：“hello world”。</div><div class="line">$ hexo new [layout] &lt;title&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="2-文章布局"><a href="#2-文章布局" class="headerlink" title="2. 文章布局"></a>2. 文章布局</h4><p>Hexo 有三种默认布局：<code>page</code> 、<code>post</code>和 <code>draft</code>，它们分别对应不同的路径，如果你自定义布局将和 <code>post</code> 一样，都会储存到 <code>source/_posts</code> 这个文件夹。 </p>
+<table>
+<thead>
+<tr>
+<th>布局</th>
+<th style="text-align:center">路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page</td>
+<td style="text-align:center">source</td>
+</tr>
+<tr>
+<td>post</td>
+<td style="text-align:center">source/_posts</td>
+</tr>
+<tr>
+<td>draft</td>
+<td style="text-align:center">source/_drafts</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-草稿"><a href="#3-草稿" class="headerlink" title="3. 草稿"></a>3. 草稿</h4><p>Hexo 的一种特殊布局：<code>draft</code>，这种布局在建立时会被保存到 <code>source/_drafts</code> 文件夹，可以通过 <code>publish</code> 命令将草稿移动到 <code>source/_posts</code> 文件夹，该命令的使用方式与 <code>new</code> 十分类似，你也可以在命令中指定 layout 来设置布局（文章路径）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 把 source/_drafts 文件夹内的文章移动到 source/_posts 文件夹中</div><div class="line">$ hexo publish [layout] &lt;title&gt;</div></pre></td></tr></table></figure>
+<h4 id="4-文章编写"><a href="#4-文章编写" class="headerlink" title="4. 文章编写"></a>4. 文章编写</h4><p>上面说到新建的文章不指定布局会默认保存在<code>source/_posts</code>路径下，新建文章后缀格式为<code>.md</code>文件，即需要使用<a href="http://www.markdown.cn/" target="_blank" rel="external">Markdown</a>语法编写，你可以使用<code>vim</code>编辑器进行编辑，但是可想而知那有多么恶心。所以还是选择一款专业的markdown编辑器吧，Mac平台的 <a href="https://www.macupdate.com/app/mac/40420/mou" target="_blank" rel="external">Mou</a> 编辑器不错；而我自己用的是 <a href="http://zh.mweb.im/" target="_blank" rel="external">MWeb Lite</a> 免费版（国内开发者良心之作），体验已经非常不错，目前足以满足我的需求了，当然土豪可以购买收费版的支持下，据说功能足够强大。</p>
+<p>文章编辑完成后，使用以下命令进行本地测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 启动服务器，你可以在浏览器中输入 http://localhost:4000/. 来访问你的博客网站，查看文章</div><div class="line">$ hexo server		---&gt;&gt;&gt; 可以简写为  hexo s</div></pre></td></tr></table></figure>
+<h4 id="5-文章发布"><a href="#5-文章发布" class="headerlink" title="5. 文章发布"></a>5. 文章发布</h4><p>当然你可以随时在markdown编辑器中修改文章，记得存储（command+s），直到你想要部署到github，使用以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 清除缓存文件 (db.json) 和已生成的静态文件 (public)</div><div class="line">$ hexo clean		</div><div class="line"></div><div class="line"># 生成缓存和静态文件</div><div class="line">$ hexo generate		---&gt;&gt;&gt; 可以简写为  hexo g </div><div class="line"></div><div class="line"># 重新部署到服务器</div><div class="line">$ hexo deploy		---&gt;&gt;&gt; 可以简写为  hexo d</div></pre></td></tr></table></figure>
+<p>到此，如无意外，你已经顺利部署文章到github服务器，快使用<code>https://注册名.github.io/</code>域名来访问你的博客网站，看看发布的文章吧。（域名绑定还没有弄，后面弄好了在写）  </p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;测试搭建博客&quot;&gt;&lt;a href=&quot;#测试搭建博客&quot; class=&quot;headerlink&quot; title=&quot;测试搭建博客&quot;&gt;&lt;/a&gt;测试搭建博客&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;测试代码&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bk
+      &lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bkt.clouddn.com/hexo-logo.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;看到越来越多人搭建了漂亮的个人博客网站，一直心里痒痒想着自己也弄一个，刚好最近项目告一段落了有点空闲时间，于是网上找了教程就开始
     
     </summary>
     
       <category term="Hexo" scheme="http://yoursite.com/categories/Hexo/"/>
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
   </entry>
   
