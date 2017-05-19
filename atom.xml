@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-18T10:11:41.000Z</updated>
+  <updated>2017-05-19T02:44:48.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>集成友盟推送</title>
+    <title>友盟推送之-踩坑</title>
     <link href="http://yoursite.com/2017/05/17/on-umeng-push/"/>
     <id>http://yoursite.com/2017/05/17/on-umeng-push/</id>
     <published>2017-05-17T01:16:15.000Z</published>
-    <updated>2017-05-18T10:11:41.000Z</updated>
+    <updated>2017-05-19T02:44:48.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/umeng-push.png" alt=""></p>
 <p>最近项目需要做推送功能，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。</p>
@@ -59,10 +59,14 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+      <category term="Technology" scheme="http://yoursite.com/categories/Technology/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/Technology/iOS/"/>
     
     
       <category term="推送" scheme="http://yoursite.com/tags/%E6%8E%A8%E9%80%81/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
   </entry>
   
@@ -71,7 +75,7 @@
     <link href="http://yoursite.com/2017/04/19/hello-hexo/"/>
     <id>http://yoursite.com/2017/04/19/hello-hexo/</id>
     <published>2017-04-19T07:35:34.000Z</published>
-    <updated>2017-05-04T03:27:53.000Z</updated>
+    <updated>2017-05-19T02:38:56.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/hexo-logo.png" alt=""></p>
 <p>看到越来越多人搭建了漂亮的个人博客网站，一直心里痒痒想着自己也弄一个，刚好最近项目告一段落了有点空闲时间，于是网上找了教程就开始(zhuangbility)啦！</p>
@@ -151,7 +155,9 @@
     
     </summary>
     
-      <category term="Hexo" scheme="http://yoursite.com/categories/Hexo/"/>
+      <category term="Technology" scheme="http://yoursite.com/categories/Technology/"/>
+    
+      <category term="Hexo" scheme="http://yoursite.com/categories/Technology/Hexo/"/>
     
     
       <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
