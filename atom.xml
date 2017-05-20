@@ -115,10 +115,10 @@
   
   <entry>
     <title>友盟推送之-踩坑</title>
-    <link href="http://yoursite.com/2017/05/17/on-umeng-push/"/>
-    <id>http://yoursite.com/2017/05/17/on-umeng-push/</id>
-    <published>2017-05-17T01:16:15.000Z</published>
-    <updated>2017-05-19T02:44:48.000Z</updated>
+    <link href="http://yoursite.com/2017/05/01/on-umeng-push/"/>
+    <id>http://yoursite.com/2017/05/01/on-umeng-push/</id>
+    <published>2017-05-01T01:16:15.000Z</published>
+    <updated>2017-05-20T04:15:06.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/umeng-push.png" alt=""></p>
 <p>最近项目需要做推送功能，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。</p>
