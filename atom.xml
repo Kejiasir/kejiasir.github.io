@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-20T04:12:44.000Z</updated>
+  <updated>2017-05-20T13:01:57.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,103 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>自作多情 - 周慧敏</title>
+    <link href="http://yoursite.com/2017/05/20/Test-content/"/>
+    <id>http://yoursite.com/2017/05/20/Test-content/</id>
+    <published>2017-05-20T12:31:25.000Z</published>
+    <updated>2017-05-20T13:01:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/music-cover.jpeg" alt="冬日浪漫"></p>
+<p>—– 😔对于你，我不知道还能说些什么，又能做些什么，此时此刻，这首歌懂我😔 —–</p>
+<p>不要自作多情去做梦</p>
+<p>给我尽献殷勤管接送</p>
+<p>不必一再问我</p>
+<p>恋情可有渐冻</p>
+<p>时时追击如烈风</p>
+<p>因我没有心情去做梦</p>
+<p>不会赠送感情给你操纵</p>
+<p>不必窥探在我</p>
+<p>窗前失去自控</p>
+<p>呆站一宵如笨钟</p>
+<p>今晚找个心爱吧</p>
+<p>不要失意等我吧</p>
+<p>今晚请你归去吧</p>
+<p>别管我愉快吗</p>
+<p>今晚找个心爱吧</p>
+<p>倾诉所有的说话</p>
+<p>别人在期望相恋</p>
+<p>知道吗</p>
+<p>恋爱狂回头吧</p>
+<p>因我害怕</p>
+<p>倘用情驯服似</p>
+<p>小狗摆尾巴</p>
+<p>到后来</p>
+<p>还是要公式痛哭</p>
+<p>今天只身也罢</p>
+<p>恋爱狂回头吧</p>
+<p>因我害怕</p>
+<p>倘用情盲目似</p>
+<p>不分真与假</p>
+<p>到后来</p>
+<p>还是要公式痛哭</p>
+<p>不敢说声爱吧</p>
+<p>不要自作多情去做梦</p>
+<p>给我尽献殷勤管接送</p>
+<p>不必一再问我</p>
+<p>恋情可有渐冻</p>
+<p>时时追击如烈风</p>
+<p>因我没有心情去做梦</p>
+<p>不会赠送感情给你操纵</p>
+<p>不必窥探在我</p>
+<p>窗前失去自控</p>
+<p>呆站一宵如笨钟</p>
+<p>今晚找个心爱吧</p>
+<p>不要失意等我吧</p>
+<p>今晚请你归去吧</p>
+<p>别管我愉快吗</p>
+<p>今晚找个心爱吧</p>
+<p>倾诉所有的说话</p>
+<p>别人在期望相恋</p>
+<p>知道吗</p>
+<p>恋爱狂回头吧</p>
+<p>因我害怕</p>
+<p>倘用情驯服似</p>
+<p>小狗摆尾巴</p>
+<p>到后来</p>
+<p>还是要公式痛哭</p>
+<p>今天只身也罢</p>
+<p>恋爱狂回头吧</p>
+<p>因我害怕</p>
+<p>倘用情盲目似</p>
+<p>不分真与假</p>
+<p>到后来</p>
+<p>还是要公式痛哭</p>
+<p>不敢说声爱吧</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bkt.clouddn.com/music-cover.jpeg&quot; alt=&quot;冬日浪漫&quot;&gt;&lt;/p&gt;
+&lt;p&gt;—– 😔对于你，我不知道还能说些什么，又能做些什么，此时此刻，这首歌懂我😔 —–&lt;/p&gt;
+&lt;p&gt;不要自作多情去
+    
+    </summary>
+    
+      <category term="DailyLife" scheme="http://yoursite.com/categories/DailyLife/"/>
+    
+      <category term="Music" scheme="http://yoursite.com/categories/DailyLife/Music/"/>
+    
+    
+      <category term="Music" scheme="http://yoursite.com/tags/Music/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hexo 主题之 Hueman</title>
     <link href="http://yoursite.com/2017/05/19/hexo-themes-hueman/"/>
     <id>http://yoursite.com/2017/05/19/hexo-themes-hueman/</id>
     <published>2017-05-19T03:06:54.000Z</published>
-    <updated>2017-05-20T04:12:44.000Z</updated>
+    <updated>2017-05-20T12:28:33.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/hueman-themes.jpeg" alt=""></p>
 <p>打自搭建好博客开始，默认的<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">Next主题</a>实在不足以满足我的审美观(ಥ_ಥ)呀，…必须（果断）折腾！哗啦啦，直奔<a href="https://hexo.io/themes/" target="_blank" rel="external">Hexo主题库</a>，无奈选择困难症，千挑万选最终觉得<a href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank" rel="external">Hunman主题</a>比较符合我的Style~~ 好了，本文就来细讲更换Hueman主题的愉（心）快（塞）过程，业余时间断断续续的弄了好久呢 。</p>
@@ -29,8 +121,8 @@
 <h5 id="一-nbsp-下载（Clone）主题到本地"><a href="#一-nbsp-下载（Clone）主题到本地" class="headerlink" title="一. &nbsp;下载（Clone）主题到本地"></a>一. &nbsp;下载（<strong>Clone</strong>）主题到本地</h5><p>使用以下任一命令Clone到本地 <strong>../themes</strong> 目录下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/// Clone with SSH</div><div class="line">$ git clone git@github.com:ppoffice/hexo-theme-hueman.git</div><div class="line"></div><div class="line">/// Clone with HTTPS</div><div class="line">$ git clone https://github.com/ppoffice/hexo-theme-hueman.git</div></pre></td></tr></table></figure></p>
 <p>Clone 下来的主题目录结构如下： </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── _config.yml	# 主题配置文件。修改时会自动更新，无需重启服务器；</div><div class="line">├── languages	# 语言文件夹，若要设置主题语言，修改主题配置文件；</div><div class="line">├── layout	# 布局文件夹。用于存放主题的模板文件，决定了网站内容的呈现方式；</div><div class="line">├── scripts	# 脚本文件夹。在启动时，Hexo 会载入此文件夹内的 JavaScript 文件；</div><div class="line">└── source	# 资源文件夹，除了模板以外的 Asset，例如 CSS、JavaScript 文件等，都应该放在这个文件夹中。</div></pre></td></tr></table></figure>
-<p><strong> 注意：Clone下来的配置文件<code>_config.yml</code>多了<code>.example</code>后缀，手动去掉即可，否则替换主题后不生效哦！之前就是没留意到这个还以为姿势不对导致替换后没效果 。 </strong></p>
-<p><strong><em> 重要说明：在 <code>Hexo</code> 中有两份主要的配置文件，其名称都是 <code>_config.yml</code> 。 其中，一份位于<code>站点根目录</code>下，主要包含 Hexo 本身的配置；另一份位于<code>主题目录</code>下，这份配置由主题作者提供，主要用于配置主题相关的选项，所以千万不要混淆 。 为了描述方便，在以下说明中，将前者称为 <code>站点配置文件</code>， 后者称为 <code>主题配置文件</code> </em></strong> </p>
+<p><strong> 注意：Clone下来的配置文件<code>_config.yml</code>多了<code>.example</code>后缀，手动去掉即可，否则替换主题后不生效哦！之前就是没留意到这个还以为姿势不对导致替换后没效果 。</strong></p>
+<p><strong> 重要说明：在 <code>Hexo</code> 中有两份主要的配置文件，其名称都是 <code>_config.yml</code> 。 其中，一份位于<code>站点根目录</code>下，主要包含 Hexo 本身的配置；另一份位于<code>主题目录</code>下，这份配置由主题作者提供，主要用于配置主题相关的选项，所以千万不要混淆 。 为了描述方便，在以下说明中，将前者称为 <code>站点配置文件</code>， 后者称为 <code>主题配置文件</code> 。</strong> </p>
 <p>替换Hexo默认主题，只需要修改 <code>站点配置文件</code> 中的 <strong> <code>theme</code> </strong> 字段值即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># Extensions		# 拓展插件</div><div class="line">## Plugins: https://hexo.io/plugins/</div><div class="line">## Themes: https://hexo.io/themes/</div><div class="line">theme: hueman		# 当前主题名称。值为false时禁用主题</div></pre></td></tr></table></figure></p>
 <p>是不是很简单，这样就好了，现在可以使用 <code>hexo s</code> 命令启动测试服务器看看效果啦 。</p>
 <hr>
@@ -63,13 +155,13 @@
 <p>3.6 &nbsp;加入网站计数，推荐使用<a href="http://ibruce.info/2015/04/04/busuanzi/" target="_blank" rel="external">不蒜子网站计数</a>，<code>一行脚本+一行标签</code> 搞定，简单到爆；</p>
 <p>3.6.1 &nbsp;安装脚本（Required）<br>打开路径 <code>../themes/hueman/layout/common/footer.ejs</code> 文件，插入以下脚本即可 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;script async src=&quot;//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>3.6.2 &nbsp;安装标签（Optional）<br>&nbsp;&nbsp;&nbsp;<strong>a. &nbsp;显示站点总访问量：</strong><br>&nbsp;&nbsp;&nbsp;要显示站点总访问量，复制以下代码添加到你需要显示的位置。有两种算法可选：</p>
-<p>&nbsp;&nbsp;&nbsp;算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量。</p>
+<p>3.6.2 &nbsp;安装标签（Optional）<br>&nbsp;&nbsp;&nbsp;<strong>a. &nbsp;显示站点总访问量：</strong><br>&nbsp;&nbsp;&nbsp;要显示站点总访问量，复制以下代码添加到你需要显示的位置 。有两种算法可选：</p>
+<p>&nbsp;&nbsp;&nbsp;算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;</div><div class="line">    本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次</div><div class="line">&lt;/span&gt;</div></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数。</p>
+<p>&nbsp;&nbsp;&nbsp;算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;</div><div class="line">  本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次</div><div class="line">&lt;/span&gt;</div></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;<strong>b. &nbsp;显示单页面访问量：</strong><br>&nbsp;&nbsp;&nbsp;要显示每篇文章的访问量，复制以下代码添加到你需要显示的位置。</p>
-<p>&nbsp;&nbsp;&nbsp;算法：pv的方式，单个用户点击1篇文章，本篇文章记录1次阅读量。</p>
+<p>&nbsp;&nbsp;&nbsp;<strong>b. &nbsp;显示单页面访问量：</strong><br>&nbsp;&nbsp;&nbsp;要显示每篇文章的访问量，复制以下代码添加到你需要显示的位置 。</p>
+<p>&nbsp;&nbsp;&nbsp;算法：pv的方式，单个用户点击1篇文章，本篇文章记录1次阅读量 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;</div><div class="line">  本文总阅读量&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;次</div><div class="line">&lt;/span&gt;</div></pre></td></tr></table></figure>
 <p>标签代码同样是插入到 <code>../footer.ejs</code> 文件中；如果是只计数，不显示，则只安装脚本代码，不需安装标签代码 。代码中文字是可以修改的，只要保留id正确即可 。</p>
 <p>3.7 &nbsp;<strong><code>// TODO:</code></strong> 站内搜索，按照<a href="https://github.com/ppoffice/hexo-theme-hueman/wiki/Search" target="_blank" rel="external">主题文档</a>安装 <code>hexo-generator-json-content</code> 插件，明明安装成功了，但是一跑测试就报错，目前还没解决，后面解决了再更新 。</p>
@@ -77,7 +169,7 @@
 <h5 id="四-nbsp-其它配置"><a href="#四-nbsp-其它配置" class="headerlink" title="四. &nbsp;其它配置"></a>四. &nbsp;其它配置</h5><p>4.1 &nbsp;About页面，刚搭建完点击About是 <code>not found</code> 吧！那是需要自己 <code>new</code> 一个才有呢 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/// 新建一个 about 页面文件</div><div class="line">$ hexo new page &quot;about&quot;</div></pre></td></tr></table></figure>
 <p>以上命令会在 <code>../xxxx.github.io/source/</code> 文件夹下面生成一个 <code>about</code> 文件夹，里面会创建一个<code>index.md</code> 的文件 。同样的使用 <code>Markdown</code> 语法编辑，完成后 <code>deploy</code> 。</p>
-<p>在 <code>主题配置文件</code> 中的 <code>About:</code> 字段添加路径。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">menu:</div><div class="line">    Home: /</div><div class="line">    # Delete this row if you don&apos;t want categories in your header nav bar</div><div class="line">    Categories:</div><div class="line">    About: /about/index.html</div></pre></td></tr></table></figure></p>
+<p>在 <code>主题配置文件</code> 中的 <code>About:</code> 字段添加路径 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">menu:</div><div class="line">    Home: /</div><div class="line">    # Delete this row if you don&apos;t want categories in your header nav bar</div><div class="line">    Categories:</div><div class="line">    About: /about/index.html</div></pre></td></tr></table></figure></p>
 <p>4.2 &nbsp;添加网站友情链接 。</p>
 <p>在 <code>主题配置文件</code> 中的 <code>links:</code> 字段下添加 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">links:</div><div class="line">       Hexo: http://hexo.io</div><div class="line">       Github: https://xxxx.xx</div><div class="line">       ...</div></pre></td></tr></table></figure></p>
 <p>4.3 &nbsp;<code>404 Not-Found</code> 页面，让我们一起加入<a href="http://www.qq.com/404/" target="_blank" rel="external">腾讯公益<strong>404</strong></a>吧 。</p>
@@ -173,7 +265,7 @@
     <link href="http://yoursite.com/2017/04/19/hello-hexo/"/>
     <id>http://yoursite.com/2017/04/19/hello-hexo/</id>
     <published>2017-04-19T07:35:34.000Z</published>
-    <updated>2017-05-19T02:38:56.000Z</updated>
+    <updated>2017-05-20T12:21:14.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/hexo-logo.png" alt=""></p>
 <p>看到越来越多人搭建了漂亮的个人博客网站，一直心里痒痒想着自己也弄一个，刚好最近项目告一段落了有点空闲时间，于是网上找了教程就开始(zhuangbility)啦！</p>
@@ -258,7 +350,7 @@
       <category term="Hexo" scheme="http://yoursite.com/categories/Technology/Hexo/"/>
     
     
-      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
     
   </entry>
   
