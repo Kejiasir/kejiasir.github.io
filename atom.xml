@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-20T13:57:19.000Z</updated>
+  <updated>2017-05-20T12:28:33.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,100 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>自作多情 - 周慧敏</title>
-    <link href="http://yoursite.com/2017/05/20/Test-content/"/>
-    <id>http://yoursite.com/2017/05/20/Test-content/</id>
-    <published>2017-05-20T12:31:25.000Z</published>
-    <updated>2017-05-20T13:57:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/music-cover.jpeg" alt="冬日浪漫"></p>
-<p>— 😔对于你的态度，我不知道还能说些什么，又能做些什么，此时此刻，这首歌懂我😔 —</p>
-<center><br><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=330107&auto=0&height=66"><br></iframe><br></center> 
-
-<p>不要自作多情去做梦</p>
-<p>给我尽献殷勤管接送</p>
-<p>不必一再问我</p>
-<p>恋情可有渐冻</p>
-<p>时时追击如烈风</p>
-<p>因我没有心情去做梦</p>
-<p>不会赠送感情给你操纵</p>
-<p>不必窥探在我</p>
-<p>窗前失去自控</p>
-<p>呆站一宵如笨钟</p>
-<p>今晚找个心爱吧</p>
-<p>不要失意等我吧</p>
-<p>今晚请你归去吧</p>
-<p>别管我愉快吗</p>
-<p>今晚找个心爱吧</p>
-<p>倾诉所有的说话</p>
-<p>别人在期望相恋</p>
-<p>知道吗</p>
-<p>恋爱狂回头吧</p>
-<p>因我害怕</p>
-<p>倘用情驯服似</p>
-<p>小狗摆尾巴</p>
-<p>到后来</p>
-<p>还是要公式痛哭</p>
-<p>今天只身也罢</p>
-<p>恋爱狂回头吧</p>
-<p>因我害怕</p>
-<p>倘用情盲目似</p>
-<p>不分真与假</p>
-<p>到后来</p>
-<p>还是要公式痛哭</p>
-<p>不敢说声爱吧</p>
-<p>不要自作多情去做梦</p>
-<p>给我尽献殷勤管接送</p>
-<p>不必一再问我</p>
-<p>恋情可有渐冻</p>
-<p>时时追击如烈风</p>
-<p>因我没有心情去做梦</p>
-<p>不会赠送感情给你操纵</p>
-<p>不必窥探在我</p>
-<p>窗前失去自控</p>
-<p>呆站一宵如笨钟</p>
-<p>今晚找个心爱吧</p>
-<p>不要失意等我吧</p>
-<p>今晚请你归去吧</p>
-<p>别管我愉快吗</p>
-<p>今晚找个心爱吧</p>
-<p>倾诉所有的说话</p>
-<p>别人在期望相恋</p>
-<p>知道吗</p>
-<p>恋爱狂回头吧</p>
-<p>因我害怕</p>
-<p>倘用情驯服似</p>
-<p>小狗摆尾巴</p>
-<p>到后来</p>
-<p>还是要公式痛哭</p>
-<p>今天只身也罢</p>
-<p>恋爱狂回头吧</p>
-<p>因我害怕</p>
-<p>倘用情盲目似</p>
-<p>不分真与假</p>
-<p>到后来</p>
-<p>还是要公式痛哭</p>
-<p>不敢说声爱吧</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bkt.clouddn.com/music-cover.jpeg&quot; alt=&quot;冬日浪漫&quot;&gt;&lt;/p&gt;
-&lt;p&gt;— 😔对于你的态度，我不知道还能说些什么，又能做些什么，此时此刻，这首歌懂我😔 —&lt;/p&gt;
-&lt;center&gt;&lt;
-    
-    </summary>
-    
-      <category term="DailyLife" scheme="http://yoursite.com/categories/DailyLife/"/>
-    
-      <category term="Music" scheme="http://yoursite.com/categories/DailyLife/Music/"/>
-    
-    
-      <category term="Music" scheme="http://yoursite.com/tags/Music/"/>
-    
-  </entry>
   
   <entry>
     <title>Hexo 主题之 Hueman</title>
@@ -212,10 +118,10 @@
     <link href="http://yoursite.com/2017/05/01/on-umeng-push/"/>
     <id>http://yoursite.com/2017/05/01/on-umeng-push/</id>
     <published>2017-05-01T01:16:15.000Z</published>
-    <updated>2017-05-20T04:15:06.000Z</updated>
+    <updated>2017-05-21T04:05:05.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/umeng-push.png" alt=""></p>
-<p>最近项目需要做推送功能，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。</p>
+<p>最近项目需要做消息推送，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。</p>
 <p>上友盟官网下载最新的<code>SDK</code>，这里吐槽一下，竟然不支持<code>CocoaPods</code>集成，需要手动导入<code>SDK</code>包到项目，无疑又给我们的<code>ipa</code>包增加体积 。接下来就是按照友盟<a href="http://dev.umeng.com/push/ios/integration" target="_blank" rel="external">iOS SDK文档</a>步骤来集成，文档还算比较全，相信大家并没什么难度 。</p>
 <h4 id="一-初始化并注册友盟推送："><a href="#一-初始化并注册友盟推送：" class="headerlink" title="一. 初始化并注册友盟推送："></a>一. 初始化并注册友盟推送：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">/// 绑定App的appKey和启动参数，启动消息参数用于处理用户通过消息打开应用相关信息</span></div><div class="line">    [UMessage startWithAppkey:kAppKey launchOptions:launchOptions httpsEnable:<span class="literal">YES</span>];</div><div class="line"><span class="meta">#ifdef DEBUG</span></div><div class="line">    [UMessage openDebugMode:<span class="literal">YES</span>];</div><div class="line">    [UMessage setLogEnabled:<span class="literal">YES</span>];</div><div class="line"><span class="meta">#else</span></div><div class="line">    [UMessage openDebugMode:<span class="literal">NO</span>];</div><div class="line">    [UMessage setLogEnabled:<span class="literal">NO</span>];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    </div><div class="line">    <span class="comment">/// 注册远程推送</span></div><div class="line">    [UMessage registerForRemoteNotifications];</div></pre></td></tr></table></figure>
 <p>iOS 10之后苹果统一了推送API，使用<code>UNUserNotificationCenter</code>这个类请求用户的授权 。</p>
@@ -247,7 +153,7 @@
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bkt.clouddn.com/umeng-push.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;最近项目需要做推送功能，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商
+&lt;p&gt;最近项目需要做消息推送，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商
     
     </summary>
     

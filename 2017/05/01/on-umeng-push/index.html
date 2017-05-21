@@ -8,18 +8,18 @@
     
         <meta name="keywords" content="iOS,推送" />
     
-    <meta name="description" content="最近项目需要做推送功能，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。 上友盟官网下载最新的SDK，这里吐槽一下，竟然不支持CocoaPods集成，需要手动导入SDK包到项目">
+    <meta name="description" content="最近项目需要做消息推送，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。 上友盟官网下载最新的SDK，这里吐槽一下，竟然不支持CocoaPods集成，需要手动导入SDK包到项目">
 <meta name="keywords" content="iOS,推送">
 <meta property="og:type" content="article">
 <meta property="og:title" content="友盟推送之-踩坑">
 <meta property="og:url" content="http://yoursite.com/2017/05/01/on-umeng-push/index.html">
 <meta property="og:site_name" content="Arvin's blog">
-<meta property="og:description" content="最近项目需要做推送功能，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。 上友盟官网下载最新的SDK，这里吐槽一下，竟然不支持CocoaPods集成，需要手动导入SDK包到项目">
+<meta property="og:description" content="最近项目需要做消息推送，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。 上友盟官网下载最新的SDK，这里吐槽一下，竟然不支持CocoaPods集成，需要手动导入SDK包到项目">
 <meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/umeng-push.png">
-<meta property="og:updated_time" content="2017-05-20T04:15:06.000Z">
+<meta property="og:updated_time" content="2017-05-21T04:05:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="友盟推送之-踩坑">
-<meta name="twitter:description" content="最近项目需要做推送功能，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。 上友盟官网下载最新的SDK，这里吐槽一下，竟然不支持CocoaPods集成，需要手动导入SDK包到项目">
+<meta name="twitter:description" content="最近项目需要做消息推送，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。 上友盟官网下载最新的SDK，这里吐槽一下，竟然不支持CocoaPods集成，需要手动导入SDK包到项目">
 <meta name="twitter:image" content="http://oonis1a4c.bkt.clouddn.com/umeng-push.png">
     
 
@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
                                     <a class="main-nav-list-link" href="/">Home</a>
                                 </li>
                             
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DailyLife/">DailyLife</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DailyLife/Music/">Music</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Themes/">Themes</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/iOS/">iOS</a></li></ul></li></ul>
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Themes/">Themes</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/iOS/">iOS</a></li></ul></li></ul>
                                     
                                 <li class="main-nav-list-item" >
                                     <a class="main-nav-list-link" href="/about/index.html">About</a>
@@ -201,7 +201,7 @@ var _hmt = _hmt || [];
         
         <div class="article-entry" itemprop="articleBody">
             <p><img src="http://oonis1a4c.bkt.clouddn.com/umeng-push.png" alt=""></p>
-<p>最近项目需要做推送功能，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。</p>
+<p>最近项目需要做消息推送，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。</p>
 <p>上友盟官网下载最新的<code>SDK</code>，这里吐槽一下，竟然不支持<code>CocoaPods</code>集成，需要手动导入<code>SDK</code>包到项目，无疑又给我们的<code>ipa</code>包增加体积 。接下来就是按照友盟<a href="http://dev.umeng.com/push/ios/integration" target="_blank" rel="external">iOS SDK文档</a>步骤来集成，文档还算比较全，相信大家并没什么难度 。</p>
 <h4 id="一-初始化并注册友盟推送："><a href="#一-初始化并注册友盟推送：" class="headerlink" title="一. 初始化并注册友盟推送："></a>一. 初始化并注册友盟推送：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">/// 绑定App的appKey和启动参数，启动消息参数用于处理用户通过消息打开应用相关信息</span></div><div class="line">    [UMessage startWithAppkey:kAppKey launchOptions:launchOptions httpsEnable:<span class="literal">YES</span>];</div><div class="line"><span class="meta">#ifdef DEBUG</span></div><div class="line">    [UMessage openDebugMode:<span class="literal">YES</span>];</div><div class="line">    [UMessage setLogEnabled:<span class="literal">YES</span>];</div><div class="line"><span class="meta">#else</span></div><div class="line">    [UMessage openDebugMode:<span class="literal">NO</span>];</div><div class="line">    [UMessage setLogEnabled:<span class="literal">NO</span>];</div><div class="line"><span class="meta">#endif</span></div><div class="line">    </div><div class="line">    <span class="comment">/// 注册远程推送</span></div><div class="line">    [UMessage registerForRemoteNotifications];</div></pre></td></tr></table></figure>
 <p>iOS 10之后苹果统一了推送API，使用<code>UNUserNotificationCenter</code>这个类请求用户的授权 。</p>
@@ -360,6 +360,7 @@ var _hmt = _hmt || [];
     
 </nav>
 
+
     
     <div class="widgets-container">
         
@@ -369,26 +370,6 @@ var _hmt = _hmt || [];
         <h3 class="widget-title">recents</h3>
         <div class="widget">
             <ul id="recent-post" class="">
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/05/20/Test-content/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/music-cover.jpeg)" alt="自作多情 - 周慧敏" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/DailyLife/">DailyLife</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/DailyLife/Music/">Music</a></p>
-                            <p class="item-title"><a href="/2017/05/20/Test-content/" class="title">自作多情 - 周慧敏</a></p>
-                            <p class="item-date"><time datetime="2017-05-20T12:31:25.000Z" itemprop="datePublished">2017-05-20</time></p>
-                        </div>
-                    </li>
                 
                     <li>
                         
@@ -459,7 +440,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DailyLife/">DailyLife</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/DailyLife/Music/">Music</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Themes/">Themes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Themes/">Themes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -469,7 +450,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -479,7 +460,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Music/">Music</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Themes/">Themes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Themes/">Themes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -489,7 +470,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/Music/" style="font-size: 10px;">Music</a> <a href="/tags/Themes/" style="font-size: 10px;">Themes</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a>
+            <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/Themes/" style="font-size: 10px;">Themes</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a>
         </div>
     </div>
 
