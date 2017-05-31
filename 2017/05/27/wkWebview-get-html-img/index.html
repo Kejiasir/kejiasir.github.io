@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>记wkWebview获取网页图片 | Arvin&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="wkWebview,HTML" />
+    
+    <meta name="description" content="前段时间有个需求，因为项目中有些banner和资讯列表，点开是网页浏览器，大部分是微信公众号的文章链接，还有一些自己的活动报名网页，需要实现类似微信公众号网页的图片点击可查看功能 。因为项目已经最低支持到 iOS 8，所以全替换成 wkWebview 组件了，这里记录下一些遇到的坑 。 方案一：因为涉及到 native 和 js 的交互，一开始是想让前端同事那边给网页中的图片加点击事件，iOS">
+<meta name="keywords" content="wkWebview,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记wkWebview获取网页图片">
+<meta property="og:url" content="http://yoursite.com/2017/05/27/wkWebview-get-html-img/index.html">
+<meta property="og:site_name" content="Arvin's blog">
+<meta property="og:description" content="前段时间有个需求，因为项目中有些banner和资讯列表，点开是网页浏览器，大部分是微信公众号的文章链接，还有一些自己的活动报名网页，需要实现类似微信公众号网页的图片点击可查看功能 。因为项目已经最低支持到 iOS 8，所以全替换成 wkWebview 组件了，这里记录下一些遇到的坑 。 方案一：因为涉及到 native 和 js 的交互，一开始是想让前端同事那边给网页中的图片加点击事件，iOS">
+<meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/20170527-00-blog.png">
+<meta property="og:updated_time" content="2017-05-31T10:03:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记wkWebview获取网页图片">
+<meta name="twitter:description" content="前段时间有个需求，因为项目中有些banner和资讯列表，点开是网页浏览器，大部分是微信公众号的文章链接，还有一些自己的活动报名网页，需要实现类似微信公众号网页的图片点击可查看功能 。因为项目已经最低支持到 iOS 8，所以全替换成 wkWebview 组件了，这里记录下一些遇到的坑 。 方案一：因为涉及到 native 和 js 的交互，一开始是想让前端同事那边给网页中的图片加点击事件，iOS">
+<meta name="twitter:image" content="http://oonis1a4c.bkt.clouddn.com/20170527-00-blog.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Arvin&#39;s blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-97693704-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+#<script>
+ # (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+ # (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+ # m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+ # })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ #
+ # ga('create', 'UA-97693704-1', 'auto');
+ # ga('send', 'pageview');
+ #
+#</script>
+
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4634866158d35bf92306da4e52ec7423";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Themes/">Themes</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/iOS/">iOS</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Technology/iOS/">iOS</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-wkWebview-get-html-img" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        记wkWebview获取网页图片
+        </h1>
+    
+
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/05/27/wkWebview-get-html-img/" class="article-date">
+            <time datetime="2017-05-27T07:21:12.000Z" itemprop="datePublished">2017-05-27</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/HTML/">HTML</a>, <a class="tag-link" href="/tags/wkWebview/">wkWebview</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="http://oonis1a4c.bkt.clouddn.com/20170527-00-blog.png" alt=""></p>
+<p>前段时间有个需求，因为项目中有些banner和资讯列表，点开是网页浏览器，大部分是微信公众号的文章链接，还有一些自己的活动报名网页，需要实现类似微信公众号网页的图片点击可查看功能 。因为项目已经最低支持到 iOS 8，所以全替换成 <a href="https://developer.apple.com/reference/webkit/wkwebview" target="_blank" rel="external"><strong>wkWebview</strong></a> 组件了，这里记录下一些遇到的坑 。</p>
+<h5 id="方案一："><a href="#方案一：" class="headerlink" title="方案一："></a>方案一：</h5><p>因为涉及到 <code>native</code> 和 <code>js</code> 的交互，一开始是想让前端同事那边给网页中的图片加点击事件，iOS 这边注册下约定的方法，但是因为有些是微信的公众号文章，所以没办法，为了统一还是需要在 iOS 这边注入 <code>js</code> 代码去遍历 DOM 树中的 img 标签，然后给每个 img 标签加上点击事件 。</p>
+<p>参考下面第一篇文章，使用切割跳转 <code>url</code> 方法；因为使用的是 <code>wkWebview</code>，所以在初始化 <code>wkWebview</code> 的时候就注入 <code>js</code> 代码，遍历 img 标签，添加点击事件拿到被点击图片的索引 。当然想要拿到对应图片的 src 也是可以的，但是我只需要被点击的图片索引就好了 。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *nativejsSource;</div><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">	<span class="comment">/// 从bundle中加载js资源文件，转成oc字符串</span></div><div class="line">	nativejsSource = [<span class="built_in">NSString</span> stringWithContentsOfFile:[[<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@"didImageIndex"</span> ofType:<span class="string">@"js"</span>] encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>]; </div><div class="line">&#125;);</div><div class="line"><span class="comment">/// 注入js脚本代码</span></div><div class="line">[userContentController addUserScript:[[<span class="built_in">WKUserScript</span> alloc] initWithSource:nativejsSource injectionTime:<span class="built_in">WKUserScriptInjectionTimeAtDocumentStart</span> forMainFrameOnly:<span class="literal">YES</span>]];</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// js 方法，获取被点击的图片索引</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getImageIndex</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> objs = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"img"</span>);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; objs.length; i++) &#123;</div><div class="line">        objs[i].onclick = (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">                           <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                           location.href = <span class="string">"jscallbackoc://didImageIndex_*"</span>+i;</div><div class="line">                           &#125;</div><div class="line">                           &#125;)(i)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> objs.length;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实现下面的 <code>WKNavigationDelegate</code> 代理方法，拦截请求的 <code>url</code>，然后切割处理 。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  在发送请求之前，决定是否允许或取消导航</div><div class="line"> *  </div><div class="line"> *  @param webView          调用委托方法的Web视图</div><div class="line"> *  @param navigationAction 有关触发导航请求的动作的描述性信息</div><div class="line"> *  @param decisionHandler  当你的应用程序决定是允许还是取消导航时，要调用的块。 该块接受一个参数，它必须是枚举类型WKNavigationActionPolicy的常量之一。</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView decidePolicyForNavigationAction:(<span class="built_in">WKNavigationAction</span> *)navigationAction decisionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">WKNavigationActionPolicy</span>))decisionHandler &#123;</div><div class="line">    <span class="keyword">if</span> ([[[navigationAction.request URL] absoluteString] hasPrefix:<span class="string">@"jscallbackoc://"</span>]) &#123;</div><div class="line">        [<span class="keyword">self</span> performJSMethodWithURL:[[navigationAction.request URL] absoluteString] protocolName:<span class="string">@"jscallbackoc://"</span> performViewController:<span class="keyword">self</span>];</div><div class="line">    &#125;</div><div class="line">    decisionHandler(<span class="built_in">WKNavigationActionPolicyAllow</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>处理拦截的 <code>url</code> 字符串 。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 捕获到拦截的url，进行切割处理，最终拿到被点击图片的 index</span></div><div class="line">- (<span class="keyword">void</span>)performJSMethodWithURL:(<span class="built_in">NSString</span> *)url protocolName:(<span class="built_in">NSString</span> *)name performViewController:(<span class="built_in">UIViewController</span> *)viewController &#123;</div><div class="line">    <span class="built_in">NSString</span> *path = [url substringFromIndex:name.length];</div><div class="line">    <span class="built_in">NSArray</span> *subPaths = [path componentsSeparatedByString:<span class="string">@"*"</span>];</div><div class="line">    <span class="built_in">NSString</span> *methodName = [[subPaths firstObject] stringByReplacingOccurrencesOfString:<span class="string">@"_"</span> withString:<span class="string">@":"</span>];</div><div class="line">    <span class="built_in">NSArray</span> *params = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">if</span> (subPaths.count == <span class="number">2</span>) &#123;</div><div class="line">        params = [[subPaths lastObject] componentsSeparatedByString:<span class="string">@"$"</span>];</div><div class="line">    &#125;</div><div class="line">    [viewController performSelector:<span class="built_in">NSSelectorFromString</span>(methodName) withObjects:params];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - private method</span></div><div class="line">- (<span class="keyword">id</span>)performSelector:(SEL)selector withObjects:(<span class="built_in">NSArray</span> *)objects &#123;</div><div class="line">    </div><div class="line">    <span class="comment">/// 方法签名(对方法的描述)</span></div><div class="line">    <span class="built_in">NSMethodSignature</span> *signature = [[<span class="keyword">self</span> <span class="keyword">class</span>] instanceMethodSignatureForSelector:selector];</div><div class="line">    <span class="keyword">if</span> (!signature) &#123;</div><div class="line">        [<span class="built_in">NSException</span> raise:<span class="string">@"严重错误"</span> format:<span class="string">@"(%@)方法找不到"</span>, <span class="built_in">NSStringFromSelector</span>(selector)];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/* NSInvocation : 利用一个NSInvocation对象通过调用方法签名来实现对方法的调用（方法调用者、方法名、方法参数、方法返回值）</span></div><div class="line">     如果仅仅完成这步，和普通的函数调用没有区别，但是关键在于NSInvocation可以对传递进来的selector进行包装，实现可以传递无限多个参数</div><div class="line">     普通的方法调用比如: [self performSelector:&lt;#(SEL)#&gt; withObject:&lt;#(id)#&gt; withObject:&lt;#(id)#&gt;] 顶多只能传递两个参数给selector */</div><div class="line">    </div><div class="line">    <span class="built_in">NSInvocation</span> *invocation = [<span class="built_in">NSInvocation</span> invocationWithMethodSignature:signature];</div><div class="line">    <span class="comment">/// 调用者是自己</span></div><div class="line">    [invocation setTarget:<span class="keyword">self</span>];</div><div class="line">    <span class="comment">/// 调用的方法是selector</span></div><div class="line">    [invocation setSelector:selector];</div><div class="line">    </div><div class="line">    <span class="comment">/// 设置参数，可以传递无限个参数</span></div><div class="line">    <span class="comment">/// 除self、_cmd以外的参数个数</span></div><div class="line">    <span class="built_in">NSInteger</span> paramsCount = signature.numberOfArguments - <span class="number">2</span>;</div><div class="line">    <span class="comment">/// 防止函数有参数但是不传递参数时，导致崩溃</span></div><div class="line">    paramsCount = MIN(paramsCount, objects.count);</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; paramsCount; i++) &#123;</div><div class="line">        <span class="keyword">id</span> object = objects[i];</div><div class="line">        <span class="keyword">if</span> ([object isKindOfClass:[<span class="built_in">NSNull</span> <span class="keyword">class</span>]])</div><div class="line">            <span class="keyword">continue</span>; <span class="comment">/// 如果传递的参数为null，就不处理了</span></div><div class="line">        </div><div class="line">        <span class="comment">/// +2是因为第一个和第二个参数默认是self和_cmd</span></div><div class="line">        [invocation setArgument:&amp;object atIndex:i + <span class="number">2</span>];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/// 调用方法</span></div><div class="line">    [invocation invoke];</div><div class="line">    <span class="comment">/// 获取返回值</span></div><div class="line">    <span class="keyword">id</span> returnValue = <span class="literal">nil</span>;</div><div class="line">    <span class="comment">/// 有返回值类型，才去获得返回值</span></div><div class="line">    <span class="keyword">if</span> (signature.methodReturnLength) &#123;</div><div class="line">        [invocation getReturnValue:&amp;returnValue];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> returnValue;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后实现图片点击方法，获取到图片索引 。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)didImageIndex:(<span class="built_in">NSString</span> *)index &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%zd"</span>,[index integerValue]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上只是实现了点击图片拿到图片索引，但是还没有拿到图片的 <code>url</code>，要想实现网页多图浏览效果，肯定不能点一张拿一张，那就要想办法一次拿到网页中所有图片的 <code>url</code> 存到一个数组，当点击图片的时候从数组中取到对应点击索引的图片来展示就OK了。</p>
+<p>这里参考下面的第二篇文章，直接使用Google开源的HTML解析框架 <a href="https://github.com/tracy-e/OCGumbo" target="_blank" rel="external">OCGumbo</a>，基于C语言的封装，面向对象的OC语法，使用方法很简单，类似约束框架 <a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">Masonry</a> 的链式语句查找属性节点，这个文章介绍很详细，这里就不再多说，直接上代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">[[[<span class="built_in">NSURLSession</span> sessionWithConfiguration:[<span class="built_in">NSURLSessionConfiguration</span> defaultSessionConfiguration]] dataTaskWithRequest:[<span class="built_in">NSMutableURLRequest</span> requestWithURL:[<span class="built_in">NSURL</span> URLWithString:<span class="keyword">self</span>.URLString]] completionHandler:^(<span class="built_in">NSData</span> * _Nullable data, <span class="built_in">NSURLResponse</span> * _Nullable response, <span class="built_in">NSError</span> * _Nullable error) &#123;</div><div class="line">              <span class="built_in">NSHTTPURLResponse</span> *httpResponse = (<span class="built_in">NSHTTPURLResponse</span> *)response;</div><div class="line">              </div><div class="line">              <span class="keyword">if</span> (httpResponse.statusCode == <span class="number">200</span>) &#123;</div><div class="line">                  </div><div class="line">                  <span class="keyword">if</span> (<span class="keyword">self</span>.imageSrcArray.count) &#123;</div><div class="line">                      [<span class="keyword">self</span>.imageSrcArray removeAllObjects];</div><div class="line">                  &#125;</div><div class="line">                  <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</div><div class="line">                  <span class="comment">/// 将网页URL转换成HTML字符串</span></div><div class="line">                  <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:<span class="keyword">self</span>.URLString];</div><div class="line">                  <span class="built_in">NSString</span> *htmlStr = [<span class="built_in">NSString</span> stringWithContentsOfURL:url encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</div><div class="line">                  OCGumboDocument *document = [[OCGumboDocument alloc] initWithHTMLString:htmlStr];</div><div class="line">                  </div><div class="line">                  <span class="keyword">if</span> (document.Query(<span class="string">@"body"</span>)) &#123;</div><div class="line">                      <span class="keyword">if</span> (document.Query(<span class="string">@"body"</span>).find(<span class="string">@"img"</span>)) &#123;</div><div class="line">                          <span class="comment">/// find(@"img") 望名知意，找到'img'标签，这是一个 OCGumboElement 对象数组</span></div><div class="line">                          <span class="keyword">for</span> (OCGumboElement *element <span class="keyword">in</span> document.Query(<span class="string">@"body"</span>).find(<span class="string">@"img"</span>)) &#123;</div><div class="line">                              <span class="keyword">if</span> (element.attr(<span class="string">@"src"</span>)) &#123;</div><div class="line">                              	  <span class="comment">/// 找到'src'节点添加到数组</span></div><div class="line">                                  [<span class="keyword">self</span>.imageSrcArray addObject:element.attr(<span class="string">@"src"</span>)];</div><div class="line">                              &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attr(<span class="string">@"data-src"</span>)) &#123;</div><div class="line">                              	  <span class="comment">/// 微信的是变态的'data-src'节点</span></div><div class="line">                                  [<span class="keyword">self</span>.imageSrcArray addObject:element.attr(<span class="string">@"data-src"</span>)];</div><div class="line">                              &#125;</div><div class="line">                          &#125;</div><div class="line">                      &#125;</div><div class="line">                  &#125;</div><div class="line">              &#125;</div><div class="line">          &#125;] resume];</div></pre></td></tr></table></figure>
+<p>以上代码使用 <code>NSURLSession</code> 添加了一个请求判断，是因为如果网页请求错误，比如404，500等状态时，避免因 <code>OCGumbo</code> 遍历DOM树时找不到节点而导致Crash 。</p>
+<p>到此为止，一切顺利，过了一段时间，项目上了一个报名活动，后台那边debug时发现iOS这边点击报名连续发了三次请求，而安卓那边不会，那么问题看来是出在iOS这边的代码 。经过和后台那边的调试发现所有的网页请求都会进三次断点，于是写了个简单的Demo测试只加载网页，发现并不会向后台发送三次请求[捂脸]。这样一来大概知道了问题出在哪里，一定是和获取网页图片有关，使用简单粗暴的注释大法，把上面有关代码逐步注释掉，发现是 <code>OCGumbo</code> 出了问题（误会了，其实并不是[委屈]）。直到最后找出真相：</p>
+<p>第一次：<code>wkWebview</code> 正常加载网页请求；<br>第二次：使用 <code>NSURLSession</code> 发了一次请求，用于判断网页加载状态；<br>第三次：在将请求 <code>url</code> 转成HTML字符串的时候，会向后台发送一次请求，就是下面这个方法：（表示百思不得其解，但是确确实实是因为它而多发了第三次请求）</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *htmlStr = [<span class="built_in">NSString</span> stringWithContentsOfURL:url encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</div></pre></td></tr></table></figure>
+<p>基于上述问题，在不使用 <code>NSURLSession</code> 加判断和通过转换 <code>url</code> 为HTML字符串的情况下，放弃了使用 <code>OCGumbo</code>，而是直接使用正则匹配 。</p>
+<h5 id="方案二："><a href="#方案二：" class="headerlink" title="方案二："></a>方案二：</h5><p>使用 js 选择器 <code>getElementsByTagName()</code> 来获取网页的HTML字符串，再利用正则表达式来匹配 <code>img</code> 标签，上面获取图片索引的方法还是可以继续使用，但是这里还有另外一个方法，依然是通过注入js脚本代码，参考下面的后三篇文章 。</p>
+<p>在初始化 <code>wkWebview</code> 的时候，注入下面的 <code>js</code> 代码 。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *nativejsSource;</div><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123; </div><div class="line">     <span class="comment">/// 从bundle中加载js资源文件，转成oc字符串</span></div><div class="line">    nativejsSource = [<span class="built_in">NSString</span> stringWithContentsOfFile:[[<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@"ImgAddClickEvent"</span> ofType:<span class="string">@"js"</span>] encoding:<span class="built_in">NSUTF8StringEncoding</span> error:<span class="literal">nil</span>];</div><div class="line">&#125;); </div><div class="line"><span class="comment">/// 注入js脚本代码</span></div><div class="line">[userContentController addUserScript:[[<span class="built_in">WKUserScript</span> alloc] initWithSource:nativejsSource injectionTime:<span class="built_in">WKUserScriptInjectionTimeAtDocumentEnd</span> forMainFrameOnly:<span class="literal">YES</span>]];</div><div class="line"><span class="comment">/// 添加脚本消息处理</span></div><div class="line">[userContentController addScriptMessageHandler:[[YQWeakScriptMessageDelegate alloc] initWithDelegate:<span class="keyword">self</span>] name:<span class="string">@"imageDidClick"</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 获取所有img标签</span></div><div class="line"><span class="keyword">var</span> imgs = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"img"</span>);</div><div class="line"></div><div class="line"><span class="comment">/// 获取所有的imgUrl</span></div><div class="line"><span class="keyword">var</span> imgUrls = <span class="keyword">new</span> <span class="built_in">Array</span>();</div><div class="line"></div><div class="line"><span class="keyword">var</span> x = <span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> y = <span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> width = <span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> height = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; imgs.length; i++) &#123;</div><div class="line">    <span class="keyword">var</span> img = imgs[i];</div><div class="line">    <span class="comment">/// 如果图片链接存在</span></div><div class="line">    <span class="keyword">if</span> (img.src || img.getAttribute(<span class="string">'data-src'</span>)) &#123;</div><div class="line">        <span class="comment">/// 添加到图片链接数组中</span></div><div class="line">        imgUrls.push(img.src || img.getAttribute(<span class="string">'data-src'</span>));</div><div class="line">        <span class="comment">/// 如果图片没有默认的onclick事件，且父元素不是a标签，则添加onclick事件，当用户点击时，把图片链接回传给Native</span></div><div class="line">        <span class="keyword">if</span> (!img.onclick &amp;&amp; img.parentElement.tagName !== <span class="string">"A"</span>) &#123;</div><div class="line">            <span class="comment">/// 给图片添加下标的属性</span></div><div class="line">            img.index = i;      <span class="comment">/// 记录下标</span></div><div class="line">            <span class="comment">/// 添加点击事件，并且回传选中的图片链接、下标、屏幕上的位置、全部的图片数组等</span></div><div class="line">            img.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                x = <span class="keyword">this</span>.getBoundingClientRect().left;</div><div class="line">                y = <span class="keyword">this</span>.getBoundingClientRect().top;</div><div class="line">                x = x + <span class="built_in">document</span>.documentElement.scrollLeft;</div><div class="line">                y = y + <span class="built_in">document</span>.documentElement.scrollTop;</div><div class="line">                width = <span class="keyword">this</span>.width;</div><div class="line">                height = <span class="keyword">this</span>.height;</div><div class="line">                <span class="keyword">var</span> imgInfo = &#123;</div><div class="line">                <span class="attr">imgUrl</span>: <span class="keyword">this</span>.src || <span class="keyword">this</span>.getAttribute(<span class="string">'data-src'</span>),</div><div class="line">                <span class="attr">x</span>: x,</div><div class="line">                <span class="attr">y</span>: y,</div><div class="line">                <span class="attr">width</span>: width,</div><div class="line">                <span class="attr">height</span>: height,</div><div class="line">                <span class="attr">index</span>: <span class="keyword">this</span>.index,</div><div class="line">                <span class="attr">imgUrls</span>: imgUrls</div><div class="line">                &#125;;</div><div class="line">                <span class="comment">/// UIWebView使用</span></div><div class="line">                h5ImageDidClick(imgInfo);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">h5ImageDidClick</span> (<span class="params">info</span>) </span>&#123;</div><div class="line">    <span class="comment">/// WKWebView使用</span></div><div class="line">    <span class="built_in">window</span>.webkit.messageHandlers.imageDidClick.postMessage(info);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实现 <code>WKScriptMessageHandler</code> 代理方法，当点击图片的时候会获取到被点击的图片的信息，包括 src，size，index等，还有网页的图片数组 。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - WKScriptMessageHandler</span></div><div class="line">- (<span class="keyword">void</span>)userContentController:(<span class="built_in">WKUserContentController</span> *)userContentController didReceiveScriptMessage:(<span class="built_in">WKScriptMessage</span> *)message &#123;</div><div class="line">    <span class="keyword">if</span> ([message.name isEqualToString:<span class="string">@"imageDidClick"</span>]) &#123;</div><div class="line">        <span class="built_in">NSDictionary</span> *dict = message.body;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,dict);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但，上面这种做法明显是不太合理的，我们不能在每次点击都去获取所有的图片src，这样做实在太浪费性能 。所以正确做法应该是在当网页加载完成时去获取 。</p>
+<p>我们实现 <code>WKNavigationDelegate</code> 代理方法，当网页加载完成时，使用 js 方法选择器获取网页HTML字符串，在 <code>getImgWithHtmlStr:callback:</code> 自定义方法中使用正则匹配网页图片 <code>img</code> 标签，完成后回调（我这里回调只是输出 log）。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didFinishNavigation:(<span class="built_in">WKNavigation</span> *)navigation &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"webView did finish"</span>);</div><div class="line">    <span class="built_in">NSString</span> *jsToGetHTMLSource = <span class="string">@"document.getElementsByTagName('body')[0].innerHTML"</span>;</div><div class="line">    [webView evaluateJavaScript:jsToGetHTMLSource completionHandler:^(<span class="keyword">id</span> _Nullable HTMLsource, <span class="built_in">NSError</span> * _Nullable error) &#123;</div><div class="line">        [<span class="keyword">self</span> getImgWithHtmlStr:(<span class="built_in">NSString</span> *)HTMLsource callback:^(<span class="keyword">id</span> result) &#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,result);</div><div class="line">        &#125;];</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>正则匹配 <code>img</code> 标签，方法实现：因为是耗时操作，下面使用了 <code>GCD</code> 的异步队列任务组 。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - get all image url</span></div><div class="line">- (<span class="keyword">void</span>)getImgWithHtmlStr:(<span class="built_in">NSString</span> *)htmlStr callback:(<span class="keyword">void</span> (^)(<span class="keyword">id</span>))callback &#123;</div><div class="line">    <span class="keyword">if</span> (!htmlStr || !htmlStr.length) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    [<span class="keyword">self</span> group_async_queue:^&#123;</div><div class="line">        <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</div><div class="line">        <span class="comment">/// @"&lt;img[^&gt;]+?data-src=[\"']?([^&gt;'\"]+)[\"']?"</span></div><div class="line">        <span class="built_in">NSString</span> *pattern = <span class="string">@"src=[\"']?([^&gt;'\"]+)(jpg|png|gif|jpeg)[\"']?"</span>;</div><div class="line">        <span class="comment">/// NSString *htmlStr = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&amp;error];</span></div><div class="line">        <span class="built_in">NSRegularExpression</span> *regular = [<span class="built_in">NSRegularExpression</span> regularExpressionWithPattern:pattern options:<span class="built_in">NSRegularExpressionCaseInsensitive</span> error:&amp;error];</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (error) <span class="keyword">return</span>;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.imageSrcArray.count) &#123;</div><div class="line">            [<span class="keyword">self</span>.imageSrcArray removeAllObjects];</div><div class="line">        &#125;</div><div class="line">        [regular enumerateMatchesInString:htmlStr options:<span class="built_in">NSMatchingReportCompletion</span> range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, htmlStr.length) usingBlock:^(<span class="built_in">NSTextCheckingResult</span> * _Nullable result, <span class="built_in">NSMatchingFlags</span> flags, <span class="built_in">BOOL</span> * _Nonnull stop) &#123; </div><div class="line">            <span class="built_in">NSString</span> *imgStr = [htmlStr substringWithRange:result.range]; </div><div class="line">            <span class="keyword">if</span> (imgStr.length) &#123; </div><div class="line">                imgStr = [imgStr substringWithRange:<span class="built_in">NSMakeRange</span>(<span class="number">5</span>, imgStr.length - <span class="number">6</span>)]; </div><div class="line">                [<span class="keyword">self</span>.imageSrcArray addObject:imgStr];</div><div class="line">            &#125;</div><div class="line">        &#125;];</div><div class="line">    &#125; complete:^&#123;</div><div class="line">        <span class="keyword">if</span> (callback) callback(<span class="string">@"get all image url success!"</span>);</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>GCD</code> 异步队列组方法封装，避免耗时操作导致主线程阻塞 。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)group_async_queue:(<span class="keyword">void</span> (^)())queue complete:(<span class="keyword">void</span> (^)())block &#123;</div><div class="line">    <span class="comment">/// 创建队列组</span></div><div class="line">    dispatch_group_t group = dispatch_group_create();</div><div class="line">    <span class="comment">/// 进入队列组</span></div><div class="line">    dispatch_group_enter(group);</div><div class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</div><div class="line">        <span class="comment">/// 异步执行任务</span></div><div class="line">        <span class="keyword">if</span> (queue) queue();</div><div class="line">        <span class="comment">/// 离开队列组</span></div><div class="line">        dispatch_group_leave(group);</div><div class="line">    &#125;); </div><div class="line">    <span class="comment">/// 队列组执行完毕, 通知主线程</span></div><div class="line">    dispatch_group_notify(group, dispatch_get_main_queue(), ^&#123;</div><div class="line">        <span class="keyword">if</span> (block) block();</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所以，最终使用 方案二 解决了重复请求后台服务器的问题 。</p>
+<p><strong> 参考文章：</strong><br><a href="http://www.jianshu.com/p/a388ec39e37a" target="_blank" rel="external">UIWebView保存图片</a><br><a href="http://www.jianshu.com/p/029a5ef4e86a" target="_blank" rel="external">HTML解析之Gumbom(iOS)</a><br><a href="http://www.jianshu.com/p/ac45d99cf912" target="_blank" rel="external">iOS中UIWebView与WKWebView、JavaScript与OC交互、Cookie管理看我就够（上）</a><br><a href="http://www.jianshu.com/p/870dba42ec15" target="_blank" rel="external">iOS中UIWebView与WKWebView、JavaScript与OC交互、Cookie管理看我就够（中）</a><br><a href="http://www.jianshu.com/p/52668d5b2e68" target="_blank" rel="external">iOS中UIWebView与WKWebView、JavaScript与OC交互、Cookie管理看我就够（下）</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Kejiasir" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="http://weibo.com/u/5737820321?is_all=1" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/atom.xml" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/05/19/hexo-themes-hueman/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Hexo 主题之 Hueman
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+</nav>
+
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/27/wkWebview-get-html-img/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170527-00-blog.png)" alt="记wkWebview获取网页图片" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/iOS/">iOS</a></p>
+                            <p class="item-title"><a href="/2017/05/27/wkWebview-get-html-img/" class="title">记wkWebview获取网页图片</a></p>
+                            <p class="item-date"><time datetime="2017-05-27T07:21:12.000Z" itemprop="datePublished">2017-05-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/19/hexo-themes-hueman/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/hueman-themes.jpeg)" alt="Hexo 主题之 Hueman" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Themes/">Themes</a></p>
+                            <p class="item-title"><a href="/2017/05/19/hexo-themes-hueman/" class="title">Hexo 主题之 Hueman</a></p>
+                            <p class="item-date"><time datetime="2017-05-19T03:06:54.000Z" itemprop="datePublished">2017-05-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/01/on-umeng-push/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/umeng-push.png)" alt="友盟推送之-踩坑" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/iOS/">iOS</a></p>
+                            <p class="item-title"><a href="/2017/05/01/on-umeng-push/" class="title">友盟推送之-踩坑</a></p>
+                            <p class="item-date"><time datetime="2017-05-01T01:16:15.000Z" itemprop="datePublished">2017-05-01</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/04/19/hello-hexo/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/hexo-logo.png)" alt="利用 Hexo 搭建博客" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Hexo/">Hexo</a></p>
+                            <p class="item-title"><a href="/2017/04/19/hello-hexo/" class="title">利用 Hexo 搭建博客</a></p>
+                            <p class="item-date"><time datetime="2017-04-19T07:35:34.000Z" itemprop="datePublished">2017-04-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Themes/">Themes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/iOS/">iOS</a><span class="category-list-count">2</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Themes/">Themes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wkWebview/">wkWebview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/Themes/" style="font-size: 10px;">Themes</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/wkWebview/" style="font-size: 10px;">wkWebview</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+
+                <p>&copy; 2017 Arvin&#39;s | <a id="busuanzi_container_site_uv"> View <a id="busuanzi_value_site_uv"> </a> times </a> </p>
+
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+
+		<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>    
+	  </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kejiasir';
+    
+    
+    var disqus_url = 'http://yoursite.com/2017/05/27/wkWebview-get-html-img/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
