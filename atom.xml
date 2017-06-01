@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-31T10:03:12.000Z</updated>
+  <updated>2017-06-01T08:59:04.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Xcode的警告及处理，持续更新</title>
+    <link href="http://yoursite.com/2017/06/01/xcode-warning-muster/"/>
+    <id>http://yoursite.com/2017/06/01/xcode-warning-muster/</id>
+    <published>2017-06-01T07:31:06.000Z</published>
+    <updated>2017-06-01T08:59:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/20170601-00-blog.png" alt="">  </p>
+<p>在开发过程中，或者在打包ipa的时候，Xcode的编译器多少总会给出一些警告，虽然看似没啥影响，不会阻止继续编译和链接，也不会导致程序不能运行，但是对于强迫症来说，还是不能容忍的，对于一些能消灭的警告一定尽会可能的消灭掉，避免变成不可预知的错误 。</p>
+<p>编码时也应该尽可能的避免产生警告，比如不要只定义不实现方法或变量；不使用标记为废弃的API；或者不要遵守了代理协议却不实现代理方法等；但是项目多少会集成一些第三方框架，copy到项目的能直接修改，如果是使用CocoaPods管理的就没办法了，只能坐等作者更新 。 ヽ(。&gt;д&lt;)ｐ</p>
+<h5 id="一-nbsp-第三方-Framework-导致的-Warning"><a href="#一-nbsp-第三方-Framework-导致的-Warning" class="headerlink" title="一.&nbsp; 第三方 Framework 导致的 Warning"></a>一.&nbsp; 第三方 Framework 导致的 Warning</h5><p><img src="http://oonis1a4c.bkt.clouddn.com/20170601-01-blog.png" alt=""></p>
+<p>解决方法：<br>参考文章：<a href="http://nixwang.com/2016/05/09/kill-debug-symbol-warnings/" target="_blank" rel="external">消除引入第三方 Framework 导致的 Warning</a> 。</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20170601-02-blog.png" alt=""></p>
+<h5 id="二-nbsp-待续"><a href="#二-nbsp-待续" class="headerlink" title="二.&nbsp; 待续"></a>二.&nbsp; 待续</h5>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bkt.clouddn.com/20170601-00-blog.png&quot; alt=&quot;&quot;&gt;  &lt;/p&gt;
+&lt;p&gt;在开发过程中，或者在打包ipa的时候，Xcode的编译器多少总会给出一些警告，虽然看似没啥影响，不会阻止继续编
+    
+    </summary>
+    
+      <category term="Technology" scheme="http://yoursite.com/categories/Technology/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/Technology/iOS/"/>
+    
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="Xcode" scheme="http://yoursite.com/tags/Xcode/"/>
+    
+  </entry>
   
   <entry>
     <title>记wkWebview获取网页图片</title>
@@ -170,9 +203,9 @@
       <category term="Themes" scheme="http://yoursite.com/categories/Technology/Themes/"/>
     
     
-      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
-    
       <category term="Themes" scheme="http://yoursite.com/tags/Themes/"/>
+    
+      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
     
   </entry>
   
