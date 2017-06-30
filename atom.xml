@@ -203,9 +203,9 @@
       <category term="Themes" scheme="http://yoursite.com/categories/Technology/Themes/"/>
     
     
-      <category term="Themes" scheme="http://yoursite.com/tags/Themes/"/>
-    
       <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
+    
+      <category term="Themes" scheme="http://yoursite.com/tags/Themes/"/>
     
   </entry>
   
