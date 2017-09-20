@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Arvin's blog">
 <meta property="og:description" content="最近项目需要做消息推送，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。 上友盟官网下载最新的SDK，这里吐槽一下，竟然不支持CocoaPods集成，需要手动导入SDK包到项目">
 <meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/umeng-push.png">
-<meta property="og:updated_time" content="2017-05-31T06:26:25.000Z">
+<meta property="og:updated_time" content="2017-07-13T03:05:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="友盟推送之-踩坑">
 <meta name="twitter:description" content="最近项目需要做消息推送，于是决定使用第三方推送服务（为了方便后台统一iOS和Android的消息管理）；目前做消息推送的服务商有很多，综合考虑决定集成友盟+的，主要是不想在项目中集成太多类似的第三方SDK，而且在这之前已经使用了友盟的统计和分享功能，口碑也还算不错，所以就统一了，也方便管理 。 上友盟官网下载最新的SDK，这里吐槽一下，竟然不支持CocoaPods集成，需要手动导入SDK包到项目">
@@ -92,7 +92,7 @@ var _hmt = _hmt || [];
                                     <a class="main-nav-list-link" href="/">Home</a>
                                 </li>
                             
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Themes/">Themes</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/iOS/">iOS</a></li></ul></li></ul>
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Themes/">Themes</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/">iOS</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Objective-C/">Objective-C</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Swift/">Swift</a></li></ul></li></ul>
                                     
                                 <li class="main-nav-list-item" >
                                     <a class="main-nav-list-link" href="/about/index.html">About</a>
@@ -152,7 +152,7 @@ var _hmt = _hmt || [];
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Technology/iOS/">iOS</a>
+    <a class="page-title-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/iOS/Objective-C/">Objective-C</a>
     </h1>
 </div>
                         <div class="main-body-content">
@@ -216,7 +216,7 @@ var _hmt = _hmt || [];
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 加了动作按钮后不会调用这两个方法中的任意一个，即使没有开静默推送</span></div><div class="line">- (<span class="keyword">void</span>)application:(<span class="built_in">UIApplication</span> *)application didReceiveRemoteNotification:(<span class="keyword">nonnull</span> <span class="built_in">NSDictionary</span> *)userInfo &#123; </div><div class="line">&#125; </div><div class="line"><span class="comment">/// 静默推送调用</span></div><div class="line">- (<span class="keyword">void</span>)application:(<span class="built_in">UIApplication</span> *)application didReceiveRemoteNotification:(<span class="built_in">NSDictionary</span> *)userInfo fetchCompletionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">UIBackgroundFetchResult</span>))completionHandler &#123; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
 <p>下面最后一段代码是我封装的类方法，不管是iOS 10之前还是之后，在前台还是后台，都统一在这里面处理收到的推送消息，其中<code>type</code>和<code>url</code>字段为和后台约定好的自定义字段，用于是否需要跳转展示webview 。当然，以后可能需要跳转到指定的页面，只要和后台约定好要跳转的页面定义好推送字段，也是可以在这里处理的 。 </p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)showCustomAlertWithUserInfo:(<span class="built_in">NSDictionary</span> *)userInfo &#123;</div><div class="line">    </div><div class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>([YQUMessage share]) weakSelf = [YQUMessage share];</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">UIApplication</span> sharedApplication].applicationState == <span class="built_in">UIApplicationStateActive</span>) &#123;</div><div class="line">        [[YQUMessage share] mainAsyncQueue:^&#123;</div><div class="line">            <span class="comment">/// 关闭友盟弹窗</span></div><div class="line">            [UMessage setAutoAlert:<span class="literal">NO</span>];</div><div class="line">            <span class="comment">/// 自定义弹窗</span></div><div class="line">            [[YQCustomAlertView alertWithImage:<span class="literal">nil</span></div><div class="line">                                         title:userInfo[<span class="string">@"aps"</span>][<span class="string">@"alert"</span>][<span class="string">@"title"</span>]</div><div class="line">                                       message:userInfo[<span class="string">@"aps"</span>][<span class="string">@"alert"</span>][<span class="string">@"body"</span>]</div><div class="line">                                cancelBtnTitle:locStr(!userInfo[<span class="string">@"type"</span>] ? <span class="string">@"notify.ignore"</span> : <span class="literal">nil</span>)</div><div class="line">                                 otherBtnTitle:locStr(!userInfo[<span class="string">@"type"</span>] ? <span class="string">@"notify.open"</span> : <span class="string">@"notify.gotIt"</span>)</div><div class="line">                               clickIndexBlock:^(<span class="built_in">NSInteger</span> clickIndex) &#123;</div><div class="line">                                   </div><div class="line">                                   <span class="keyword">if</span> (userInfo[<span class="string">@"type"</span>] &amp;&amp; !clickIndex)</div><div class="line">                                       <span class="comment">/// 补发消息点击事件，以便在友盟后台统计点击数</span></div><div class="line">                                       [UMessage sendClickReportForRemoteNotification:userInfo];</div><div class="line">                                   </div><div class="line">                                   <span class="keyword">if</span> (clickIndex) &#123;</div><div class="line">                                       YQWebViewController *webVC = [[YQWebViewController alloc] init];</div><div class="line">                                       [webVC setRequestStyle:RequestStyleUrlStr];</div><div class="line">                                       [webVC setUrlStr:[userInfo valueForKey:<span class="string">@"url"</span>]];</div><div class="line">                                       [[weakSelf getCurrentVC].navigationController pushViewController:webVC animated:<span class="literal">YES</span>];</div><div class="line">                                       [UMessage sendClickReportForRemoteNotification:userInfo];</div><div class="line">                                   &#125;</div><div class="line">                                   </div><div class="line">                               &#125; animationStyle:AnimationStyleDefault] showAlertView];</div><div class="line">        &#125;];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">if</span> (userInfo[<span class="string">@"url"</span>] &amp;&amp; [userInfo[<span class="string">@"url"</span>] length]) &#123;</div><div class="line">            YQWebViewController *webVC = [[YQWebViewController alloc] init];</div><div class="line">            [webVC setRequestStyle:RequestStyleUrlStr];</div><div class="line">            [webVC setUrlStr:[userInfo valueForKey:<span class="string">@"url"</span>]];</div><div class="line">            [[weakSelf getCurrentVC].navigationController pushViewController:webVC animated:<span class="literal">YES</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="comment">/// 应用处于运行时（前台、后台）的消息处理</span></div><div class="line">        [UMessage didReceiveRemoteNotification:userInfo];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)showCustomAlertWithUserInfo:(<span class="built_in">NSDictionary</span> *)userInfo &#123;</div><div class="line">    </div><div class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>([YQUMessage share]) weakSelf = [YQUMessage share];</div><div class="line">    <span class="keyword">if</span> ([<span class="built_in">UIApplication</span> sharedApplication].applicationState == <span class="built_in">UIApplicationStateActive</span>) &#123;</div><div class="line">        [[YQUMessage share] mainAsyncQueue:^&#123;</div><div class="line">            <span class="comment">/// 关闭友盟弹窗</span></div><div class="line">            [UMessage setAutoAlert:<span class="literal">NO</span>];</div><div class="line">            <span class="comment">/// 自定义弹窗</span></div><div class="line">            [[YQCostomAlertView alertWithImage:<span class="literal">nil</span></div><div class="line">                                         title:userInfo[<span class="string">@"aps"</span>][<span class="string">@"alert"</span>][<span class="string">@"title"</span>]</div><div class="line">                                       message:userInfo[<span class="string">@"aps"</span>][<span class="string">@"alert"</span>][<span class="string">@"body"</span>]</div><div class="line">                                cancelBtnTitle:titleForUrlStr(userInfo, <span class="literal">YES</span>)</div><div class="line">                                 otherBtnTitle:titleForUrlStr(userInfo, <span class="literal">NO</span>)</div><div class="line">                               clickIndexBlock:^(<span class="built_in">NSInteger</span> clickIndex) &#123;</div><div class="line">                                   </div><div class="line">                                   <span class="keyword">if</span> (!userInfo[<span class="string">@"url"</span>] &amp;&amp; !clickIndex) &#123;</div><div class="line">                                       <span class="comment">/// 补发消息点击事件，以便在友盟后台统计点击数</span></div><div class="line">                                       [UMessage sendClickReportForRemoteNotification:userInfo];</div><div class="line">                                   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (clickIndex) &#123;</div><div class="line">                                       YQWebViewController *webVC = [[YQWebViewController alloc] init];</div><div class="line">                                       [webVC loadWebURLSring:[userInfo valueForKey:<span class="string">@"url"</span>]];</div><div class="line">                                       [[weakSelf getCurrentVC].navigationController pushViewController:webVC animated:<span class="literal">YES</span>];</div><div class="line">                                       [UMessage sendClickReportForRemoteNotification:userInfo];</div><div class="line">                                   &#125;</div><div class="line">                                   </div><div class="line">                               &#125; animationStyle:AnimationStyleDefault] showAlertView];</div><div class="line">        &#125;];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">if</span> (userInfo[<span class="string">@"url"</span>] &amp;&amp; [userInfo[<span class="string">@"url"</span>] length]) &#123;</div><div class="line">            YQWebViewController *webVC = [[YQWebViewController alloc] init];</div><div class="line">            [webVC loadWebURLSring:[userInfo valueForKey:<span class="string">@"url"</span>]];</div><div class="line">            [[weakSelf getCurrentVC].navigationController pushViewController:webVC animated:<span class="literal">YES</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="comment">/// 应用处于运行时（前台、后台）的消息处理</span></div><div class="line">        [UMessage didReceiveRemoteNotification:userInfo];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#pragma mark -</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="built_in">NSString</span> *titleForUrlStr(<span class="built_in">NSDictionary</span> *userInfo, <span class="built_in">BOOL</span> isCancel) &#123;</div><div class="line">    <span class="built_in">BOOL</span> flag = (userInfo[<span class="string">@"url"</span>] &amp;&amp; [userInfo[<span class="string">@"url"</span>] length]);</div><div class="line">    <span class="keyword">return</span> isCancel ? (</div><div class="line">                       locStr(flag ? <span class="string">@"notify.ignore"</span> : <span class="literal">nil</span>)</div><div class="line">                       ):(</div><div class="line">                          locStr(flag ? <span class="string">@"notify.open"</span> : <span class="string">@"notify.gotIt"</span>)</div><div class="line">                          );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
         </div>
         <footer class="article-footer">
@@ -363,6 +363,46 @@ var _hmt = _hmt || [];
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2017/08/21/rsa-crypto-notes/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170821-00-blog.png)" alt="使用 openSSL 生成 RSA 秘钥对" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Objective-C/">Objective-C</a></p>
+                            <p class="item-title"><a href="/2017/08/21/rsa-crypto-notes/" class="title">使用 openSSL 生成 RSA 秘钥对</a></p>
+                            <p class="item-date"><time datetime="2017-08-21T07:49:25.000Z" itemprop="datePublished">2017-08-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/07/13/swift-notes-01/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170713-00-blog.jpg)" alt="Swift 学习笔记一" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Swift/">Swift</a></p>
+                            <p class="item-title"><a href="/2017/07/13/swift-notes-01/" class="title">Swift 学习笔记一</a></p>
+                            <p class="item-date"><time datetime="2017-07-13T01:21:38.000Z" itemprop="datePublished">2017-07-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2017/06/01/xcode-warning-muster/" class="thumbnail">
     
     
@@ -374,7 +414,7 @@ var _hmt = _hmt || [];
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/iOS/">iOS</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Objective-C/">Objective-C</a></p>
                             <p class="item-title"><a href="/2017/06/01/xcode-warning-muster/" class="title">Xcode的警告及处理，持续更新</a></p>
                             <p class="item-date"><time datetime="2017-06-01T07:31:06.000Z" itemprop="datePublished">2017-06-01</time></p>
                         </div>
@@ -394,7 +434,7 @@ var _hmt = _hmt || [];
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/iOS/">iOS</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Objective-C/">Objective-C</a></p>
                             <p class="item-title"><a href="/2017/05/27/wkWebview-get-html-img/" class="title">记wkWebview获取网页图片</a></p>
                             <p class="item-date"><time datetime="2017-05-27T07:21:12.000Z" itemprop="datePublished">2017-05-27</time></p>
                         </div>
@@ -420,46 +460,6 @@ var _hmt = _hmt || [];
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/05/01/on-umeng-push/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/umeng-push.png)" alt="友盟推送之-踩坑" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/iOS/">iOS</a></p>
-                            <p class="item-title"><a href="/2017/05/01/on-umeng-push/" class="title">友盟推送之-踩坑</a></p>
-                            <p class="item-date"><time datetime="2017-05-01T01:16:15.000Z" itemprop="datePublished">2017-05-01</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/04/19/hello-hexo/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/hexo-logo.png)" alt="利用 Hexo 搭建博客" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Hexo/">Hexo</a></p>
-                            <p class="item-title"><a href="/2017/04/19/hello-hexo/" class="title">利用 Hexo 搭建博客</a></p>
-                            <p class="item-date"><time datetime="2017-04-19T07:35:34.000Z" itemprop="datePublished">2017-04-19</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -469,7 +469,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Themes/">Themes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/iOS/">iOS</a><span class="category-list-count">3</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Themes/">Themes</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Objective-C/">Objective-C</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Swift/">Swift</a><span class="category-list-count">1</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -479,7 +479,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -489,7 +489,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Themes/">Themes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wkWebview/">wkWebview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Themes/">Themes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wkWebview/">wkWebview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -499,7 +499,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/Themes/" style="font-size: 10px;">Themes</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/wkWebview/" style="font-size: 10px;">wkWebview</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a>
+            <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Themes/" style="font-size: 10px;">Themes</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/wkWebview/" style="font-size: 10px;">wkWebview</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a>
         </div>
     </div>
 

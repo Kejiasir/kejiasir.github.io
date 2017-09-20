@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>使用 openSSL 生成 RSA 秘钥对 | Arvin&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="ios" />
+    
+    <meta name="description" content="最近好忙啊，公司开了新的项目，所以博客也没啥时间更新呢！遇到一个新的需求，需要由客户端生成 RSA 秘钥对，然后把公钥发送给 Java 服务器端，本来想着挺简单呀，终端几行命令就可以生成密钥对，导进项目就 OK 了！但是工头说必须每个客户端生成的密钥对都不一样，那就意味着需要由客户端使用代码生成了，硬着头皮研究了几天，最终把问题解决了，所以抽时间来记录下。 关于 OpenSSL，这是一个强大的加">
+<meta name="keywords" content="ios">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 openSSL 生成 RSA 秘钥对">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/rsa-crypto-notes/index.html">
+<meta property="og:site_name" content="Arvin's blog">
+<meta property="og:description" content="最近好忙啊，公司开了新的项目，所以博客也没啥时间更新呢！遇到一个新的需求，需要由客户端生成 RSA 秘钥对，然后把公钥发送给 Java 服务器端，本来想着挺简单呀，终端几行命令就可以生成密钥对，导进项目就 OK 了！但是工头说必须每个客户端生成的密钥对都不一样，那就意味着需要由客户端使用代码生成了，硬着头皮研究了几天，最终把问题解决了，所以抽时间来记录下。 关于 OpenSSL，这是一个强大的加">
+<meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/20170821-00-blog.png">
+<meta property="og:updated_time" content="2017-09-20T03:39:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 openSSL 生成 RSA 秘钥对">
+<meta name="twitter:description" content="最近好忙啊，公司开了新的项目，所以博客也没啥时间更新呢！遇到一个新的需求，需要由客户端生成 RSA 秘钥对，然后把公钥发送给 Java 服务器端，本来想着挺简单呀，终端几行命令就可以生成密钥对，导进项目就 OK 了！但是工头说必须每个客户端生成的密钥对都不一样，那就意味着需要由客户端使用代码生成了，硬着头皮研究了几天，最终把问题解决了，所以抽时间来记录下。 关于 OpenSSL，这是一个强大的加">
+<meta name="twitter:image" content="http://oonis1a4c.bkt.clouddn.com/20170821-00-blog.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Arvin&#39;s blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-97693704-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4634866158d35bf92306da4e52ec7423";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Themes/">Themes</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/">iOS</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Objective-C/">Objective-C</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Swift/">Swift</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/iOS/Objective-C/">Objective-C</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-rsa-crypto-notes" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        使用 openSSL 生成 RSA 秘钥对
+        </h1>
+    
+
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/08/21/rsa-crypto-notes/" class="article-date">
+            <time datetime="2017-08-21T07:49:25.000Z" itemprop="datePublished">2017-08-21</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ios/">ios</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="http://oonis1a4c.bkt.clouddn.com/20170821-00-blog.png" alt=""></p>
+<p>最近好忙啊，公司开了新的项目，所以博客也没啥时间更新呢！遇到一个新的需求，需要由客户端生成 <strong><em>RSA</em></strong> 秘钥对，然后把公钥发送给 <strong><em>Java</em></strong> 服务器端，本来想着挺简单呀，终端几行命令就可以生成密钥对，导进项目就 OK 了！但是工头说必须每个客户端生成的密钥对都不一样，那就意味着需要由客户端使用代码生成了，硬着头皮研究了几天，最终把问题解决了，所以抽时间来记录下。</p>
+<p>关于 <a href="https://www.openssl.org/" target="_blank" rel="external">OpenSSL</a>，这是一个强大的加密库，使用纯 C 语言编写，可以跨平台使用，网上更多的资料大都是使用终端命令操作来生成密钥对，对于使用代码生成的案例基本少之又少。所以，还是乖乖查看官方文档吧。</p>
+<p><strong>Tips：</strong>建议先在项目中导入 <a href="https://github.com/openssl/openssl" target="_blank" rel="external">openssl</a>，支持 CocoaPods 集成，这样方便结合文档直接在对应的文件中查找接口。</p>
+<p>在 <code>#include &lt;openssl/rsa.h&gt;</code> 头文件中找到以下函数生成密钥对：</p>
+<h5 id="一-nbsp-这是被标记为弃用的函数，不建议使用，生成错误的密钥对或者为-NULL-的几率很大"><a href="#一-nbsp-这是被标记为弃用的函数，不建议使用，生成错误的密钥对或者为-NULL-的几率很大" class="headerlink" title="一.&nbsp; 这是被标记为弃用的函数，不建议使用，生成错误的密钥对或者为 NULL 的几率很大"></a>一.&nbsp; 这是被标记为弃用的函数，不建议使用，生成错误的密钥对或者为 <strong><em>NULL</em></strong> 的几率很大</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Deprecated version */</span></div><div class="line"><span class="meta"># ifndef OPENSSL_NO_DEPRECATED</span></div><div class="line">RSA *RSA_generate_key(<span class="keyword">int</span> bits, <span class="keyword">unsigned</span> <span class="keyword">long</span> e, <span class="keyword">void</span></div><div class="line">                       (*callback) (<span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">void</span> *), <span class="keyword">void</span> *cb_arg);</div><div class="line"><span class="meta"># endif                         /* !defined(OPENSSL_NO_DEPRECATED) */</span></div></pre></td></tr></table></figure>
+<h5 id="二-nbsp-新的函数，替换-RSA-generate-key（），返回一个整型值，成功返回-1，-错误返回-0"><a href="#二-nbsp-新的函数，替换-RSA-generate-key（），返回一个整型值，成功返回-1，-错误返回-0" class="headerlink" title="二.&nbsp; 新的函数，替换 RSA_generate_key（），返回一个整型值，成功返回 1， 错误返回 0"></a>二.&nbsp; 新的函数，替换 <code>RSA_generate_key（）</code>，返回一个整型值，成功返回 1， 错误返回 0</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  New version！生成 RSA 密钥对</div><div class="line">     </div><div class="line">  @param rsa  存储生成的秘钥对的 RSA 结构体指针</div><div class="line">  @param bits 模数大小，通常为 128（1024 bit）位</div><div class="line">  @param e    公共指数，通常为 3，17 或 65537</div><div class="line">  @param cb   填 NULL 即可</div><div class="line">     </div><div class="line">  @return 结果（整型值），成功返回 1，错误返回 0</div><div class="line">*/</div><div class="line"><span class="keyword">int</span> RSA_generate_key_ex(RSA *rsa, <span class="keyword">int</span> bits, BIGNUM *e, BN_GENCB *cb);</div></pre></td></tr></table></figure>
+<p>关于 ‘生成密钥对’ 接口更详细的描述，请查看 <a href="https://www.openssl.org/docs/man1.1.0/crypto/RSA_generate_key.html" target="_blank" rel="external">官方文档</a>。</p>
+<p><strong><em>核心代码：</em></strong></p>
+<p>需导入 <code>#import &lt;openssl/rsa.h&gt;</code> 和 <code>#import &lt;openssl/pem.h&gt;</code> 这两个头文件。</p>
+<p><strong><em>一：生成 RSA 密钥对，提取出公钥和私钥通过 RSA 二级结构体指针保存起来</em></strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** 生成 rsa key */</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">bool</span> rsa_generate_key(RSA **public_key, RSA **private_key) &#123;</div><div class="line">    BIGNUM *a = BN_new();</div><div class="line">    BN_set_word(a, <span class="number">65537</span>);</div><div class="line">    <span class="keyword">@try</span> &#123;</div><div class="line">        RSA *rsa = RSA_new();</div><div class="line">        <span class="comment">/// returns 1 on success or 0 on error.</span></div><div class="line">        <span class="keyword">int</span> result = RSA_generate_key_ex(rsa, <span class="number">1024</span>, a, <span class="literal">NULL</span>);</div><div class="line">        <span class="keyword">if</span> (result == <span class="number">1</span>) &#123;</div><div class="line">            <span class="comment">/// extract public key and private key</span></div><div class="line">            *public_key  = RSAPublicKey_dup(rsa);</div><div class="line">            *private_key = RSAPrivateKey_dup(rsa);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        RSA_free(rsa);</div><div class="line">        <span class="keyword">return</span> (<span class="keyword">bool</span>)result;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">@finally</span> &#123;</div><div class="line">        <span class="comment">/// freed</span></div><div class="line">        BN_free(a);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong><em>二：取公钥和私钥地址读出 PEM 格式的公钥和私钥字符串</em></strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** 读取 pem key */</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> get_pem_key(cStrBlock block, RSA *rsa, <span class="keyword">bool</span> isPublicKey, <span class="keyword">bool</span> isPkcs8) &#123;</div><div class="line">    <span class="keyword">if</span> (!rsa) <span class="keyword">return</span>;</div><div class="line">    BIO *bp = BIO_new(BIO_s_mem());</div><div class="line">    <span class="keyword">int</span> keylen; <span class="keyword">char</span> *pem_key;</div><div class="line">    <span class="keyword">@try</span> &#123;</div><div class="line">        <span class="keyword">if</span> (!isPublicKey) &#123;</div><div class="line">            EVP_PKEY *key = EVP_PKEY_new();</div><div class="line">            EVP_PKEY_assign_RSA(key, rsa);</div><div class="line">            <span class="keyword">if</span> (!isPkcs8)   <span class="comment">/// PKCS#1</span></div><div class="line">                PEM_write_bio_RSAPrivateKey(bp, rsa, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</div><div class="line">            <span class="keyword">else</span>    <span class="comment">/// PKCS#8</span></div><div class="line">                PEM_write_bio_PrivateKey(bp, key, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;    <span class="comment">/// PKCS#8</span></div><div class="line">            PEM_write_bio_RSA_PUBKEY(bp, rsa);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        keylen = BIO_pending(bp);</div><div class="line">        pem_key = calloc(keylen + <span class="number">1</span>, <span class="number">1</span>);</div><div class="line">        BIO_read(bp, pem_key, keylen);</div><div class="line">        </div><div class="line">        !block ?: block(pem_key);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">@finally</span> &#123;</div><div class="line">        BIO_free_all(bp);</div><div class="line">        RSA_free(rsa);</div><div class="line">        free(pem_key);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>生成的 pem key 标准格式为 PKCS#1，一般 <strong><em>Java</em></strong> 服务器需要使用的格式为 PKCS#8;</li>
+<li>区别：<ul>
+<li>PKCS#1：定义了 RSA 公钥函数的基本格式标准，特别是数字签名。它定义了数字签名如何计算，包括待签名数据和签名本身的格式；它也定义了 PSA 公/私钥的语法。</li>
+<li>PKCS#8：私钥信息语法标准。PKCS#8 定义了私钥信息语法和加密私钥语法，其中私钥加密使用了PKCS#5 标准。</li>
+</ul>
+</li>
+</ul>
+<p><strong><em>注意：</em></strong><br><strong><em>以上结构体指针和内存分配操作，在作用域结束后，必须要释放，否则会引起内存泄露。</em></strong></p>
+<p>通过以上两个函数，就成功生成了我们所需要的公钥和私钥（char *类型）字符串，使用的时候需要转换为 NSSting 类型！一定记得不要使用 <code>RSA_generate_key()</code> 这个函数，一开始使用这个函数生成的密钥对要么就是错误的，要么就是 NULL。</p>
+<p>那么如何检查生成的密钥对是否正确并且能使用？可以用 <a href="http://travistidwell.com/jsencrypt/example.html" target="_blank" rel="external">这个网站测试</a>，将生成的 pem key 拷贝过去，点击下方的 <code>Test Me!!!</code> 按钮，如果正确弹窗会显示 <code>It works!!!</code>，错误显示 <code>Something went wrong...</code>。</p>
+<p>拿到公钥私钥了，那怎么加密解密呢？同样的在 <code>rsa.h</code> 头文件中定义了下面几个函数：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* next 4 return -1 on error */</span></div><div class="line"><span class="comment">/// 公钥加密</span></div><div class="line"><span class="keyword">int</span> RSA_public_encrypt(<span class="keyword">int</span> flen, <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *from,</div><div class="line">                       <span class="keyword">unsigned</span> <span class="keyword">char</span> *to, RSA *rsa, <span class="keyword">int</span> padding);</div><div class="line"><span class="comment">/// 私钥加密</span></div><div class="line"><span class="keyword">int</span> RSA_private_encrypt(<span class="keyword">int</span> flen, <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *from,</div><div class="line">                        <span class="keyword">unsigned</span> <span class="keyword">char</span> *to, RSA *rsa, <span class="keyword">int</span> padding);</div><div class="line"><span class="comment">/// 公钥解密                        </span></div><div class="line"><span class="keyword">int</span> RSA_public_decrypt(<span class="keyword">int</span> flen, <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *from,</div><div class="line">                       <span class="keyword">unsigned</span> <span class="keyword">char</span> *to, RSA *rsa, <span class="keyword">int</span> padding);</div><div class="line"><span class="comment">/// 私钥解密</span></div><div class="line"><span class="keyword">int</span> RSA_private_decrypt(<span class="keyword">int</span> flen, <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> *from,</div><div class="line">                        <span class="keyword">unsigned</span> <span class="keyword">char</span> *to, RSA *rsa, <span class="keyword">int</span> padding);</div></pre></td></tr></table></figure>
+<p>由于 OpenSSL 是纯 C 语言编写，以上四个函数使用有点难度，😳 没有找到正确的方法；但在这个过程中，我找到了 <a href="https://github.com/hohl/MIHCrypto" target="_blank" rel="external">MIHCrypto</a> 这个非常 niubility 的库，这是一个基于 OpenSSL 部分功能封装的更加面向对象的加密类库。目前支持以下加密方式：</p>
+<ul>
+<li><code>AES</code> (block cipher)</li>
+<li><code>BIGNUM</code> (discrete mathematics)</li>
+<li><code>DES</code> (block cipher)</li>
+<li><code>MD5</code> (hash algorithm)</li>
+<li><code>RSA</code> (public-key cryptography)</li>
+<li><code>SHA, SHA256, SHA384, SHA512</code> (hash algorithm)</li>
+</ul>
+<p>所有的密码类通过协议来实现秘钥生成和加密解密： </p>
+<ul>
+<li><code>MIHKeyFactory</code> - 用于生成新的密钥。</li>
+<li><code>MIHSymmetricKey</code> - 表示对称密钥（如AES或DES），可用于加密和解密数据。</li>
+<li><code>MIHPublicKey</code> - 表示公钥（如RSA PUBKEY），可用于加密数据并验证签名。</li>
+<li><code>MIHPrivateKey</code> - 表示私钥（如RSA私钥），可用于解密数据和签名消息。</li>
+<li><code>MIHHashAlgorithm</code> - 表示哈希功能，只有一种方法来创建传递的数据的哈希和。</li>
+</ul>
+<p><strong><em>示例代码：</em></strong></p>
+<p>生成秘钥对，保存到一个密钥对容器中，包含公钥和私钥。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// generate rsa key </span></div><div class="line">MIHRSAKeyFactory *keyFactory = [[MIHRSAKeyFactory alloc] init];</div><div class="line"><span class="comment">/// set key size</span></div><div class="line">[keyFactory setPreferedKeySize:MIHRSAKey1024];</div><div class="line"><span class="comment">/// key pair Container</span></div><div class="line">MIHKeyPair *keyPair = [keyFactory generateKeyPair];</div></pre></td></tr></table></figure>
+<p>加密解密使用方法，几行代码就能实现。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// private encrypt</span></div><div class="line"><span class="built_in">NSError</span> *encryptionError = <span class="literal">nil</span>;</div><div class="line"><span class="built_in">NSData</span> *data = [<span class="string">@"message"</span> dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</div><div class="line"><span class="built_in">NSData</span> *encryptData = [keyPair.private encrypt:data error:&amp;encryptionError];</div><div class="line"></div><div class="line"><span class="comment">/// public decrypt</span></div><div class="line"><span class="built_in">NSError</span> *decryptionError = <span class="literal">nil</span>;</div><div class="line"><span class="built_in">NSData</span> *data = encryptData; <span class="comment">/// encrypted binary data</span></div><div class="line"><span class="built_in">NSData</span> *decryptData = [keyPair.public decrypt:data error:&amp;decryptionError];</div></pre></td></tr></table></figure>
+<p>有关更多的使用和接口说明，请查看 <a href="http://cocoadocs.org/docsets/MIHCrypto/0.4.1/" target="_blank" rel="external">接口文档</a>。</p>
+<p>嗯，所以最终是使用 MIHCrypto 这个库解决了问题。在基于这个库上结合自己的需求封装了一个更简单使用的工具类，屏蔽晦涩的 C 语言，不需要操作 RSA 结构体指针，使用面向对象的编程方式，<a href="https://github.com/Kejiasir/YYRSACrypto" target="_blank" rel="external">基于 MIHCrypto 封装的 RSA 加密解密工具类</a>，支持导入服务器返回的秘钥按需求进行加密或者解密。可以使用 CocoaPods 方式集成到项目。</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Kejiasir" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="http://weibo.com/u/5737820321?is_all=1" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/atom.xml" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/07/13/swift-notes-01/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Swift 学习笔记一
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+</nav>
+
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/08/21/rsa-crypto-notes/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170821-00-blog.png)" alt="使用 openSSL 生成 RSA 秘钥对" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Objective-C/">Objective-C</a></p>
+                            <p class="item-title"><a href="/2017/08/21/rsa-crypto-notes/" class="title">使用 openSSL 生成 RSA 秘钥对</a></p>
+                            <p class="item-date"><time datetime="2017-08-21T07:49:25.000Z" itemprop="datePublished">2017-08-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/07/13/swift-notes-01/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170713-00-blog.jpg)" alt="Swift 学习笔记一" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Swift/">Swift</a></p>
+                            <p class="item-title"><a href="/2017/07/13/swift-notes-01/" class="title">Swift 学习笔记一</a></p>
+                            <p class="item-date"><time datetime="2017-07-13T01:21:38.000Z" itemprop="datePublished">2017-07-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/06/01/xcode-warning-muster/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170601-00-blog.png)" alt="Xcode的警告及处理，持续更新" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Objective-C/">Objective-C</a></p>
+                            <p class="item-title"><a href="/2017/06/01/xcode-warning-muster/" class="title">Xcode的警告及处理，持续更新</a></p>
+                            <p class="item-date"><time datetime="2017-06-01T07:31:06.000Z" itemprop="datePublished">2017-06-01</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/27/wkWebview-get-html-img/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170527-00-blog.png)" alt="记wkWebview获取网页图片" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Objective-C/">Objective-C</a></p>
+                            <p class="item-title"><a href="/2017/05/27/wkWebview-get-html-img/" class="title">记wkWebview获取网页图片</a></p>
+                            <p class="item-date"><time datetime="2017-05-27T07:21:12.000Z" itemprop="datePublished">2017-05-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/19/hexo-themes-hueman/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/hueman-themes.jpeg)" alt="Hexo 主题之 Hueman" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Themes/">Themes</a></p>
+                            <p class="item-title"><a href="/2017/05/19/hexo-themes-hueman/" class="title">Hexo 主题之 Hueman</a></p>
+                            <p class="item-date"><time datetime="2017-05-19T03:06:54.000Z" itemprop="datePublished">2017-05-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Themes/">Themes</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Objective-C/">Objective-C</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Swift/">Swift</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Themes/">Themes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wkWebview/">wkWebview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Themes/" style="font-size: 10px;">Themes</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/wkWebview/" style="font-size: 10px;">wkWebview</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+
+                <p>&copy; 2017 Arvin&#39;s | <a id="busuanzi_container_site_uv"> View <a id="busuanzi_value_site_uv"> </a> times </a> </p>
+
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+
+		<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>    
+	  </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kejiasir';
+    
+    
+    var disqus_url = 'http://yoursite.com/2017/08/21/rsa-crypto-notes/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
