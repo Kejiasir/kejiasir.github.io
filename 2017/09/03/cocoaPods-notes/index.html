@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>上传 CocoaPods 依赖库遇到的问题 | Arvin&#39;s blog</title>
+    <title>编写并上传自己的 CocoaPods 依赖库 | Arvin&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
         <meta name="keywords" content="CocoaPods" />
@@ -11,14 +11,14 @@
     <meta name="description" content="最近写的工具类 YYRSACrypto 在上传到 CocoaPods 管理的时候遇到一些问题，在这记录下解决的过程。相信对于 iOS 开发者来说 CocoaPods 并不陌生，这是一个管理 Objective-C 和 Swift 项目第三方框架或组件非常方便的工具，使用 CocoaPods 管理可以帮助我们很轻松的导入第三方框架的源码到项目中，同时自动为项目添加一些必要的额外配置，而当框架更新版">
 <meta name="keywords" content="CocoaPods">
 <meta property="og:type" content="article">
-<meta property="og:title" content="上传 CocoaPods 依赖库遇到的问题">
+<meta property="og:title" content="编写并上传自己的 CocoaPods 依赖库">
 <meta property="og:url" content="http://yoursite.com/2017/09/03/cocoaPods-notes/index.html">
 <meta property="og:site_name" content="Arvin's blog">
 <meta property="og:description" content="最近写的工具类 YYRSACrypto 在上传到 CocoaPods 管理的时候遇到一些问题，在这记录下解决的过程。相信对于 iOS 开发者来说 CocoaPods 并不陌生，这是一个管理 Objective-C 和 Swift 项目第三方框架或组件非常方便的工具，使用 CocoaPods 管理可以帮助我们很轻松的导入第三方框架的源码到项目中，同时自动为项目添加一些必要的额外配置，而当框架更新版">
 <meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/20170903-00-blog.png">
-<meta property="og:updated_time" content="2017-09-22T09:57:13.000Z">
+<meta property="og:updated_time" content="2017-09-23T01:11:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="上传 CocoaPods 依赖库遇到的问题">
+<meta name="twitter:title" content="编写并上传自己的 CocoaPods 依赖库">
 <meta name="twitter:description" content="最近写的工具类 YYRSACrypto 在上传到 CocoaPods 管理的时候遇到一些问题，在这记录下解决的过程。相信对于 iOS 开发者来说 CocoaPods 并不陌生，这是一个管理 Objective-C 和 Swift 项目第三方框架或组件非常方便的工具，使用 CocoaPods 管理可以帮助我们很轻松的导入第三方框架的源码到项目中，同时自动为项目添加一些必要的额外配置，而当框架更新版">
 <meta name="twitter:image" content="http://oonis1a4c.bkt.clouddn.com/20170903-00-blog.png">
     
@@ -163,7 +163,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-        上传 CocoaPods 依赖库遇到的问题
+        编写并上传自己的 CocoaPods 依赖库
         </h1>
     
 
@@ -193,13 +193,13 @@ var _hmt = _hmt || [];
 <p>最近写的工具类 <a href="https://github.com/Kejiasir/YYRSACrypto" target="_blank" rel="external">YYRSACrypto</a> 在上传到 CocoaPods 管理的时候遇到一些问题，在这记录下解决的过程。<br>相信对于 iOS 开发者来说 <a href="https://cocoapods.org/" target="_blank" rel="external">CocoaPods</a> 并不陌生，这是一个管理 Objective-C 和 Swift 项目第三方框架或组件非常方便的工具，使用 CocoaPods 管理可以帮助我们很轻松的导入第三方框架的源码到项目中，同时自动为项目添加一些必要的额外配置，而当框架更新版本时使用 <code>pod update</code> 命令便可下载最新的代码，简直不要太好用。所以，我的原则是，第三方能使用 CocoaPods 管理的绝不手动导入。</p>
 <p>关于 CocoaPods 的安装就不说了，网上的资料已经很多；讲下如何编写自己项目的 spec 文件吧，当你写了一个组件或者框架想开源给别人用的时候，简单的上传到 github 仓库给人下载就可以了，但如果要像其它（比如：AFNetworking，SDWebImage，…）框架那样提供 CocoaPods 的方式给人安装该怎么做呢 ？ 接下来就说说步骤。</p>
 <h4 id="一：首先在-GitHub-新建一个-Repository-并-Clone-到本地。"><a href="#一：首先在-GitHub-新建一个-Repository-并-Clone-到本地。" class="headerlink" title="一：首先在 GitHub 新建一个 Repository 并 Clone 到本地。"></a>一：首先在 GitHub 新建一个 Repository 并 Clone 到本地。</h4><h4 id="二：在-Xcode-新建一个同名的-Project-到-Clone-的-Repository-文件夹下。"><a href="#二：在-Xcode-新建一个同名的-Project-到-Clone-的-Repository-文件夹下。" class="headerlink" title="二：在 Xcode 新建一个同名的 Project 到 Clone 的 Repository 文件夹下。"></a>二：在 Xcode 新建一个同名的 Project 到 Clone 的 Repository 文件夹下。</h4><h4 id="三：将你的框架源代码单独包装到一个文件夹中，文件夹的名称就是你的框架名称。"><a href="#三：将你的框架源代码单独包装到一个文件夹中，文件夹的名称就是你的框架名称。" class="headerlink" title="三：将你的框架源代码单独包装到一个文件夹中，文件夹的名称就是你的框架名称。"></a>三：将你的框架源代码单独包装到一个文件夹中，文件夹的名称就是你的框架名称。</h4><p>cd 到项目所在目录，在终端输入以下命令创建一个自动扩展名为 <code>.podspec</code> 的文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># &lt;your_framework_name&gt; 你的框架名称，比如 AFNetworking。</div><div class="line">$ pod spec create &lt;your_framework_name&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># &lt;your_framework_name&gt; 你的框架名称，比如 YYRSACrypto。</div><div class="line">$ pod spec create &lt;your_framework_name&gt;</div></pre></td></tr></table></figure>
 <p>Tips：<code>.podspec</code> 文件最好是和你的框架文件夹放在同级目录下，如下图我的项目示例：</p>
 <p><img src="http://oonis1a4c.bkt.clouddn.com/20170903-01-blog.png" alt=""></p>
-<p>注意：<code>.podspec</code> 是一个非常重要的文件，我们需要打开它进行相关的信息配置，这个文件可以使用本地编辑器打开，但！后面验证 spec 文件的时候会发生一些非常奇怪的错误导致无法验证通过。所以，强烈建议，在项目完成后一并 push 到 github 上再进行编辑这个文件，完事再 pull 下来。</p>
-<h4 id="四：配置-podspec-文件，里面包含很多配置字段和说明，可按需配置，无用的可以删除，但有些是必不可少的，下面是我的项目配置示例，你也可以参考其它开源项目的-podspec-文件来填写。"><a href="#四：配置-podspec-文件，里面包含很多配置字段和说明，可按需配置，无用的可以删除，但有些是必不可少的，下面是我的项目配置示例，你也可以参考其它开源项目的-podspec-文件来填写。" class="headerlink" title="四：配置 .podspec 文件，里面包含很多配置字段和说明，可按需配置，无用的可以删除，但有些是必不可少的，下面是我的项目配置示例，你也可以参考其它开源项目的 .podspec 文件来填写。"></a>四：配置 <code>.podspec</code> 文件，里面包含很多配置字段和说明，可按需配置，无用的可以删除，但有些是必不可少的，下面是我的项目配置示例，你也可以参考其它开源项目的 <code>.podspec</code> 文件来填写。</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> |s| </div><div class="line">  s.name         = <span class="string">"YYRSACrypto"</span> </div><div class="line">  s.version      = <span class="string">"0.0.4"</span> </div><div class="line">  s.summary      = <span class="string">"基于 MIHCrypto 封装的 RSA 加密解密工具类."</span> </div><div class="line">  s.description  = &lt;&lt;-DESC </div><div class="line">                  基于 MIHCrypto 封装的 RSA 加密解密工具类, 加密解密, 只需要一句代码就能实现. </div><div class="line">                   DESC </div><div class="line">  s.homepage     = <span class="string">"https://github.com/Kejiasir/YYRSACrypto"</span> </div><div class="line">  s.license      = <span class="string">"MIT"</span> </div><div class="line">  s.author       = &#123; <span class="string">"Arvin"</span> =&gt; <span class="string">"yasir86@126.com"</span> &#125;  </div><div class="line">  s.platform     = :ios, <span class="string">"6.0"</span>  </div><div class="line">  s.source       = &#123; :git =&gt; <span class="string">"https://github.com/Kejiasir/YYRSACrypto.git"</span>, :tag =&gt; <span class="string">"#&#123;s.version&#125;"</span> &#125; </div><div class="line">  s.source_files = <span class="string">"YYRSACrypto"</span>, <span class="string">"YYRSACrypto/YYRSACrypto/*.&#123;h,m&#125;"</span>  </div><div class="line">  s.requires_arc = <span class="literal">true</span>  </div><div class="line">  s.dependency <span class="string">"MIHCrypto"</span>, <span class="string">"~&gt; 0.4.1"</span> </div><div class="line">  s.dependency <span class="string">"GTMBase64"</span>, <span class="string">"~&gt; 1.0.0"</span>  </div><div class="line">end</div></pre></td></tr></table></figure>
+<p>注意：<code>.podspec</code> 是一个非常重要的文件，我们需要打开它进行相关的信息配置，这个文件可以使用本地编辑器打开，但！后面验证 spec 文件的时候会发生一些非常奇怪的错误导致无法验证通过。<strong><em>所以，强烈建议，在编码完成后一并 push 到 github 上再进行编辑这个文件，完事再 pull 下来。</em></strong></p>
+<h4 id="四：配置-podspec-文件，里面包含很多配置字段和说明，可按需配置，无用的可以删除，但有些是必不可少的，下面是我的项目配置示例，你也可以参考其它开源项目的-podspec-文件来填写。"><a href="#四：配置-podspec-文件，里面包含很多配置字段和说明，可按需配置，无用的可以删除，但有些是必不可少的，下面是我的项目配置示例，你也可以参考其它开源项目的-podspec-文件来填写。" class="headerlink" title="四：配置 .podspec 文件，里面包含很多配置字段和说明，可按需配置，无用的可以删除，但有些是必不可少的，下面是我的项目配置示例，你也可以参考其它开源项目的 .podspec 文件来填写。"></a>四：配置 <code>.podspec</code> 文件，里面包含很多配置字段和说明，可按需配置，无用的可以删除，但有些是必不可少的，下面是我的项目配置示例，你也可以参考其它开源项目的 <code>.podspec</code> 文件来填写。</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> |s| </div><div class="line">  s.name         = <span class="string">"YYRSACrypto"</span> </div><div class="line">  s.version      = <span class="string">"0.0.1"</span> </div><div class="line">  s.summary      = <span class="string">"基于 MIHCrypto 封装的 RSA 加密解密工具类."</span> </div><div class="line">  s.description  = &lt;&lt;-DESC </div><div class="line">                  基于 MIHCrypto 封装的 RSA 加密解密工具类, 加密解密, 只需要一句代码就能实现. </div><div class="line">                   DESC </div><div class="line">  s.homepage     = <span class="string">"https://github.com/Kejiasir/YYRSACrypto"</span> </div><div class="line">  s.license      = <span class="string">"MIT"</span> </div><div class="line">  s.author       = &#123; <span class="string">"Arvin"</span> =&gt; <span class="string">"yasir86@126.com"</span> &#125;  </div><div class="line">  s.platform     = :ios, <span class="string">"6.0"</span>  </div><div class="line">  s.source       = &#123; :git =&gt; <span class="string">"https://github.com/Kejiasir/YYRSACrypto.git"</span>, :tag =&gt; <span class="string">"#&#123;s.version&#125;"</span> &#125; </div><div class="line">  s.source_files = <span class="string">"YYRSACrypto"</span>, <span class="string">"YYRSACrypto/YYRSACrypto/*.&#123;h,m&#125;"</span>  </div><div class="line">  s.requires_arc = <span class="literal">true</span>  </div><div class="line">  s.dependency <span class="string">"MIHCrypto"</span>, <span class="string">"~&gt; 0.4.1"</span> </div><div class="line">  s.dependency <span class="string">"GTMBase64"</span>, <span class="string">"~&gt; 1.0.0"</span>  </div><div class="line">end</div></pre></td></tr></table></figure>
 <p>一些必要字段的说明：</p>
-<p><code>s.name</code>             库的名称；<br><code>s.summary</code>         库的简要描述；<br><code>s.version</code>         库源代码的版本；<br><code>s.homepage</code>         库的主页；<br><code>s.author</code>             库的作者；<br><code>s.description</code>     库的其它描述；（非必须）<br><code>s.license</code>         所采用的开源许可协议；<br><code>s.platform</code>         库支持的系统平台及最低兼容版本；<br><code>s.requires_arc</code> 是否使用 ARC, <code>true</code> 表示 YES, <code>flase</code> 则表示 NO；<br><code>s.dependency</code>     如果你的库需要依赖其它的库，填写此字段，下载的时候会一并下载这个字段中所填写的库，可以填写多个；<br><code>s.source</code>             库源代码地址，后面的 Tag 是每更新一个 Release 版本时的标签，注意：每个版本的 Tag 需要与 <code>s.version</code> 声明的一致；<br><code>s.source_files</code> 是包含库所有源代码的目录，以上面的格式为例，前面的 <code>&quot;YYRSACrypto&quot;</code> 可写可不写，后面的 <code>YYRSACrypto/YYRSACrypto/</code> 是一个相对路径，目录的层级关系一定要和（本地及远程）代码库的保持一致，最后 <code>*.{h,m}</code> 则是一个类似正则表达式的字符串，表示匹配所有以 <code>.h</code> 和 <code>.m</code> 为扩展名的文件。</p>
+<p><code>s.name</code>             库的名称；<br><code>s.summary</code>         库的简要描述；<br><code>s.version</code>         库源代码的版本；<br><code>s.homepage</code>         库的主页；<br><code>s.author</code>             库的作者；<br><code>s.description</code>     库的其它描述；（非必须）<br><code>s.license</code>         所采用的开源许可协议；<br><code>s.platform</code>         库支持的系统平台及最低兼容版本；<br><code>s.requires_arc</code> 是否使用 ARC, <code>true</code> 表示 YES, <code>flase</code> 则表示 NO；<br><code>s.dependency</code>     如果你的库需要依赖其它的库，填写此字段，下载的时候会一并下载这个字段中所填写的库，可以填写多个；<br><code>s.source</code>             库源代码地址，后面的 Tag 是每更新一个 Release 版本时的标签，注意：每个版本的 Tag 需要与 <code>s.version</code> 声明的一致；<br><code>s.source_files</code> 是包含库所有源代码的目录，以上面的格式为例，前面的 <code>&quot;YYRSACrypto&quot;</code> 可写可不写，后面的 <code>YYRSACrypto/YYRSACrypto/</code> 是一个相对路径，目录的层级关系一定要和（本地及远程）代码库的保持一致，最后 <code>*.{h,m}</code> 则是一个类似正则表达式的字符串，表示匹配这个目录下所有以 <code>.h</code> 和 <code>.m</code> 为扩展名的文件。</p>
 <p><strong><em>注意：<code>s.source_files</code> 字段一点要填写正确路径，否则验证的时候会报错提示找不到文件</em></strong></p>
 <hr>
 <h4 id="PS：先说下-git-打标签的命令吧，一般提交一个-Release-版本都会新建一个-Tag，所以上面的-s-version-版本号即为当前最新的-Tag-版本。"><a href="#PS：先说下-git-打标签的命令吧，一般提交一个-Release-版本都会新建一个-Tag，所以上面的-s-version-版本号即为当前最新的-Tag-版本。" class="headerlink" title="PS：先说下 git 打标签的命令吧，一般提交一个 Release 版本都会新建一个 Tag，所以上面的 s.version 版本号即为当前最新的 Tag 版本。"></a>PS：先说下 git 打标签的命令吧，一般提交一个 Release 版本都会新建一个 Tag，所以上面的 <code>s.version</code> 版本号即为当前最新的 Tag 版本。</h4><p>常用的打标签方式有两种：</p>
@@ -210,7 +210,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># -m 则指定了对应的标签说明，git 会将此说明一同保存在标签对象中，类似 commit 代码时附带的 -m 日志</div><div class="line">$ git tag -a 0.0.1 -m &apos;my version 0.0.1&apos;</div><div class="line"></div><div class="line"># 用此命令查看相应标签的版本信息，并连同显示打标签时的提交对象</div><div class="line">$ git show</div></pre></td></tr></table></figure>
 <ul>
 <li>第二，轻量级标签，比较常用的方式</li>
-<li>轻量级标签，实际上就是一个保存着对应提交对象的校验和信息的文件，后面不带任何其它参数。</li>
+<li>轻量级标签，实际上就是一个保存着对应提交对象的校验和信息的文件，后面不附带其它信息。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git tag 0.0.1</div></pre></td></tr></table></figure>
 <p>打完标签需要将标签推送到远程服务器，默认情况下，<code>git push</code> 并不会把标签推送到远程服务器上，需要通过显式命令才能推送到远程仓库，其命令格式如同推送分支：</p>
@@ -241,9 +241,9 @@ var _hmt = _hmt || [];
 <p>最后，上传库，使用以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pod trunk push YYRSACrypto.podspec --use-libraries</div></pre></td></tr></table></figure></p>
 <p>OK，再次出现错误，仔细看，<code>pod trunk push</code> 命令默默的又做了一次验证，某些文件被警告导致验证无法通过，但后面继续提示我们可以使用 <code>--allow-warnings</code> 来忽略警告；使用 <code>--use-libraries</code> 表示忽略依赖库中包含静态库（<code>.a</code> 文件）所导致的错误。</p>
 <p><img src="http://oonis1a4c.bkt.clouddn.com/20170903-06-blog.png" alt=""></p>
-<p>所以完整的 <code>push</code> 命令如下（建议使用）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pod trunk push YYRSACrypto.podspec --allow-warnings --use-libraries</div></pre></td></tr></table></figure></p>
-<p>没有意外，提交成功后终端命令行会输出如下信息：<br><img src="http://oonis1a4c.bkt.clouddn.com/20170903-07-blog.png" alt=""></p>
-<p>现在就请使用 <code>pod search</code> 命令来查找你的库吧！</p>
+<p>所以，完整的 <code>push</code> 命令如下（建议使用）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pod trunk push YYRSACrypto.podspec --allow-warnings --use-libraries</div></pre></td></tr></table></figure></p>
+<p>没有意外，提交成功后终端命令行将输出如下信息：<br><img src="http://oonis1a4c.bkt.clouddn.com/20170903-09-blog.png" alt=""></p>
+<p>👏 恭喜！现在就请使用 <code>pod search</code> 命令来查找你的库吧！</p>
 <p>如果找不到，先别急，使用以下命令来更新下即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pod setup</div></pre></td></tr></table></figure></p>
 <p><strong>结尾：</strong>如果后续需要更新库，记得须重新打个 Tag 并 <code>push</code> 到远程服务端，再把 <code>.podspec</code> 文件中的 <code>s.version</code> 字段更新下，然后使用上面的 <code>pod trunk push</code> 命令提交即可；同样的如果使用 <code>pod search</code> 命令查找不到最新提交的版本，使用 <code>pod setup</code> 命令更新下就好了。</p>
 
@@ -389,7 +389,7 @@ var _hmt = _hmt || [];
                             <a href="/2017/09/03/cocoaPods-notes/" class="thumbnail">
     
     
-        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170903-00-blog.png)" alt="上传 CocoaPods 依赖库遇到的问题" class="thumbnail-image"></span>
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170903-00-blog.png)" alt="编写并上传自己的 CocoaPods 依赖库" class="thumbnail-image"></span>
     
     
 </a>
@@ -398,7 +398,7 @@ var _hmt = _hmt || [];
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/CocoaPods/">CocoaPods</a></p>
-                            <p class="item-title"><a href="/2017/09/03/cocoaPods-notes/" class="title">上传 CocoaPods 依赖库遇到的问题</a></p>
+                            <p class="item-title"><a href="/2017/09/03/cocoaPods-notes/" class="title">编写并上传自己的 CocoaPods 依赖库</a></p>
                             <p class="item-date"><time datetime="2017-09-03T01:19:57.000Z" itemprop="datePublished">2017-09-03</time></p>
                         </div>
                     </li>

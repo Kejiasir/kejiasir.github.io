@@ -344,7 +344,7 @@ code {
   clear: both;
 }
 #header {
-  background-image: url("http://oonis1a4c.bkt.clouddn.com/header-background-image.jpg");
+  background-image: url("http://oonis1a4c.bkt.clouddn.com/blog-header-image.jpg");
   padding-bottom: 60px;
   position: relative;
 }
@@ -1601,7 +1601,7 @@ a.article-title:hover {
   color: #ddd;
 }
 #footer {
-  background-image: url("http://oonis1a4c.bkt.clouddn.com/Footer-background-image.jpg");
+  background-image: url("http://oonis1a4c.bkt.clouddn.com/blog-footer-image.jpg");
   margin-top: 60px;
   color: #aaa;
   line-height: 1.6em;

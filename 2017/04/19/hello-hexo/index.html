@@ -15,12 +15,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/19/hello-hexo/index.html">
 <meta property="og:site_name" content="Arvin's blog">
 <meta property="og:description" content="看到越来越多人搭建了漂亮的个人博客网站，一直心里痒痒想着自己也弄一个，刚好最近项目告一段落了有点空闲时间，于是网上找了教程就开始(zhuangbility)啦！ 当然写本文的目的只是为了记录我自己的搭建过程及踩的坑，更详细的建站等细节大家可以查看Hexo的官方文档，而且本文只是针对Mac OSX 系统平台, Windows系统的表示不会(话说很多年没用过了，忘记Windows长啥样啦(づ｡◕‿‿">
-<meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/hexo-logo.png">
-<meta property="og:updated_time" content="2017-05-20T12:21:14.000Z">
+<meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/20170419-00-blog.png">
+<meta property="og:updated_time" content="2017-09-23T01:22:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用 Hexo 搭建博客">
 <meta name="twitter:description" content="看到越来越多人搭建了漂亮的个人博客网站，一直心里痒痒想着自己也弄一个，刚好最近项目告一段落了有点空闲时间，于是网上找了教程就开始(zhuangbility)啦！ 当然写本文的目的只是为了记录我自己的搭建过程及踩的坑，更详细的建站等细节大家可以查看Hexo的官方文档，而且本文只是针对Mac OSX 系统平台, Windows系统的表示不会(话说很多年没用过了，忘记Windows长啥样啦(づ｡◕‿‿">
-<meta name="twitter:image" content="http://oonis1a4c.bkt.clouddn.com/hexo-logo.png">
+<meta name="twitter:image" content="http://oonis1a4c.bkt.clouddn.com/20170419-00-blog.png">
     
 
     
@@ -189,17 +189,17 @@ var _hmt = _hmt || [];
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p><img src="http://oonis1a4c.bkt.clouddn.com/hexo-logo.png" alt=""></p>
+            <p><img src="http://oonis1a4c.bkt.clouddn.com/20170419-00-blog.png" alt=""></p>
 <p>看到越来越多人搭建了漂亮的个人博客网站，一直心里痒痒想着自己也弄一个，刚好最近项目告一段落了有点空闲时间，于是网上找了教程就开始(zhuangbility)啦！</p>
 <p>当然写本文的目的只是为了记录我自己的搭建过程及踩的坑，更详细的建站等细节大家可以查看<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">Hexo的官方文档</a>，而且本文只是针对Mac OSX 系统平台, Windows系统的表示不会(话说很多年没用过了，忘记Windows长啥样啦(づ｡◕‿‿◕｡)づ)。所以还是建议大家看官方文档吧，各平台都有说明，好啦，废话不多说。</p>
 <p>目前搭建免费博客有两种方式：<br>一是：<code>github Pages + Hexo</code>； 二是：<code>github Pages + Jekyll</code>；<br>两者都是利用github既免费又稳定的空间作为托管，对比了下，<strong>Hexo</strong> 更简洁高效更多人使用，有非常详细的建站文档，当然 <strong>Jekyll</strong> 也有文档提供，感兴趣的童鞋可以<a href="http://jekyllcn.com/docs/home/" target="_blank" rel="external">看这里</a>，但是相比Hexo定制性更高，更有丰富的Theme可以自定义，如果你是一名前端开发者，甚至可以自己写Theme；so！Hexo 绝对是爱折腾兼完美主义者的不二之选。</p>
 <h3 id="一-Github-Account"><a href="#一-Github-Account" class="headerlink" title="一. Github Account"></a>一. Github Account</h3><p>对于一个开发者来说，以下步骤我想可以忽略吧。</p>
 <p>1.1. 你需要一个GitHub帐号，到<a href="https://github.com/" target="_blank" rel="external">GitHub官网</a>按照步骤注册即可。</p>
-<p><img src="http://oonis1a4c.bkt.clouddn.com/join-github.png" alt="join GitHub"></p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20170419-01-blog.png" alt="join GitHub"></p>
 <p>1.2. 注册成功后，你需要创建一个新的仓库。</p>
-<p><img src="http://oonis1a4c.bkt.clouddn.com/new-repo.png?imageView/1/w/500/h/300" alt="new repository"> </p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20170419-02-blog.png?imageView/1/w/500/h/300" alt="new repository"> </p>
 <p>1.3. 创建仓库过程说明，这里需要注意的是仓库名称的命名规则，必须是<code>注册名.github.io</code>这种格式，后续就可以通过<code>https://注册名.github.io/</code>来访问你的博客网站啦。</p>
-<p><img src="http://oonis1a4c.bkt.clouddn.com/create-repo.png" alt="create repository"></p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20170419-03-blog.png" alt="create repository"></p>
 <h3 id="二-环境准备"><a href="#二-环境准备" class="headerlink" title="二. 环境准备"></a>二. 环境准备</h3><h3 id="1-Git"><a href="#1-Git" class="headerlink" title="1. Git"></a>1. <a href="https://git-scm.com/" target="_blank" rel="external">Git</a></h3><p>首先安装Git，后续的操作全部依赖它，安装教程<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="external">看官方文档</a>So Easy，或者自行Google。<br>PS: 相信做开发的童鞋都不陌生, iOS 开发者更不用说，xcode 自带！</p>
 <h3 id="2-Node-js"><a href="#2-Node-js" class="headerlink" title="2. Node.js"></a>2. <a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></h3><p>在安装Node之前，需要先安装Node版本管理工具<code>nvm</code>，用于Node版本切换，安装方式有两种，先来看第一种，<a href="https://brew.sh/index_zh-cn.html" target="_blank" rel="external">Homebrew</a> 安装方式，比较麻烦，并且这种方式安装后Node版本切换有问题，因此不推荐这种方式，安装完后不需要重启终端，依次执行下列命令即可：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ brew install nvm  </div><div class="line">$ mkdir ~/.nvm</div><div class="line">$ export NVM_DIR=~/.nvm</div><div class="line">$ . $(brew --prefix nvm)/nvm.sh</div></pre></td></tr></table></figure>
@@ -207,17 +207,17 @@ var _hmt = _hmt || [];
 <p><strong>curl</strong>安装方式，如果没有使用<code>Homebrew</code>安装过，直接跳过前面的命令执行最后一条即可。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># 查看已经安装在全局的模块，以便删除这些全局模块后再按照不同的 node 版本重新进行全局安装 </div><div class="line">$ npm ls -g --depth=0 </div><div class="line"></div><div class="line"># 删除全局 node_modules 目录</div><div class="line">$ sudo rm -rf /usr/local/lib/node_modules </div><div class="line"></div><div class="line"># 删除 node </div><div class="line">$ sudo rm /usr/local/bin/node </div><div class="line"></div><div class="line"># 删除全局 node 模块注册的软链</div><div class="line">$ cd /usr/local/bin &amp;&amp; ls -l | grep &quot;../lib/node_modules/&quot; | awk &apos;&#123;print $9&#125;&apos;| xargs rm  </div><div class="line"></div><div class="line"># 最后，安装nvm的正确姿势</div><div class="line">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash</div></pre></td></tr></table></figure>
 <p>然后可以看到下载<code>nvm</code>成功并安装，并且在<code>~/.zshrc</code>中已经自动加入了环境变量，现在需要重启你的终端。（什么是<code>zshrc</code>？后面再专门写篇文章来讲，这里先略过）</p>
-<p><img src="http://oonis1a4c.bkt.clouddn.com/install-nvm.png" alt="install nvm"></p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20170419-04-blog.png" alt="install nvm"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</div><div class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm</div></pre></td></tr></table></figure>
 <p>这里附上一篇<a href="http://www.imooc.com/article/14617" target="_blank" rel="external">《正确的安装和使用nvm(mac)》</a>文章链接，写的非常详细，大家可以参考。 </p>
 <p>重启终端后，执行以下命令即可安装<strong>Node.js</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 安装node，版本5以上</div><div class="line">$ nvm install 5</div></pre></td></tr></table></figure>
-<p><img src="http://oonis1a4c.bkt.clouddn.com/install-node.png" alt="install node"></p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20170419-05-blog.png" alt="install node"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 查看node版本</div><div class="line">$ nvm ls</div></pre></td></tr></table></figure>
 <h3 id="3-Hexo"><a href="#3-Hexo" class="headerlink" title="3. Hexo"></a>3. <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a></h3><p>以上环境安装完了，最后我们就可以安装<strong>Hexo</strong>啦！<br>执行以下命令，这里需要申请sudo权限，输入管理员密码即可。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 安装hexo</div><div class="line">$ sudo npm install hexo-cli -g</div></pre></td></tr></table></figure>
-<p>此时命令行哗啦啦输出好多东西，稍等片刻就安装好了。</p>
-<p><img src="http://oonis1a4c.bkt.clouddn.com/install-hexo.png" alt="install hexo"></p>
+<p>此时命令行 bilibala~ 输出好多东西，稍等片刻就安装好了。</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20170419-06-blog.png" alt="install hexo"></p>
 <p>最后，再安装 <strong><a href="$ npm install hexo-deployer-git --save">博客自动部署工具</a></strong> 帮助我们将编写的文章发布并部署到github服务器。<br>注意后面的<code>--save</code>一定要带上，不然部署到github时会报错。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 安装git自动部署工具</div><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
 <p><strong><em>到此为止，已经成功安装好所有环境，建站完成。Yahoo！</em></strong></p>
@@ -374,7 +374,7 @@ var _hmt = _hmt || [];
     
         <a href="/2017/05/01/on-umeng-push/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">友盟推送之-踩坑</p>
+        <p class="article-nav-title">集成友盟推送的问题</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -397,7 +397,7 @@ var _hmt = _hmt || [];
                             <a href="/2017/09/03/cocoaPods-notes/" class="thumbnail">
     
     
-        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170903-00-blog.png)" alt="上传 CocoaPods 依赖库遇到的问题" class="thumbnail-image"></span>
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170903-00-blog.png)" alt="编写并上传自己的 CocoaPods 依赖库" class="thumbnail-image"></span>
     
     
 </a>
@@ -406,7 +406,7 @@ var _hmt = _hmt || [];
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/CocoaPods/">CocoaPods</a></p>
-                            <p class="item-title"><a href="/2017/09/03/cocoaPods-notes/" class="title">上传 CocoaPods 依赖库遇到的问题</a></p>
+                            <p class="item-title"><a href="/2017/09/03/cocoaPods-notes/" class="title">编写并上传自己的 CocoaPods 依赖库</a></p>
                             <p class="item-date"><time datetime="2017-09-03T01:19:57.000Z" itemprop="datePublished">2017-09-03</time></p>
                         </div>
                     </li>
