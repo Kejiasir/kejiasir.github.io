@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-03-12T09:47:17.821Z</updated>
+  <updated>2018-03-13T00:47:38.889Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,14 +16,14 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>零碎代码知识点记录(持续更新)</title>
+    <title>零散知识记录(持续更新)</title>
     <link href="http://yoursite.com/2018/01/12/code-notes/"/>
     <id>http://yoursite.com/2018/01/12/code-notes/</id>
     <published>2018-01-12T02:40:06.000Z</published>
-    <updated>2018-03-12T09:47:17.821Z</updated>
+    <updated>2018-03-13T00:47:38.889Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/20180112-00-blog.png" alt=""></p>
-<p>记录一些平时用的比较少，容易忘记的一些知识点，主要是零碎代码段。</p>
+<p>记录一些平时比较少用或者容易忘记的一些知识点，主要是零散代码段。</p>
 <p><strong>一，</strong> 使用宏重新定义控制台的log输出，去掉默认的输出内容，定位输出所在的类，代码行数及方法名。</p>
 <figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;asl.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#ifdef DEBUG</span></div><div class="line">    <span class="meta">#define THIS_FILE [(@<span class="meta-string">""</span> __FILE__) lastPathComponent]</span></div><div class="line">    <span class="meta">#define NSLog(fmt,...) _NSLog((@<span class="meta-string">"%@: Line %d %s "</span> fmt), THIS_FILE, __LINE__, __FUNCTION__, ##__VA_ARGS__)</span></div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="meta">#define NSLog(fmt,...)</span></div><div class="line"><span class="meta">#endif</span></div><div class="line"></div><div class="line"><span class="meta">#define _NSLog(fmt,...) &#123;                                               \</span></div><div class="line">    <span class="keyword">do</span> &#123;                                                                \</div><div class="line">        <span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithFormat:fmt, <span class="meta">##__VA_ARGS__]; \</span></div><div class="line">        printf(<span class="string">"%s\n"</span>,[str UTF8String]);                                \</div><div class="line">        asl_log(<span class="literal">NULL</span>, <span class="literal">NULL</span>, ASL_LEVEL_NOTICE, <span class="string">"%s"</span>, [str UTF8String]);  \</div><div class="line">    &#125; <span class="keyword">while</span>(<span class="number">0</span>);                                                         \</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>二，</strong> 😂让wkwebview页面滚动起来 ‘丝般顺滑’，要知道默认滚动速度真是急死个人的。</p>
@@ -45,7 +45,7 @@
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bkt.clouddn.com/20180112-00-blog.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;记录一些平时用的比较少，容易忘记的一些知识点，主要是零碎代码段。&lt;/p&gt;
+&lt;p&gt;记录一些平时比较少用或者容易忘记的一些知识点，主要是零散代码段。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;一，&lt;/stron
     
     </summary>
@@ -56,6 +56,38 @@
     
     
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CocoaPods安装第三方库报错</title>
+    <link href="http://yoursite.com/2017/12/19/cocoapods-install-error/"/>
+    <id>http://yoursite.com/2017/12/19/cocoapods-install-error/</id>
+    <published>2017-12-19T02:41:52.000Z</published>
+    <updated>2018-03-14T03:25:12.197Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/20171219-00-blog.png" alt=""></p>
+<p>今天在使用 CocoaPods 安装 <a href="https://github.com/ReactiveCocoa/ReactiveObjC" target="_blank" rel="external">ReactiveObjC</a> 的时候失败，报错内容如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[!] Error installing ReactiveObjC</div><div class="line">[!] /usr/bin/git clone https://github.com/ReactiveCocoa/ReactiveObjC.git /var/folders/bz/29qvklsn77x9_706n9wq8j5m0000gn/T/d20180314-1931-1qoi06x --template= --single-branch --depth 1 --branch 3.1.0</div><div class="line"></div><div class="line">Cloning into '/var/folders/bz/29qvklsn77x9_706n9wq8j5m0000gn/T/d20180314-1931-1qoi06x'...</div><div class="line">fatal: unable to access 'https://github.com/ReactiveCocoa/ReactiveObjC.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443</div></pre></td></tr></table></figure></p>
+<p>网上一通找，原来是 git 的代理配置问题导致，因为某些原因（🤡你懂的）导致梯子经常换，之前配置的端口不能用了，而换了新的端口配置没改，所以重新配置下就解决问题啦~</p>
+<p>方法如下，在终端执行如下两行命令，后面键入你的 IP 地址和端口号。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git config --global https.proxy 'socks5://Your ip address:port'</div><div class="line"></div><div class="line">$ git config --global http.proxy 'socks5://Your ip address:port'</div></pre></td></tr></table></figure></p>
+<p>完了重新 pod install，搞定~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bkt.clouddn.com/20171219-00-blog.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;今天在使用 CocoaPods 安装 &lt;a href=&quot;https://github.com/ReactiveCo
+    
+    </summary>
+    
+      <category term="Technology" scheme="http://yoursite.com/categories/Technology/"/>
+    
+      <category term="CocoaPods" scheme="http://yoursite.com/categories/Technology/CocoaPods/"/>
+    
+    
+      <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
+    
+      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
     
   </entry>
   
