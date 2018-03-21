@@ -60,16 +60,56 @@
   </entry>
   
   <entry>
+    <title>Mac Terminal 设置代理</title>
+    <link href="http://yoursite.com/2017/11/21/mac-terminal-proxy/"/>
+    <id>http://yoursite.com/2017/11/21/mac-terminal-proxy/</id>
+    <published>2017-11-21T02:14:24.000Z</published>
+    <updated>2018-03-21T07:13:46.952Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/20171121-01-blog.jpg" alt=""></p>
+<p>昨天更新 CocoaPods 的时候，使用<code>pod setup</code>命令更新一直失败，估计是因为 CocoaPods 已被 iOS 开发者广泛使用，索引库的文件也越来越大，加上墙的原因，所以下载索引库文件到本地也越来越慢，没办法只能挂梯子了。</p>
+<p>本来以为 Mac 的系统代理在终端也是有效的，但是一通查发现在终端需要单独设置代理。在网上找到很多相关文章，这里采取了两个最简单却行之有效的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># cd 到根目录，查看所有文件（包括隐藏文件）</div><div class="line">$ ls -al</div></pre></td></tr></table></figure>
+<p>如果要在 Finder 中显示/隐藏系统隐藏文件，可以使用以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 显示 Finder  隐藏文件</div><div class="line">$ defaults write com.apple.finder AppleShowAllFiles -bool true</div><div class="line"></div><div class="line"># 隐藏 Finder 隐藏文件</div><div class="line">$ defaults write com.apple.finder AppleShowAllFiles -bool false</div></pre></td></tr></table></figure></p>
+<p>找到 <code>.bash_profile</code> 文件，如果没有（Mac 默认是没有这个文件的），则创建一个。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 创建 .bash_profile 文件</div><div class="line">$ touch .bash_profile</div></pre></td></tr></table></figure></p>
+<p>使用 vim 编辑器打开 <code>.bash_profile</code> 文件，按 i 进入可编辑状态，添加以下代码。</p>
+<p>方式一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># http://127.0.0.1:1080 替换成自己的 IP 和端口</div><div class="line">$ alias goproxy=&apos;export http_proxy=http://127.0.0.1:1080 https_proxy=http://127.0.0.1:1080&apos;</div><div class="line">$ alias disproxy=&apos;unset http_proxy https_proxy&apos;</div></pre></td></tr></table></figure></p>
+<p>方式二：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># http://127.0.0.1:1080 替换成自己的 IP 和端口</div><div class="line">$ alias setproxy=&quot;export http_proxy=http://127.0.0.1:1080; export https_proxy=$http_proxy; echo &apos;HTTP Proxy on&apos;;&quot;</div><div class="line">$ alias unsetproxy=&quot;unset http_proxy; unset https_proxy; echo &apos;HTTP Proxy off&apos;;&quot;</div></pre></td></tr></table></figure></p>
+<p>编辑完后按 esc 键退出编辑状态，再输入 <code>:wq</code> 按回车保存并退出 vim 编辑器。</p>
+<p>最后使用以下命令来让 <code>.bash_profile</code> 文件立即生效，或者重启电脑。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ source ~/.bash_profile</div></pre></td></tr></table></figure></p>
+<p>方式二可以通过命令来控制开启和关闭终端代理，使用方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># 开启代理</div><div class="line">$ setproxy    </div><div class="line">HTTP Proxy on</div><div class="line"></div><div class="line"># 关闭代理</div><div class="line">$ unsetproxy  </div><div class="line">HTTP Proxy off</div></pre></td></tr></table></figure></p>
+<p>最后，哈哈哈，开启代理，平均下载速度将近 2M/s，几分钟就搞定了。</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20171121-00-blog.png" alt=""></p>
+<p>参考文章：<br><a href="https://eliyar.biz/proxy-for-mac-terminal/" target="_blank" rel="external">为Mac Terminal设置代理</a><br><a href="http://honglu.me/2015/11/06/%E7%BB%99iTerm%E7%BB%88%E7%AB%AF%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" target="_blank" rel="external">给 iTerm 终端设置代理</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bkt.clouddn.com/20171121-01-blog.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;昨天更新 CocoaPods 的时候，使用&lt;code&gt;pod setup&lt;/code&gt;命令更新一直失败，估计是因为
+    
+    </summary>
+    
+      <category term="Technology" scheme="http://yoursite.com/categories/Technology/"/>
+    
+      <category term="Terminal" scheme="http://yoursite.com/categories/Technology/Terminal/"/>
+    
+    
+      <category term="Proxy" scheme="http://yoursite.com/tags/Proxy/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CocoaPods安装第三方库报错</title>
-    <link href="http://yoursite.com/2017/12/19/cocoapods-install-error/"/>
-    <id>http://yoursite.com/2017/12/19/cocoapods-install-error/</id>
-    <published>2017-12-19T02:41:52.000Z</published>
-    <updated>2018-03-14T03:25:12.197Z</updated>
+    <link href="http://yoursite.com/2017/10/19/cocoapods-install-error/"/>
+    <id>http://yoursite.com/2017/10/19/cocoapods-install-error/</id>
+    <published>2017-10-19T02:41:52.000Z</published>
+    <updated>2018-03-21T02:21:04.079Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/20171219-00-blog.png" alt=""></p>
 <p>今天在使用 CocoaPods 安装 <a href="https://github.com/ReactiveCocoa/ReactiveObjC" target="_blank" rel="external">ReactiveObjC</a> 的时候失败，报错内容如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[!] Error installing ReactiveObjC</div><div class="line">[!] /usr/bin/git clone https://github.com/ReactiveCocoa/ReactiveObjC.git /var/folders/bz/29qvklsn77x9_706n9wq8j5m0000gn/T/d20180314-1931-1qoi06x --template= --single-branch --depth 1 --branch 3.1.0</div><div class="line"></div><div class="line">Cloning into '/var/folders/bz/29qvklsn77x9_706n9wq8j5m0000gn/T/d20180314-1931-1qoi06x'...</div><div class="line">fatal: unable to access 'https://github.com/ReactiveCocoa/ReactiveObjC.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443</div></pre></td></tr></table></figure></p>
 <p>网上一通找，原来是 git 的代理配置问题导致，因为某些原因（🤡你懂的）导致梯子经常换，之前配置的端口不能用了，而换了新的端口配置没改，所以重新配置下就解决问题啦~</p>
-<p>方法如下，在终端执行如下两行命令，后面键入你的 IP 地址和端口号。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git config --global https.proxy 'socks5://Your ip address:port'</div><div class="line"></div><div class="line">$ git config --global http.proxy 'socks5://Your ip address:port'</div></pre></td></tr></table></figure></p>
+<p>方法如下，在终端执行如下两行命令，后面键入 IP 地址和端口号。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git config --global https.proxy 'socks5://Your ip address:port'</div><div class="line"></div><div class="line">$ git config --global http.proxy 'socks5://Your ip address:port'</div></pre></td></tr></table></figure></p>
 <p>完了重新 pod install，搞定~</p>
 ]]></content>
     

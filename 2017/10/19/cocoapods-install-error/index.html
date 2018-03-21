@@ -12,11 +12,11 @@
 <meta name="keywords" content="CocoaPods,Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CocoaPods安装第三方库报错">
-<meta property="og:url" content="http://yoursite.com/2017/12/19/cocoapods-install-error/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/10/19/cocoapods-install-error/index.html">
 <meta property="og:site_name" content="Arvin's blog">
 <meta property="og:description" content="今天在使用 CocoaPods 安装 ReactiveObjC 的时候失败，报错内容如下：12345[!] Error installing ReactiveObjC[!] /usr/bin/git clone https://github.com/ReactiveCocoa/ReactiveObjC.git /var/folders/bz/29qvklsn77x9_706n9wq8j5m000">
 <meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/20171219-00-blog.png">
-<meta property="og:updated_time" content="2018-03-14T03:25:12.197Z">
+<meta property="og:updated_time" content="2018-03-21T02:21:04.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CocoaPods安装第三方库报错">
 <meta name="twitter:description" content="今天在使用 CocoaPods 安装 ReactiveObjC 的时候失败，报错内容如下：12345[!] Error installing ReactiveObjC[!] /usr/bin/git clone https://github.com/ReactiveCocoa/ReactiveObjC.git /var/folders/bz/29qvklsn77x9_706n9wq8j5m000">
@@ -92,7 +92,7 @@ var _hmt = _hmt || [];
                                     <a class="main-nav-list-link" href="/">Home</a>
                                 </li>
                             
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/CocoaPods/">CocoaPods</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Themes/">Themes</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/">iOS</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Objective-C/">Objective-C</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Swift/">Swift</a></li></ul></li></ul>
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/CocoaPods/">CocoaPods</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Terminal/">Terminal</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Themes/">Themes</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/">iOS</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Objective-C/">Objective-C</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Swift/">Swift</a></li></ul></li></ul>
                                     
                                 <li class="main-nav-list-item" >
                                     <a class="main-nav-list-link" href="/about/index.html">About</a>
@@ -174,8 +174,8 @@ var _hmt = _hmt || [];
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2017/12/19/cocoapods-install-error/" class="article-date">
-            <time datetime="2017-12-19T02:41:52.000Z" itemprop="datePublished">2017-12-19</time>
+        <a href="/2017/10/19/cocoapods-install-error/" class="article-date">
+            <time datetime="2017-10-19T02:41:52.000Z" itemprop="datePublished">2017-10-19</time>
         </a>
     </div>
 
@@ -192,7 +192,7 @@ var _hmt = _hmt || [];
             <p><img src="http://oonis1a4c.bkt.clouddn.com/20171219-00-blog.png" alt=""></p>
 <p>今天在使用 CocoaPods 安装 <a href="https://github.com/ReactiveCocoa/ReactiveObjC" target="_blank" rel="external">ReactiveObjC</a> 的时候失败，报错内容如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[!] Error installing ReactiveObjC</div><div class="line">[!] /usr/bin/git clone https://github.com/ReactiveCocoa/ReactiveObjC.git /var/folders/bz/29qvklsn77x9_706n9wq8j5m0000gn/T/d20180314-1931-1qoi06x --template= --single-branch --depth 1 --branch 3.1.0</div><div class="line"></div><div class="line">Cloning into '/var/folders/bz/29qvklsn77x9_706n9wq8j5m0000gn/T/d20180314-1931-1qoi06x'...</div><div class="line">fatal: unable to access 'https://github.com/ReactiveCocoa/ReactiveObjC.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443</div></pre></td></tr></table></figure></p>
 <p>网上一通找，原来是 git 的代理配置问题导致，因为某些原因（🤡你懂的）导致梯子经常换，之前配置的端口不能用了，而换了新的端口配置没改，所以重新配置下就解决问题啦~</p>
-<p>方法如下，在终端执行如下两行命令，后面键入你的 IP 地址和端口号。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git config --global https.proxy 'socks5://Your ip address:port'</div><div class="line"></div><div class="line">$ git config --global http.proxy 'socks5://Your ip address:port'</div></pre></td></tr></table></figure></p>
+<p>方法如下，在终端执行如下两行命令，后面键入 IP 地址和端口号。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git config --global https.proxy 'socks5://Your ip address:port'</div><div class="line"></div><div class="line">$ git config --global http.proxy 'socks5://Your ip address:port'</div></pre></td></tr></table></figure></p>
 <p>完了重新 pod install，搞定~</p>
 
         </div>
@@ -318,9 +318,9 @@ var _hmt = _hmt || [];
     </a>
     
     
-        <a href="/2018/01/12/code-notes/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/11/21/mac-terminal-proxy/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">零散知识记录(持续更新)</p>
+        <p class="article-nav-title">Mac Terminal 设置代理</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -360,7 +360,27 @@ var _hmt = _hmt || [];
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2017/12/19/cocoapods-install-error/" class="thumbnail">
+                            <a href="/2017/11/21/mac-terminal-proxy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20171121-01-blog.jpg)" alt="Mac Terminal 设置代理" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Terminal/">Terminal</a></p>
+                            <p class="item-title"><a href="/2017/11/21/mac-terminal-proxy/" class="title">Mac Terminal 设置代理</a></p>
+                            <p class="item-date"><time datetime="2017-11-21T02:14:24.000Z" itemprop="datePublished">2017-11-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/19/cocoapods-install-error/" class="thumbnail">
     
     
         <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20171219-00-blog.png)" alt="CocoaPods安装第三方库报错" class="thumbnail-image"></span>
@@ -372,8 +392,8 @@ var _hmt = _hmt || [];
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/CocoaPods/">CocoaPods</a></p>
-                            <p class="item-title"><a href="/2017/12/19/cocoapods-install-error/" class="title">CocoaPods安装第三方库报错</a></p>
-                            <p class="item-date"><time datetime="2017-12-19T02:41:52.000Z" itemprop="datePublished">2017-12-19</time></p>
+                            <p class="item-title"><a href="/2017/10/19/cocoapods-install-error/" class="title">CocoaPods安装第三方库报错</a></p>
+                            <p class="item-date"><time datetime="2017-10-19T02:41:52.000Z" itemprop="datePublished">2017-10-19</time></p>
                         </div>
                     </li>
                 
@@ -417,26 +437,6 @@ var _hmt = _hmt || [];
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/07/13/swift-notes-01/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170713-00-blog.jpg)" alt="Swift 学习笔记一" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Swift/">Swift</a></p>
-                            <p class="item-title"><a href="/2017/07/13/swift-notes-01/" class="title">Swift 学习笔记一</a></p>
-                            <p class="item-date"><time datetime="2017-07-13T01:21:38.000Z" itemprop="datePublished">2017-07-13</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -446,7 +446,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/CocoaPods/">CocoaPods</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Themes/">Themes</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Objective-C/">Objective-C</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Swift/">Swift</a><span class="category-list-count">1</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/CocoaPods/">CocoaPods</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Terminal/">Terminal</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Themes/">Themes</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Objective-C/">Objective-C</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Swift/">Swift</a><span class="category-list-count">1</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -456,7 +456,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -466,7 +466,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CocoaPods/">CocoaPods</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Themes/">Themes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wkWebview/">wkWebview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CocoaPods/">CocoaPods</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/">Proxy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Themes/">Themes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wkWebview/">wkWebview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -476,7 +476,7 @@ var _hmt = _hmt || [];
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/CocoaPods/" style="font-size: 15px;">CocoaPods</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Themes/" style="font-size: 10px;">Themes</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/wkWebview/" style="font-size: 10px;">wkWebview</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a>
+            <a href="/tags/CocoaPods/" style="font-size: 15px;">CocoaPods</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Themes/" style="font-size: 10px;">Themes</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/wkWebview/" style="font-size: 10px;">wkWebview</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a>
         </div>
     </div>
 
@@ -530,7 +530,7 @@ var _hmt = _hmt || [];
     var disqus_shortname = 'kejiasir';
     
     
-    var disqus_url = 'http://yoursite.com/2017/12/19/cocoapods-install-error/';
+    var disqus_url = 'http://yoursite.com/2017/10/19/cocoapods-install-error/';
     
     (function() {
     var dsq = document.createElement('script');
