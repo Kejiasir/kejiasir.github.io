@@ -3,24 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Xcode的警告及处理，持续更新 | Arvin&#39;s blog</title>
+    <title>Tag: zsh | Arvin&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="iOS,Xcode" />
-    
-    <meta name="description" content="在开发过程中，或者在打包ipa的时候，Xcode的编译器多少总会给出一些警告，虽然看似没啥影响，不会阻止继续编译和链接，也不会导致程序不能运行，但是对于强迫症来说，还是不能容忍的，对于一些能消灭的警告一定尽会可能的消灭掉，避免变成不可预知的错误 。 编码时也应该尽可能的避免产生警告，比如不要只定义不实现方法或变量；不使用标记为废弃的API；或者不要遵守了代理协议却不实现代理方法等；但是项目多">
-<meta name="keywords" content="iOS,Xcode">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Xcode的警告及处理，持续更新">
-<meta property="og:url" content="http://yoursite.com/2017/06/01/xcode-warning-muster/index.html">
+    <meta name="description" content="有幸站在互联网技术革命的浪潮之上, 奋勇前行.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Arvin's blog">
+<meta property="og:url" content="http://yoursite.com/tags/zsh/index.html">
 <meta property="og:site_name" content="Arvin's blog">
-<meta property="og:description" content="在开发过程中，或者在打包ipa的时候，Xcode的编译器多少总会给出一些警告，虽然看似没啥影响，不会阻止继续编译和链接，也不会导致程序不能运行，但是对于强迫症来说，还是不能容忍的，对于一些能消灭的警告一定尽会可能的消灭掉，避免变成不可预知的错误 。 编码时也应该尽可能的避免产生警告，比如不要只定义不实现方法或变量；不使用标记为废弃的API；或者不要遵守了代理协议却不实现代理方法等；但是项目多">
-<meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/20170601-00-blog.png">
-<meta property="og:updated_time" content="2017-07-13T03:06:28.000Z">
+<meta property="og:description" content="有幸站在互联网技术革命的浪潮之上, 奋勇前行.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xcode的警告及处理，持续更新">
-<meta name="twitter:description" content="在开发过程中，或者在打包ipa的时候，Xcode的编译器多少总会给出一些警告，虽然看似没啥影响，不会阻止继续编译和链接，也不会导致程序不能运行，但是对于强迫症来说，还是不能容忍的，对于一些能消灭的警告一定尽会可能的消灭掉，避免变成不可预知的错误 。 编码时也应该尽可能的避免产生警告，比如不要只定义不实现方法或变量；不使用标记为废弃的API；或者不要遵守了代理协议却不实现代理方法等；但是项目多">
-<meta name="twitter:image" content="http://oonis1a4c.bkt.clouddn.com/20170601-00-blog.png">
+<meta name="twitter:title" content="Arvin's blog">
+<meta name="twitter:description" content="有幸站在互联网技术革命的浪潮之上, 奋勇前行.">
     
 
     
@@ -154,122 +148,74 @@ var _hmt = _hmt || [];
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/iOS/Objective-C/">Objective-C</a>
+    <i class="icon fa fa-tag"></i>Tag: <em>zsh</em>
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-xcode-warning-muster" class="article article-single article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
+                            
+
+    
+    
         
-            <header class="article-header">
-                
+        
+        <section class="archives-wrap">
+            <div class="archive-year-wrap">
+                <a href="/archives/2017" class="archive-year"><i class="icon fa fa-calendar-o"></i>2017</a>
+            </div>
+            <div class="archives">
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <a href="/2017/04/28/oh-my-zsh/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170428-00-blog.png)" alt="提高Terminal效率的Shell，oh-my-zsh" class="thumbnail-image"></span>
+    
+    
+        
+<span class="comment-counter">
+    <i class="fa fa-comments-o"></i>
+    
+        <span class="disqus-comment-count" data-disqus-identifier="" data-disqus-url="http://yoursite.com/2017/04/28/oh-my-zsh/">0</span>
+    
+</span>
+
+    
+</a>
+
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Shell/">Shell</a>
+            </div>
+            <div class="date"><time datetime="2017-04-28T13:42:01.000Z" itemprop="datePublished">2017-04-28</time></div>
+        </div>
+        
     
         <h1 class="article-title" itemprop="name">
-        Xcode的警告及处理，持续更新
+        <a href="/2017/04/28/oh-my-zsh/">提高Terminal效率的Shell，oh-my-zsh</a>
         </h1>
     
 
 
-            </header>
-        
-        
-            <div class="article-meta">
-                
-    <div class="article-date">
-        <a href="/2017/06/01/xcode-warning-muster/" class="article-date">
-            <time datetime="2017-06-01T07:31:06.000Z" itemprop="datePublished">2017-06-01</time>
-        </a>
-    </div>
-
-                
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Xcode/">Xcode</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-    </div>
-
-            </div>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-            <p><img src="http://oonis1a4c.bkt.clouddn.com/20170601-00-blog.png" alt="">  </p>
-<p>在开发过程中，或者在打包ipa的时候，Xcode的编译器多少总会给出一些警告，虽然看似没啥影响，不会阻止继续编译和链接，也不会导致程序不能运行，但是对于强迫症来说，还是不能容忍的，对于一些能消灭的警告一定尽会可能的消灭掉，避免变成不可预知的错误 。</p>
-<p>编码时也应该尽可能的避免产生警告，比如不要只定义不实现方法或变量；不使用标记为废弃的API；或者不要遵守了代理协议却不实现代理方法等；但是项目多少会集成一些第三方框架，copy到项目的能直接修改，如果是使用CocoaPods管理的就没办法了，只能坐等作者更新 。 ヽ(。&gt;д&lt;)ｐ</p>
-<h5 id="一-nbsp-第三方-Framework-导致的-Warning"><a href="#一-nbsp-第三方-Framework-导致的-Warning" class="headerlink" title="一.&nbsp; 第三方 Framework 导致的 Warning"></a>一.&nbsp; 第三方 Framework 导致的 Warning</h5><p><img src="http://oonis1a4c.bkt.clouddn.com/20170601-01-blog.png" alt=""></p>
-<p>解决方法：<br>参考文章：<a href="http://nixwang.com/2016/05/09/kill-debug-symbol-warnings/" target="_blank" rel="external">消除引入第三方 Framework 导致的 Warning</a> 。</p>
-<p><img src="http://oonis1a4c.bkt.clouddn.com/20170601-02-blog.png" alt=""></p>
-<h5 id="二-nbsp-待续"><a href="#二-nbsp-待续" class="headerlink" title="二.&nbsp; 待续"></a>二.&nbsp; 待续</h5>
-        </div>
-        <footer class="article-footer">
+        <p class="article-excerpt">
             
-
-
-    <div class="a2a_kit a2a_default_style">
-    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
-    <span class="a2a_divider"></span>
-    <a class="a2a_button_facebook"></a>
-    <a class="a2a_button_twitter"></a>
-    <a class="a2a_button_google_plus"></a>
-    <a class="a2a_button_pinterest"></a>
-    <a class="a2a_button_tumblr"></a>
-</div>
-<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
-<style>
-    .a2a_menu {
-        border-radius: 4px;
-    }
-    .a2a_menu a {
-        margin: 2px 0;
-        font-size: 14px;
-        line-height: 16px;
-        border-radius: 4px;
-        color: inherit !important;
-        font-family: 'Microsoft Yahei';
-    }
-    #a2apage_dropdown {
-        margin: 10px 0;
-    }
-    .a2a_mini_services {
-        padding: 10px;
-    }
-    a.a2a_i,
-    i.a2a_i {
-        width: 122px;
-        line-height: 16px;
-    }
-    a.a2a_i .a2a_svg,
-    a.a2a_more .a2a_svg {
-        width: 16px;
-        height: 16px;
-        line-height: 16px;
-        vertical-align: top;
-        background-size: 16px;
-    }
-    a.a2a_i {
-        border: none !important;
-    }
-    a.a2a_menu_show_more_less {
-        margin: 0;
-        padding: 10px 0;
-        line-height: 16px;
-    }
-    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
-    .a2a_mini_services{*+height:1%;}
-</style>
-
-
-        </footer>
+终端（命令行）作为程序 🦍们每天打交道的工具之一，熟练使用能够有效的提高工作效率，虽然每天敲的基本都是一些常用的命令，但是如果需要一个个字符的敲，想想也实在让人有些抓狂，有没有能像 IDE 敲代码那样的自动补全，自动纠错的工具（插件）呢？答案是 of course，有请 zsh！😅emmmm。。。虽然这货很强大，但是都说比较复杂，配置起来太麻烦，鲜有人使用。所以，不好意思，咱们今天的主角是 
+        </p>
     </div>
 </article>
-
-    <section id="comments">
     
-        
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
-
+        </div>
     
-    </section>
+
+
+    </div></section>
+
 
 
                         </div>
@@ -306,30 +252,6 @@ var _hmt = _hmt || [];
             
         </ul>
     </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2017/05/27/wkWebview-get-html-img/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            记wkWebview获取网页图片
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
-    
-    
-        <a href="/2017/07/13/swift-notes-01/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">Swift 学习笔记一</p>
-        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
-        </a>
-    
-</nav>
-
-
     
     <div class="widgets-container">
         
@@ -533,13 +455,11 @@ var _hmt = _hmt || [];
     var disqus_shortname = 'kejiasir';
     
     
-    var disqus_url = 'http://yoursite.com/2017/06/01/xcode-warning-muster/';
-    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>

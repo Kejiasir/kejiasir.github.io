@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>提高Terminal效率的Shell，oh-my-zsh | Arvin&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="oh-my-zsh,shell,zsh" />
+    
+    <meta name="description" content="终端（命令行）作为程序 🦍们每天打交道的工具之一，熟练使用能够有效的提高工作效率，虽然每天敲的基本都是一些常用的命令，但是如果需要一个个字符的敲，想想也实在让人有些抓狂，有没有能像 IDE 敲代码那样的自动补全，自动纠错的工具（插件）呢？答案是 of course，有请 zsh！😅emmmm。。。虽然这货很强大，但是都说比较复杂，配置起来太麻烦，鲜有人使用。所以，不好意思，咱们今天的主角是">
+<meta name="keywords" content="oh-my-zsh,shell,zsh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="提高Terminal效率的Shell，oh-my-zsh">
+<meta property="og:url" content="http://yoursite.com/2017/04/28/oh-my-zsh/index.html">
+<meta property="og:site_name" content="Arvin's blog">
+<meta property="og:description" content="终端（命令行）作为程序 🦍们每天打交道的工具之一，熟练使用能够有效的提高工作效率，虽然每天敲的基本都是一些常用的命令，但是如果需要一个个字符的敲，想想也实在让人有些抓狂，有没有能像 IDE 敲代码那样的自动补全，自动纠错的工具（插件）呢？答案是 of course，有请 zsh！😅emmmm。。。虽然这货很强大，但是都说比较复杂，配置起来太麻烦，鲜有人使用。所以，不好意思，咱们今天的主角是">
+<meta property="og:image" content="http://oonis1a4c.bkt.clouddn.com/20170428-00-blog.png">
+<meta property="og:updated_time" content="2018-04-14T08:27:01.512Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="提高Terminal效率的Shell，oh-my-zsh">
+<meta name="twitter:description" content="终端（命令行）作为程序 🦍们每天打交道的工具之一，熟练使用能够有效的提高工作效率，虽然每天敲的基本都是一些常用的命令，但是如果需要一个个字符的敲，想想也实在让人有些抓狂，有没有能像 IDE 敲代码那样的自动补全，自动纠错的工具（插件）呢？答案是 of course，有请 zsh！😅emmmm。。。虽然这货很强大，但是都说比较复杂，配置起来太麻烦，鲜有人使用。所以，不好意思，咱们今天的主角是">
+<meta name="twitter:image" content="http://oonis1a4c.bkt.clouddn.com/20170428-00-blog.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Arvin&#39;s blog" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/images/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-97693704-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?4634866158d35bf92306da4e52ec7423";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/CocoaPods/">CocoaPods</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Shell/">Shell</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Terminal/">Terminal</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Themes/">Themes</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/">iOS</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Objective-C/">Objective-C</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/iOS/Swift/">Swift</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Technology/Shell/">Shell</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-oh-my-zsh" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        提高Terminal效率的Shell，oh-my-zsh
+        </h1>
+    
+
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/04/28/oh-my-zsh/" class="article-date">
+            <time datetime="2017-04-28T13:42:01.000Z" itemprop="datePublished">2017-04-28</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/oh-my-zsh/">oh-my-zsh</a>, <a class="tag-link" href="/tags/shell/">shell</a>, <a class="tag-link" href="/tags/zsh/">zsh</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="http://oonis1a4c.bkt.clouddn.com/20170428-00-blog.png" alt=""></p>
+<p>终端（命令行）作为程序 🦍们每天打交道的工具之一，熟练使用能够有效的提高工作效率，虽然每天敲的基本都是一些常用的命令，但是如果需要一个个字符的敲，想想也实在让人有些抓狂，有没有能像 IDE 敲代码那样的自动补全，自动纠错的工具（插件）呢？答案是 of course，有请 <a href="https://github.com/zsh-users/zsh" target="_blank" rel="external">zsh</a>！😅emmmm。。。虽然这货很强大，但是都说比较复杂，配置起来太麻烦，鲜有人使用。所以，不好意思，咱们今天的主角是 <a href="https://github.com/robbyrussell/oh-my-zsh?source=c" target="_blank" rel="external">oh-my-zsh</a>。</p>
+<p>Github 上的简介是 ”A delightful community-driven framework for managing your zsh configuration。”（一个令人愉快的社区驱动框架，用于管理您的zsh配置。），概括说就是可以帮助你简单配置轻松使用 <code>zsh</code>，还能让你在无聊时玩耍 140 种主题，200+ 插件的装逼玩意。</p>
+<blockquote>
+<p>Once installed, your terminal shell will become the talk of the town or your money back! With each keystroke in your command prompt, you’ll take advantage of the hundreds of powerful plugins and beautiful themes. Strangers will come up to you in cafés and ask you, “that is amazing! are you some sort of genius?”</p>
+<p>Finally, you’ll begin to get the sort of attention that you have always felt you deserved. …or maybe you’ll use the time that you’re saving to start flossing more often. 😬</p>
+</blockquote>
+<p>🙄🙄😂作者你这样不太好吧。。。 废话太多了，说正事吧。</p>
+<p>首先，肯定是需要安装 <code>zsh</code> 的，在终端使用 <code>cat /etc/shells</code> 命令来查看系统都安装了哪些 shell，如下图，很高兴 Mac 系统默认就已经安装了 <code>zsh</code>。</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20170428-01-blog.png" alt=""></p>
+<p>如果没有安装，可以使用以下命令来安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install zsh</div></pre></td></tr></table></figure></p>
+<p>那怎么查看系统当前使用的是哪种 shell 呢？<br>可以使用 <code>echo $SHELL</code> 命令来查看，在 Mac 系统中，默认使用的是 <code>bash</code>。</p>
+<h3 id="安装-oh-my-zsh：通过命令行使用-curl-或-wget-来安装。"><a href="#安装-oh-my-zsh：通过命令行使用-curl-或-wget-来安装。" class="headerlink" title="安装 oh-my-zsh：通过命令行使用 curl 或 wget 来安装。"></a>安装 oh-my-zsh：通过命令行使用 curl 或 wget 来安装。</h3><p><strong>curl 命令：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</div></pre></td></tr></table></figure></p>
+<p><strong>wget 命令：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</div></pre></td></tr></table></figure></p>
+<p><strong><em>注意：</em></strong>安装的 oh-my-zsh 是一个隐藏文件，在用户目录下，需要开启隐藏文件可见才能看到，另外有一个 <code>~/.zshrc</code> 的隐藏文件，安装 oh-my-zsh 时，它会自动对这个文件进行 <code>zsh</code> 的相关环境变量等设置，可以使用 <code>vim</code> 编辑器来查看或者进行其它的自定义设置（比如，修改默认的主题，添加喜欢的插件等）。</p>
+<h3 id="切换系统默认的-shell-为-zsh"><a href="#切换系统默认的-shell-为-zsh" class="headerlink" title="切换系统默认的 shell 为 zsh"></a>切换系统默认的 shell 为 zsh</h3><p>安装完 oh-my-zsh 后，使用以下命令来切换 shell。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chsh -s /bin/zsh</div></pre></td></tr></table></figure></p>
+<p>如果不清楚 <code>zsh</code> 在系统中的路径在哪里，使用以下命令来查看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ which -a zsh</div></pre></td></tr></table></figure></p>
+<p>如果你的系统没有预装 <code>zsh</code>，是自己手动安装的，那么切换 <code>zsh</code> 可能会报以下错误：<br><code>chsh: WARNING: shell &#39;/bin/zsh&#39; does not exist.</code></p>
+<p>这是因为系统在 <code>/etc/shells</code> 列表中没有找到 <code>zsh</code> 这个 shell，只要把它加到这个列表里面就好了。使用以下命令打开 <code>vim</code> 编辑器，将 <code>/bin/zsh</code> 添加到末尾，<code>:wq</code> 保存退出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vim /etc/shells</div></pre></td></tr></table></figure></p>
+<p>以上都没有问题后，现在关闭终端重新打开应该就看到不一样的界面样式了。</p>
+<h3 id="修改（自定义）oh-my-zsh-配置"><a href="#修改（自定义）oh-my-zsh-配置" class="headerlink" title="修改（自定义）oh-my-zsh 配置"></a>修改（自定义）oh-my-zsh 配置</h3><p>oh-my-zsh 的所有配置都可以在 <code>~/.zshrc</code> 这个文件中修改或添加，里面的注释也很详细，有很多设置都是被注释掉的，如果需要的话打开注释即可。</p>
+<p><strong>主题</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># Set name of the theme to load. Optionally, if you set this to &quot;random&quot;</div><div class="line"># it&apos;ll load a random theme each time that oh-my-zsh is loaded.</div><div class="line"># See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes</div><div class="line">ZSH_THEME=&quot;robbyrussell&quot;</div></pre></td></tr></table></figure></p>
+<p>默认的主题是 <code>robbyrussell</code>，要替换其它主题只要更改这个字段即可，所有的主题都在 <code>~/.oh-my-zsh/themes/</code> 这个目录下，你可以查看所有的<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes" target="_blank" rel="external">主题截图</a>来选择一个自己喜欢的。</p>
+<p><strong>别名</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># Set personal aliases, overriding those provided by oh-my-zsh libs,</div><div class="line"># plugins, and themes. Aliases can be placed here, though oh-my-zsh</div><div class="line"># users are encouraged to define aliases within the ZSH_CUSTOM folder.</div><div class="line"># For a full list of active aliases, run `alias`.</div><div class="line">#</div><div class="line"># Example aliases</div><div class="line"># alias zshconfig=&quot;mate ~/.zshrc&quot;</div><div class="line"># alias ohmyzsh=&quot;mate ~/.oh-my-zsh&quot;</div></pre></td></tr></table></figure></p>
+<p>通过以上示例，我们可以设置自己常用的命令别名，比如我这里设置的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 打开 Sublime Text</div><div class="line">alias st=&apos;open -a &quot;Sublime Text&quot;&apos;</div><div class="line"># 打开 Xcode</div><div class="line">alias xc=&apos;open -a &quot;Xcode&quot;&apos;</div><div class="line"># 打开指定的文件，比如以下是我的 xcode 项目路径</div><div class="line">alias xcyslf=&apos;open ~/Desktop/公司文件/项目代码/yslf-ios-new/yslf.xcworkspace&apos;</div></pre></td></tr></table></figure></p>
+<p><a id="plugins"></a><strong>插件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)</div><div class="line"># Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/</div><div class="line"># Example format: plugins=(rails git textmate ruby lighthouse)</div><div class="line"># Add wisely, as too many plugins slow down shell startup.</div><div class="line">plugins=(</div><div class="line">  git</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<p>oh-my-zsh 默认安装了 <code>git</code> 插件，所有的插件都在 <code>~/.oh-my-zsh/plugins/</code> 这个目录下，如果要添加其它的插件，将插件名称使用空格隔开放到括号中即可；值得注意的是，插件最好还是别添加太多，以免会影响开启终端的速度。<br>另外，这里不得不说下 <code>git</code> 这个插件，毕竟每天都在敲的基本就都是 <code>git</code> 命令，这个插件简化了很多命令操作，其实就是设置了很多的别名，列举如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">alias g=&apos;git&apos;</div><div class="line"></div><div class="line">alias ga=&apos;git add&apos;</div><div class="line">alias gaa=&apos;git add --all&apos;</div><div class="line"></div><div class="line">alias gb=&apos;git branch&apos;</div><div class="line">alias gba=&apos;git branch -a&apos;</div><div class="line">alias gbd=&apos;git branch -d&apos;</div><div class="line"></div><div class="line">alias gc=&apos;git commit -v&apos;</div><div class="line">alias gcam=&apos;git commit -a -m&apos;</div><div class="line">alias gcsm=&apos;git commit -s -m&apos;</div><div class="line">alias gcb=&apos;git checkout -b&apos;</div><div class="line">alias gcf=&apos;git config --list&apos;</div><div class="line">alias gcl=&apos;git clone --recursive&apos;</div><div class="line">alias gcm=&apos;git checkout master&apos;</div><div class="line">alias gcd=&apos;git checkout develop&apos;</div><div class="line">alias gcmsg=&apos;git commit -m&apos;</div></pre></td></tr></table></figure></p>
+<p>以上设置，如 <code>alias ga=&#39;git add&#39;</code>，输入 <code>ga</code> 就等于输入一条完整的 <code>git add</code> 命令。<br>更多的别名和功能可以打开 <code>~/.oh-my-zsh/plugins/git/git.plugin.zsh</code> 这个文件来查看，或者查看更详细的<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git" target="_blank" rel="external">官方文档</a>。</p>
+<p><strong>配置（自定义）其它插件</strong></p>
+<p>文章开头讲到的命令或者目录自动补全，其实是一个超酷的 <code>zsh</code> 插件，现在我们安装了 oh-my-zsh 这个强大的框架，使用这个插件就 so easy 了。先来看看使用效果图吧！</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20170428-02-blog.png" alt=""></p>
+<p>首先，需要把这个插件下载下来，我已经给童鞋们准备好了，<a href="http://mimosa-pudica.net/src/incr-0.2.zsh" target="_blank" rel="external">点我下载吧</a>！如果下载不了，那就直接拷贝下面的代码！先要说明的是自定义插件的存放位置，在上面<a href="#plugins"><strong>插件</strong></a>那里作者已经说了建议放在 <code>~/.oh-my-zsh/custom/plugins/</code> 这个目录下（ Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/ ）。<br>然后，在 <code>/plugins/</code> 目录下建一个名为 <code>incr</code> 的文件夹（当然名字你喜欢），将下载的 <code>incr-0.2.zsh</code> 文件放在这里（在这个文件夹里面创建 <code>incr-0.2.zsh</code> 文件，将拷贝的代码放进去就 OK 啦！）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div></pre></td><td class="code"><pre><div class="line"># Incremental completion for zsh</div><div class="line"># by y.fujii &lt;y-fujii at mimosa-pudica.net&gt;, public domain</div><div class="line"></div><div class="line">autoload -U compinit</div><div class="line">zle -N self-insert self-insert-incr</div><div class="line">zle -N vi-cmd-mode-incr</div><div class="line">zle -N vi-backward-delete-char-incr</div><div class="line">zle -N backward-delete-char-incr</div><div class="line">zle -N expand-or-complete-prefix-incr</div><div class="line">compinit</div><div class="line"></div><div class="line">bindkey -M viins &apos;^[&apos; vi-cmd-mode-incr</div><div class="line">bindkey -M viins &apos;^h&apos; vi-backward-delete-char-incr</div><div class="line">bindkey -M viins &apos;^?&apos; vi-backward-delete-char-incr</div><div class="line">bindkey -M viins &apos;^i&apos; expand-or-complete-prefix-incr</div><div class="line">bindkey -M emacs &apos;^h&apos; backward-delete-char-incr</div><div class="line">bindkey -M emacs &apos;^?&apos; backward-delete-char-incr</div><div class="line">bindkey -M emacs &apos;^i&apos; expand-or-complete-prefix-incr</div><div class="line"></div><div class="line">unsetopt automenu</div><div class="line">compdef -d scp</div><div class="line">compdef -d tar</div><div class="line">compdef -d make</div><div class="line">compdef -d java</div><div class="line">compdef -d svn</div><div class="line">compdef -d cvs</div><div class="line"></div><div class="line"># TODO:</div><div class="line">#     cp dir/</div><div class="line"></div><div class="line">now_predict=0</div><div class="line"></div><div class="line">function limit-completion</div><div class="line">&#123;</div><div class="line">	if ((compstate[nmatches] &lt;= 1)); then</div><div class="line">		zle -M &quot;&quot;</div><div class="line">	elif ((compstate[list_lines] &gt; 6)); then</div><div class="line">		compstate[list]=&quot;&quot;</div><div class="line">		zle -M &quot;too many matches.&quot;</div><div class="line">	fi</div><div class="line">&#125;</div><div class="line"></div><div class="line">function correct-prediction</div><div class="line">&#123;</div><div class="line">	if ((now_predict == 1)); then</div><div class="line">		if [[ &quot;$BUFFER&quot; != &quot;$buffer_prd&quot; ]] || ((CURSOR != cursor_org)); then</div><div class="line">			now_predict=0</div><div class="line">		fi</div><div class="line">	fi</div><div class="line">&#125;</div><div class="line"></div><div class="line">function remove-prediction</div><div class="line">&#123;</div><div class="line">	if ((now_predict == 1)); then</div><div class="line">		BUFFER=&quot;$buffer_org&quot;</div><div class="line">		now_predict=0</div><div class="line">	fi</div><div class="line">&#125;</div><div class="line"></div><div class="line">function show-prediction</div><div class="line">&#123;</div><div class="line">	# assert(now_predict == 0)</div><div class="line">	if</div><div class="line">		((PENDING == 0)) &amp;&amp;</div><div class="line">		((CURSOR &gt; 1)) &amp;&amp;</div><div class="line">		[[ &quot;$PREBUFFER&quot; == &quot;&quot; ]] &amp;&amp;</div><div class="line">		[[ &quot;$BUFFER[CURSOR]&quot; != &quot; &quot; ]]</div><div class="line">	then</div><div class="line">		cursor_org=&quot;$CURSOR&quot;</div><div class="line">		buffer_org=&quot;$BUFFER&quot;</div><div class="line">		comppostfuncs=(limit-completion)</div><div class="line">		zle complete-word</div><div class="line">		cursor_prd=&quot;$CURSOR&quot;</div><div class="line">		buffer_prd=&quot;$BUFFER&quot;</div><div class="line">		if [[ &quot;$buffer_org[1,cursor_org]&quot; == &quot;$buffer_prd[1,cursor_org]&quot; ]]; then</div><div class="line">			CURSOR=&quot;$cursor_org&quot;</div><div class="line">			if [[ &quot;$buffer_org&quot; != &quot;$buffer_prd&quot; ]] || ((cursor_org != cursor_prd)); then</div><div class="line">				now_predict=1</div><div class="line">			fi</div><div class="line">		else</div><div class="line">			BUFFER=&quot;$buffer_org&quot;</div><div class="line">			CURSOR=&quot;$cursor_org&quot;</div><div class="line">		fi</div><div class="line">		echo -n &quot;\e[32m&quot;</div><div class="line">	else</div><div class="line">		zle -M &quot;&quot;</div><div class="line">	fi</div><div class="line">&#125;</div><div class="line"></div><div class="line">function preexec</div><div class="line">&#123;</div><div class="line">	echo -n &quot;\e[39m&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function vi-cmd-mode-incr</div><div class="line">&#123;</div><div class="line">	correct-prediction</div><div class="line">	remove-prediction</div><div class="line">	zle vi-cmd-mode</div><div class="line">&#125;</div><div class="line"></div><div class="line">function self-insert-incr</div><div class="line">&#123;</div><div class="line">	correct-prediction</div><div class="line">	remove-prediction</div><div class="line">	if zle .self-insert; then</div><div class="line">		show-prediction</div><div class="line">	fi</div><div class="line">&#125;</div><div class="line"></div><div class="line">function vi-backward-delete-char-incr</div><div class="line">&#123;</div><div class="line">	correct-prediction</div><div class="line">	remove-prediction</div><div class="line">	if zle vi-backward-delete-char; then</div><div class="line">		show-prediction</div><div class="line">	fi</div><div class="line">&#125;</div><div class="line"></div><div class="line">function backward-delete-char-incr</div><div class="line">&#123;</div><div class="line">	correct-prediction</div><div class="line">	remove-prediction</div><div class="line">	if zle backward-delete-char; then</div><div class="line">		show-prediction</div><div class="line">	fi</div><div class="line">&#125;</div><div class="line"></div><div class="line">function expand-or-complete-prefix-incr</div><div class="line">&#123;</div><div class="line">	correct-prediction</div><div class="line">	if ((now_predict == 1)); then</div><div class="line">		CURSOR=&quot;$cursor_prd&quot;</div><div class="line">		now_predict=0</div><div class="line">		comppostfuncs=(limit-completion)</div><div class="line">		zle list-choices</div><div class="line">	else</div><div class="line">		remove-prediction</div><div class="line">		zle expand-or-complete-prefix</div><div class="line">	fi</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后，需要修改 <code>~/.zshrc</code> 配置文件，在文件末尾加上以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source ~/.oh-my-zsh/custom/plugins/incr/incr-0.2.zsh</div></pre></td></tr></table></figure></p>
+<p>当以上步骤完成后，你可能重新打开终端想看下这个神奇的效果，但是发现并！没！有！于是忍不住 what the f… 😂😂😂 好了，继续输入以下命令吧，因为修改后的 <code>~/.zshrc</code> 文件需要执行一下 <code>source</code> 命令才会生效，以后的每一次修改想要马上生效都需要执行 <code>source</code> 命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ source ~/.zshrc</div></pre></td></tr></table></figure></p>
+<p><strong>快速跳转插件</strong></p>
+<p>再安利一个快速跳转的插件，😂名字叫 <strong><a href="https://github.com/rupa/z" target="_blank" rel="external">z</a></strong>，这个插件配合前面设置的自动补全插件，那你的命令行操作起来就真是 <strong>666</strong> 了。</p>
+<p>安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install z</div></pre></td></tr></table></figure></p>
+<p>安装完后，使用以下命令查看安装的文件列表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew list -f z</div></pre></td></tr></table></figure></p>
+<p>正常情况下会输出以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/usr/local/Cellar/z/1.9/etc/profile.d/z.sh</div><div class="line">/usr/local/Cellar/z/1.9/share/man/man1/z.1</div></pre></td></tr></table></figure></p>
+<p>最后，还是修改 <code>~/.zshrc</code> 配置文件，在文件末尾加上以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source /usr/local/etc/profile.d/z.sh</div></pre></td></tr></table></figure></p>
+<p>别忘了，<code>source ~/.zshrc</code> 生效，重启终端。</p>
+<p>使用的时候，比如：<code>z ~</code>，<code>z desktop</code>，<code>z xxx目录路径</code> 回车就能快速跳转到指定的位置了，完全可以替代掉 <code>cd</code> 命令，不必一层层的跳转，任何时候想去哪里就去哪里，配合上自动补全插件，各种补全，文件名、目录路径、命令名等，👏简直不要太好用。<br><code>z</code> 会记录你访问过的目录，比如：<code>z desktop</code>，第二次，直接输入 <code>z d</code> 就能跳转到 <code>Desktop</code> 目录，在当前目录下，甚至直接输入目录名就能跳转，比如：<code>~</code>，<code>..</code>。</p>
+<p><strong>补充：</strong></p>
+<p>用户环境变量，以下是我的 <code>~/.bash_profile</code> 环境变量中的设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">alias setproxy=&quot;export http_proxy=http://127.0.0.1:8080; export https_proxy=$http_proxy; echo &apos;HTTP Proxy on&apos;;&quot;</div><div class="line">alias unsetproxy=&quot;unset http_proxy; unset https_proxy; echo &apos;HTTP Proxy off&apos;;&quot;</div><div class="line"></div><div class="line">source ~/.profile</div><div class="line">source ~/.bashrc</div><div class="line"></div><div class="line">[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; source &quot;$HOME/.rvm/scripts/rvm&quot; # Load RVM into a shell session *as a function*</div></pre></td></tr></table></figure></p>
+<p>在切换 shell 为 <code>zsh</code> 后，启动系统会加载 <code>~/.zshrc</code> 文件，而不会加载 <code>~/.bash_profile</code> 文件（shell 为 <code>bash</code> 时才会执行），导致里面的设置无效，解决方法是在 <code>~/.zshrc</code> 文件末尾加上以下代码，这样每次启动的时候就会执行  <code>zsh</code> 的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source ~/.bash_profile</div></pre></td></tr></table></figure></p>
+<p>修改后别忘了，<code>source ~/.zshrc</code> 生效。<br>啊，大致就是这些了。还没有安装的童鞋快 get 起来吧，让你的终端快如飞 。。。</p>
+<p><strong>参考：</strong><br><a href="https://github.com/nodejh/nodejh.github.io/issues/34" target="_blank" rel="external">macOS/Linux 环境变量设置</a><br><a href="http://yijiebuyi.com/blog/b9b5e1ebb719f22475c38c4819ab8151.html" target="_blank" rel="external">oh-my-zsh配置你的zsh提高shell逼格终极选择</a><br><a href="http://yijiebuyi.com/blog/36955b84c57e338dd8255070b80829bf.html" target="_blank" rel="external">incr.zsh 补全插件 让你在zsh 模式下全自动补全指令或目录</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/Kejiasir" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="http://weibo.com/u/5737820321?is_all=1" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/atom.xml" target="_blank">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/04/19/hello-hexo/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            利用 Hexo 搭建博客
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2017/05/01/on-umeng-push/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">集成友盟推送的问题</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/12/code-notes/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20180112-00-blog.png)" alt="零散知识记录(持续更新)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Objective-C/">Objective-C</a></p>
+                            <p class="item-title"><a href="/2018/01/12/code-notes/" class="title">零散知识记录(持续更新)</a></p>
+                            <p class="item-date"><time datetime="2018-01-12T02:40:06.000Z" itemprop="datePublished">2018-01-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/11/21/mac-terminal-proxy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20171121-01-blog.jpg)" alt="Mac Terminal 设置代理" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Terminal/">Terminal</a></p>
+                            <p class="item-title"><a href="/2017/11/21/mac-terminal-proxy/" class="title">Mac Terminal 设置代理</a></p>
+                            <p class="item-date"><time datetime="2017-11-21T02:14:24.000Z" itemprop="datePublished">2017-11-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/19/cocoapods-install-error/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20171219-00-blog.png)" alt="CocoaPods安装第三方库报错" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/CocoaPods/">CocoaPods</a></p>
+                            <p class="item-title"><a href="/2017/10/19/cocoapods-install-error/" class="title">CocoaPods安装第三方库报错</a></p>
+                            <p class="item-date"><time datetime="2017-10-19T02:41:52.000Z" itemprop="datePublished">2017-10-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/09/03/cocoaPods-notes/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170903-00-blog.png)" alt="上传自己的 CocoaPods 依赖库" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/CocoaPods/">CocoaPods</a></p>
+                            <p class="item-title"><a href="/2017/09/03/cocoaPods-notes/" class="title">上传自己的 CocoaPods 依赖库</a></p>
+                            <p class="item-date"><time datetime="2017-09-03T01:19:57.000Z" itemprop="datePublished">2017-09-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/08/21/rsa-crypto-notes/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oonis1a4c.bkt.clouddn.com/20170821-00-blog.png)" alt="使用 openSSL 生成 RSA 秘钥对" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/iOS/">iOS</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/iOS/Objective-C/">Objective-C</a></p>
+                            <p class="item-title"><a href="/2017/08/21/rsa-crypto-notes/" class="title">使用 openSSL 生成 RSA 秘钥对</a></p>
+                            <p class="item-date"><time datetime="2017-08-21T07:49:25.000Z" itemprop="datePublished">2017-08-21</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/CocoaPods/">CocoaPods</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Terminal/">Terminal</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Themes/">Themes</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Objective-C/">Objective-C</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/Swift/">Swift</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CocoaPods/">CocoaPods</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/">Proxy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Themes/">Themes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oh-my-zsh/">oh-my-zsh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wkWebview/">wkWebview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zsh/">zsh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推送/">推送</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/CocoaPods/" style="font-size: 15px;">CocoaPods</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Themes/" style="font-size: 10px;">Themes</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/oh-my-zsh/" style="font-size: 10px;">oh-my-zsh</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/wkWebview/" style="font-size: 10px;">wkWebview</a> <a href="/tags/zsh/" style="font-size: 10px;">zsh</a> <a href="/tags/推送/" style="font-size: 10px;">推送</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+
+                <p>&copy; 2018 Arvin&#39;s | <a id="busuanzi_container_site_uv"> View <a id="busuanzi_value_site_uv"> </a> times </a> </p>
+
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+
+		<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>    
+	  </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'kejiasir';
+    
+    
+    var disqus_url = 'http://yoursite.com/2017/04/28/oh-my-zsh/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
