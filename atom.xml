@@ -132,6 +132,207 @@
   </entry>
   
   <entry>
+    <title>在同项目中使用 Swift 和 Objective-C</title>
+    <link href="http://yoursite.com/2017/10/02/Swift-and-Objective-C-in-the-Same-Project/"/>
+    <id>http://yoursite.com/2017/10/02/Swift-and-Objective-C-in-the-Same-Project/</id>
+    <published>2017-10-02T03:18:12.000Z</published>
+    <updated>2018-04-29T07:10:21.250Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://oonis1a4c.bkt.clouddn.com/20171002-00-blog.png?imageView/2/w/600/q/80" alt=""></p>
+<p>Swift 与 Objective-C 的兼容性使你可以创建一个包含两种语言编写的项目。你可以使用此功能（called mix and match）编写具有混合语言代码库的应用程序。使用混合编写，你可以使用最新的 Swift 特性实现应用程序的部分功能，并将其无缝集成到你现有的 Objective-C 代码库中。</p>
+<h3 id="Mix-and-Match-概述"><a href="#Mix-and-Match-概述" class="headerlink" title="Mix and Match 概述"></a>Mix and Match 概述</h3><p>Objective-C 和Swift 文件可以共存于一个项目中，无论该项目最初是 Objective-C 还是 Swift 项目。你可以直接将其他语言的文件添加到现有的项目中。这种自然的工作流程使得创建混合语言应用程序和框架目标（framework targets）与创建用单一语言编写的应用程序或框架目标一样简单。</p>
+<p>取决于你是编写应用程序还是框架，使用混合语言编写的过程略有不同。下面描述了在同一个 Target 中使用两种语言的一般导入模式，并在以下各节中对其进行了更详细的介绍。</p>
+<h3 id="从相同应用目标中导入代码"><a href="#从相同应用目标中导入代码" class="headerlink" title="从相同应用目标中导入代码"></a>从相同应用目标中导入代码</h3><p>如果你正在编写混合语言的应用程序，则可能需要从 Swift 访问你的 Objective-C 代码，或者从 Objective-C 访问你的 Swift 代码。本节描述的过程适用于非框架目标（non-framework targets）。</p>
+<h4 id="将-Objective-C-导入到-Swift"><a href="#将-Objective-C-导入到-Swift" class="headerlink" title="将 Objective-C 导入到 Swift"></a>将 Objective-C 导入到 Swift</h4><p>要将一组 Objective-C 文件导入与 Swift 代码相同的应用程序 Target 中，你需要依靠 Objective-C 桥接头文件将这些文件公开到 Swift 中。当你将 Swift 文件添加到现有的 Objective-C 应用程序或将 Objective-C 文件添加到现有的 Swift 应用程序时，Xcode 提供创建此头文件。</p>
+<p><img src="http://oonis1a4c.bkt.clouddn.com/20171002-01-blog.png" alt=""></p>
+<p>如果你接受，Xcode 会创建头文件以及你正在创建的文件，并将其命名为你的产品模块名称（product module name），然后添加 “<code>-Bridging-Header.h</code>“。（稍后你将在产品模块命名中详细了解<a href="#Naming_Your_Product_Module">产品模块名称</a>）</p>
+<p>或者，你可以通过选择 File &gt; New &gt; File &gt;（iOS，watchOS，tvOS 或 macOS）&gt; Source &gt; Header File 来自行创建桥接头。</p>
+<p>你需要编辑桥接头文件以将你的 Objective-C 代码展示（公开）给你的 Swift 代码。</p>
+<h5 id="将-Objective-C-代码从同一个目标导入到-Swift-中"><a href="#将-Objective-C-代码从同一个目标导入到-Swift-中" class="headerlink" title="将 Objective-C 代码从同一个目标导入到 Swift 中"></a>将 Objective-C 代码从同一个目标导入到 Swift 中</h5><p>在你的 Objective-C 桥接头文件中，导入你想暴露给 Swift 的每个 Objective-C 头文件。例如：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"XYZCustomCell.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"XYZCustomView.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"XYZCustomViewController.h"</span></span></div></pre></td></tr></table></figure>
+<p>在 Build Settings &gt; Swift Compiler - Code Generation 中，确保 Objective-C 桥接头构建设置具有桥接头文件的路径。</p>
+<p>路径应该与你的项目相关，类似于在 Build Settings 中指定 Info.plist 路径的方式。在大多数情况下，你不需要修改此设置。</p>
+<p>在这个桥接头文件中列出的任何公共的 Objective-C 头文件都可以被 Swift 看到。然后在该 Target 中所有的 Swift 文件中将自动提供 Objective-C 的功能，而不需要任何导入语句。你自定义的 Objective-C 代码，可使用与系统类相同的 Swift 语法。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> myCell = <span class="type">XYZCustomCell</span>()</div><div class="line">myCell.subtitle = <span class="string">"A custom cell"</span></div></pre></td></tr></table></figure>
+<h4 id="将-Swift-导入到-Objective-C"><a href="#将-Swift-导入到-Objective-C" class="headerlink" title="将 Swift 导入到 Objective-C"></a>将 Swift 导入到 Objective-C</h4><p>将 Swift 代码导入 Objective-C 时，你需要依靠 Xcode 生成的头文件将这些文件公开到 Objective-C 中。这个自动生成的文件是一个 Objective-C 头文件，用于在 Target 中声明 Swift 接口。它可以被认为是你的 Swift 的代码头（umbrella header）。这个代码头的名字是你的产品模块名称后面加上 “<code>-Swift.h</code>“。（稍后你将在产品模块命名中详细了解<a href="#Naming_Your_Product_Module">产品模块名称</a>）</p>
+<p>默认情况下，生成的头文件包含用 <code>public</code> 或 <code>open</code> 修饰符标记的 Swift 声明的接口。如果你的应用程序 Target 具有 Objective-C 桥接标题，它还包含那些标有 <code>internal</code> 修饰符的标记。使用 <code>private</code> 或 <code>fileprivate</code> 修饰符标记的声明不会出现在生成的标题中。除非明确用 <code>@IBAction</code>，<code>@IBOutlet</code> 或 <code>@objc</code> 标记的私有声明，否则它们不会暴露给 Objective-C。如果你的应用程序 Target 是在启用测试的情况下编译的，则单元测试目标可以使用 <code>internal</code> 修饰符访问任何声明，就好像它们是使用 <code>public</code> 修饰符声明的，方法是将 <code>@testable</code> 添加到产品模块导入语句中。</p>
+<p>有关访问级别修饰符的更多信息，请参阅 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097" target="_blank" rel="external">Swift 编程语言（Swift 4.1）</a>中的<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html#//apple_ref/doc/uid/TP40014097-CH41" target="_blank" rel="external">访问控制</a>。</p>
+<p>你不需要做任何特别的事情来创建生成的头文件，只需将其导入到你的 Objective-C 代码中即可使用它的内容。请注意，生成头文件中的Swift接口包含对其中使用的所有 Objective-C 类型的引用。如果你在 Swift 代码中使用自己的 Objective-C 类型，请务必在将 Swift 生成的头文件导入要从中访问 Swift 代码的 Objective-C .m 文件之前，为这些类型导入 Objective-C 头文件。</p>
+<h5 id="将-Swift-代码从同一个目标导入到-Objective-C-中"><a href="#将-Swift-代码从同一个目标导入到-Objective-C-中" class="headerlink" title="将 Swift 代码从同一个目标导入到 Objective-C 中"></a>将 Swift 代码从同一个目标导入到 Objective-C 中</h5><p>使用此语法将该 Target 中的 Swift 代码导入到该 Target 中的任何 Objective-C .m 文件中，并替换适当的名称：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"ProductModuleName-Swift.h"</span></span></div></pre></td></tr></table></figure>
+<p>Target 中的 Swift 文件将在包含此导入语句的 Objective-C .m 文件中可见。有关从 Objective-C 代码使用 Swift 的信息，请参阅<a href="#Using_Swift_from_Objective-C">从 Objective-C 使用 Swift</a>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">Import into Swift</th>
+<th style="text-align:center">Import into Objective-C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Swift code</td>
+<td style="text-align:center">No import statement</td>
+<td style="text-align:center"><code>#import &quot;ProductModuleName-Swift.h&quot;</code></td>
+</tr>
+<tr>
+<td>Objective-C code</td>
+<td style="text-align:center">No import statement; Objective-C bridging header required</td>
+<td style="text-align:center"><code>#import &quot;Header.h&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="从相同框架目标中导入代码"><a href="#从相同框架目标中导入代码" class="headerlink" title="从相同框架目标中导入代码"></a>从相同框架目标中导入代码</h3><p>如果你正在编写一个混合语言框架，你可能需要从 Swift 中访问你的 Objective-C 代码，或者从 Objective-C 中访问你的 Swift 代码。</p>
+<h4 id="将-Objective-C-导入到-Swift-1"><a href="#将-Objective-C-导入到-Swift-1" class="headerlink" title="将 Objective-C 导入到 Swift"></a>将 Objective-C 导入到 Swift</h4><p>要将一组 Objective-C 文件导入与 Swift 代码相同的框架 Target 中，你需要将这些文件导入到框架的 Objective-C 桥接头文件中。</p>
+<h5 id="将-Objective-C-代码从同一个框架导入到-Swift-中"><a href="#将-Objective-C-代码从同一个框架导入到-Swift-中" class="headerlink" title="将 Objective-C 代码从同一个框架导入到 Swift 中"></a>将 Objective-C 代码从同一个框架导入到 Swift 中</h5><ol>
+<li>在 “Build Settings” 下的 “Packaging” 中，确保该框架 Target 的 “Defines Module” 设置设置为 “Yes”。</li>
+<li>在你的类头文件中，导入你想暴露给 Swift 的每个 Objective-C 头文件。例如：</li>
+</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;XYZ/XYZCustomCell.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;XYZ/XYZCustomView.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;XYZ/XYZCustomViewController.h&gt;</span></span></div></pre></td></tr></table></figure>
+<p>在这个桥接头文件中列出的任何公共的 Objective-C 头文件都可以被 Swift 看到。该框架中的 Objective-C 文件的内容将自动在该框架目标中的任何 Swift 文件中提供，而不需要任何导入语句。你自定义的 Objective-C 代码，可使用与系统类相同的 Swift 语法。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> myOtherCell = <span class="type">XYZCustomCell</span>()</div><div class="line">myOtherCell.subtitle = <span class="string">"Another custom cell"</span></div></pre></td></tr></table></figure>
+<h4 id="将-Swift-导入到-Objective-C-1"><a href="#将-Swift-导入到-Objective-C-1" class="headerlink" title="将 Swift 导入到 Objective-C"></a>将 Swift 导入到 Objective-C</h4><p>要将一组 Swift 文件导入与 Objective-C 代码相同的框架目标中，你不需要将任何内容导入框架的头文件中。相反，将用于 Swift 代码的 Xcode 生成的头文件导入到要使用 Swift 代码的任何 Objective-C .m 文件中。</p>
+<p>由于为框架 Target 生成的头是框架公共接口的一部分，因此只有为 <code>public</code> 或 <code>open</code> 修饰符标记的声明才会出现在为框架 Target 生成的头中。</p>
+<p>Objective-C 运行时可以访问用内部修饰符标记并在从 Objective-C 类继承的类中声明的 Swift 方法和属性。但是，它们在编译时不可访问，并且不会出现在为框架目标生成的头文件中。</p>
+<p>有关访问级别修饰符的更多信息，请参阅 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097" target="_blank" rel="external">Swift 编程语言（Swift 4.1）</a>中的<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html#//apple_ref/doc/uid/TP40014097-CH41" target="_blank" rel="external">访问控制</a>。</p>
+<h5 id="将-Swift-代码从同一个框架导入到-Objective-C-中"><a href="#将-Swift-代码从同一个框架导入到-Objective-C-中" class="headerlink" title="将 Swift 代码从同一个框架导入到 Objective-C 中"></a>将 Swift 代码从同一个框架导入到 Objective-C 中</h5><ol>
+<li>在 “Build Settings” 下的 “Packaging” 中，确保该框架 Target 的 “Defines Module” 设置设置为 “Yes”。</li>
+<li>使用此语法将该框架 Target 中的 Swift 代码导入该框架 Target 中的任何 Objective-C .m 文件，并替换适当的名称：</li>
+</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;ProductName/ProductModuleName-Swift.h&gt;</span></span></div></pre></td></tr></table></figure>
+<p>包含此导入语句的 Objective-C .m 文件中将显示框架 Target中的 Swift 文件。有关从 Objective-C 代码使用 Swift 的信息，请参阅<a href="#Using_Swift_from_Objective-C">从 Objective-C 使用 Swift</a>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">Import into Swift</th>
+<th style="text-align:center">Import into Objective-C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Swift code</td>
+<td style="text-align:center">No import statement</td>
+<td style="text-align:center"><code>#import &lt;ProductName/ProductModuleName-Swift.h&gt;</code></td>
+</tr>
+<tr>
+<td>Objective-C code</td>
+<td style="text-align:center">No import statement; Objective-C umbrella header required</td>
+<td style="text-align:center"><code>#import &quot;Header.h&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="导入外部框架"><a href="#导入外部框架" class="headerlink" title="导入外部框架"></a>导入外部框架</h3><p>你可以导入具有纯粹的 Objective-C 代码库，纯 Swift 代码库或混合语言代码库的外部框架。无论框架是用单一语言编写还是包含来自两种语言的文件，导入外部框架的过程都是相同的。当你导入外部框架时，请确保你要导入的框架的 “Defines Module” 构建设置设置为 “Yes”。</p>
+<p>你可以使用以下语法将框架导入到不同 Target 中的任何 Swift 文件中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> FrameworkName</div></pre></td></tr></table></figure>
+<p>你可以使用以下语法将框架导入到不同 Target 中的任何 Objective-C .m 文件中：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@import</span> FrameworkName;</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">Import into Swift</th>
+<th style="text-align:center">Import into Objective-C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Any language framework</td>
+<td style="text-align:center"><code>import FrameworkName</code></td>
+<td style="text-align:center"><code>@import FrameworkName;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="从-Objective-C-使用-Swift"><a href="#从-Objective-C-使用-Swift" class="headerlink" title=" 从 Objective-C 使用 Swift"></a><a id="Using_Swift_from_Objective-C"></a> 从 Objective-C 使用 Swift</h3><p>一旦将 Swift 代码导入到 Objective-C 中，就可以使用常规的 Objective-C 语法来处理 Swift 类。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">MySwiftClass *swiftObject = [[MySwiftClass alloc] init];</div><div class="line">[swiftObject swiftMethod];</div></pre></td></tr></table></figure>
+<p>Swift 类必须是 Objective-C 类的子类（descendant）才能在 Objective-C 中访问和使用。有关可以从 Objective-C 访问什么以及如何导入 Swift 接口的更多信息，请参见 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID53" target="_blank" rel="external">Swift 类型兼容性</a>。</p>
+<h4 id="在-Objective-C-头文件中引用-Swift-类或协议"><a href="#在-Objective-C-头文件中引用-Swift-类或协议" class="headerlink" title="在 Objective-C 头文件中引用 Swift 类或协议"></a>在 Objective-C 头文件中引用 Swift 类或协议</h4><p>当你的代码引用来自不同模块的 Swift 类或协议时，可以使用 <code>@import</code> 将 Swift 模块导入到 Objective-C 头文件中。但是，为避免循环引用，请勿将同一模块中的 Swift 代码导入到 Objective-C 标头（.h）文件中。相反，你可以前向声明 Swift 类或协议以在 Objective-C 界面中引用它。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MyObjcClass.h</span></div><div class="line"><span class="class"><span class="keyword">@class</span> <span class="title">MySwiftClass</span>;</span></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">MySwiftProtocol</span>;</span></div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MyObjcClass</span> : <span class="title">NSObject</span></span></div><div class="line">- (MySwiftClass *)returnSwiftClassInstance;</div><div class="line">- (<span class="keyword">id</span> &lt;MySwiftProtocol&gt;)returnInstanceAdoptingSwiftProtocol;</div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>Swift 类和协议的前向声明只能用作方法和属性声明的类型。</p>
+<h4 id="声明可以被-Objective-C-类采用的-Swift-协议"><a href="#声明可以被-Objective-C-类采用的-Swift-协议" class="headerlink" title="声明可以被 Objective-C 类采用的 Swift 协议"></a>声明可以被 Objective-C 类采用的 Swift 协议</h4><p>要创建一个 Objective-C 类可以采用的 Swift 协议，请使用 <code>@objc</code> 属性标记协议声明。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@objc</span> <span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">MySwiftProtocol</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">func</span> <span class="title">requiredMethod</span><span class="params">()</span></span></div><div class="line">	 </div><div class="line">	<span class="meta">@objc</span> <span class="keyword">optional</span> <span class="function"><span class="keyword">func</span> <span class="title">optionalMethod</span><span class="params">()</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>协议声明 Objective-C 类必须实现的所有初始化方法，属性，下标和方法以符合协议。任何可选的协议要求都必须用 <code>@objc</code> 属性标记，并具有可选的修饰符。</p>
+<p>如果你需要在满足 Swift 协议要求的 Objective-C 中声明弱属性，请使用弱修饰符标记 Swift 属性需求。请注意，应用弱修饰符对采用该协议的 Swift 类型没有影响。</p>
+<h4 id="在-Objective-C-实现中采用-Swift-协议"><a href="#在-Objective-C-实现中采用-Swift-协议" class="headerlink" title="在 Objective-C 实现中采用 Swift 协议"></a>在 Objective-C 实现中采用 Swift 协议</h4><p>Objective-C 类可以通过导入由 Xcode 生成的 Swift 代码头并使用类扩展来在其实现（.m）文件中采用 Swift 协议。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MyObjcClass.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"ProductModuleName-Swift.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MyObjcClass</span> () &lt;<span class="title">MySwiftProtocol</span>&gt;</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">MyObjcClass</span></span></div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h4 id="声明可以在-Objective-C-中使用的-Swift-错误类型"><a href="#声明可以在-Objective-C-中使用的-Swift-错误类型" class="headerlink" title="声明可以在 Objective-C 中使用的 Swift 错误类型"></a>声明可以在 Objective-C 中使用的 Swift 错误类型</h4><p>符合 Error 协议并使用 <code>@objc</code> 属性声明的 Swift 枚举产生一个 <code>NS_ENUM</code> 声明，以及一个 <code>NSString</code> 常量，用于生成头文件中相应的错误域。例如，给定下面的 Swift 枚举声明：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@objc</span> <span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">CustomError</span>: <span class="title">Int</span>, <span class="title">Error</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> a, b, <span class="built_in">c</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以下是生成的头文件中相应的 Objective-C 声明：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Project-Swift.h</span></div><div class="line"><span class="keyword">typedef</span> SWIFT_ENUM(<span class="built_in">NSInteger</span>, CustomError) &#123;</div><div class="line">	CustomErrorA = <span class="number">0</span>,</div><div class="line">	CustomErrorB = <span class="number">1</span>,</div><div class="line">	CustomErrorC = <span class="number">2</span>,</div><div class="line">&#125;;</div><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> CustomErrorDomain = <span class="string">@"Project.CustomError"</span>;</div></pre></td></tr></table></figure>
+<h3 id="覆盖-Objective-C-接口的-Swift-名称"><a href="#覆盖-Objective-C-接口的-Swift-名称" class="headerlink" title="覆盖 Objective-C 接口的 Swift 名称"></a>覆盖 Objective-C 接口的 Swift 名称</h3><p>Swift 编译器自动导入 Objective-C 代码作为传统的 Swift 代码。它导入 Objective-C 类工厂方法作为 Swift 初始化器，并且 Objective-C 枚举案例截断了名称。</p>
+<p>代码中可能存在不自动处理的边界情况。如果需要更改由 Swift 导入的 Objective-C 方法名称，枚举大小或选项集值，则可以使用 <code>NS_SWIFT_NAME</code> 宏来自定义声明的导入方式。</p>
+<h4 id="类工厂方法"><a href="#类工厂方法" class="headerlink" title="类工厂方法"></a>类工厂方法</h4><p>如果 Swift 编译器无法识别类工厂方法，则可以使用 <code>NS_SWIFT_NAME</code> 宏，传递初始化程序的 Swift 签名以使其正确导入。例如：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">instancetype</span>)recordWithRPM:(<span class="built_in">NSUInteger</span>)RPM <span class="built_in">NS_SWIFT_NAME</span>(init(rpm:));</div></pre></td></tr></table></figure>
+<p>如果Swift编译器错误地将方法标识为类工厂方法，则可以使用 <code>NS_SWIFT_NAME</code> 宏，并传递该方法的 Swift 签名以使其正确导入。例如：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">id</span>)recordWithQuality:(<span class="keyword">double</span>)quality <span class="built_in">NS_SWIFT_NAME</span>(record(quality:));</div></pre></td></tr></table></figure>
+<h4 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h4><p>默认情况下，Swift 通过截断枚举值名称前缀来导入枚举。要自定义枚举大小写的名称，可以使用 <code>NS_SWIFT_NAME</code> 宏来传递 Swift 枚举大小写名称。例如：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, ABCRecordSide) &#123;</div><div class="line">	ABCRecordSideA,</div><div class="line">	ABCRecordSideB <span class="built_in">NS_SWIFT_NAME</span>(flipSide),</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="提取-Objective-C-声明"><a href="#提取-Objective-C-声明" class="headerlink" title="提取 Objective-C 声明"></a>提取 Objective-C 声明</h3><p>你可以在 Objective-C 方法声明中使用 <code>NS_REFINED_FOR_SWIFT</code> 宏，以在扩展中提供改进的 Swift 接口，同时保持原始实现可从精确接口调用。例如，一个带有一个或多个指针参数的 Objective-C 方法可以在 Swift 中进行优化，以返回值的元组。</p>
+<ul>
+<li>初始化方法由 Swift 用双下划线（__）导入到它们的第一个参数标签。</li>
+<li>如果 getter 或 setter 方法被标记为 <code>NS_REFINED_FOR_SWIFT</code>，那么对象下标方法将作为带有双下划线（__）的方法由 Swift 导入，而不是 Swift 下标。</li>
+<li>其他方法使用双下划线（__）导入其基本名称。</li>
+</ul>
+<p>鉴于以下 Objective-C 声明：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Color</span> : <span class="title">NSObject</span></span></div><div class="line"> </div><div class="line">- (<span class="keyword">void</span>)getRed:(<span class="keyword">nullable</span> <span class="built_in">CGFloat</span> *)red</div><div class="line">	 green:(<span class="keyword">nullable</span> <span class="built_in">CGFloat</span> *)green</div><div class="line">	  blue:(<span class="keyword">nullable</span> <span class="built_in">CGFloat</span> *)blue</div><div class="line">	 alpha:(<span class="keyword">nullable</span> <span class="built_in">CGFloat</span> *)alpha <span class="built_in">NS_REFINED_FOR_SWIFT</span>;</div><div class="line"> </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>你可以像这样在一个扩展中提供一个精致的 Swift 接口：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Color</span> </span>&#123;</div><div class="line">   <span class="keyword">var</span> <span class="type">RGBA</span>: (red: <span class="type">CGFloat</span>, green: <span class="type">CGFloat</span>, blue: <span class="type">CGFloat</span>, alpha: <span class="type">CGFloat</span>) &#123;</div><div class="line">	   <span class="keyword">var</span> r: <span class="type">CGFloat</span> = <span class="number">0.0</span></div><div class="line">	   <span class="keyword">var</span> g: <span class="type">CGFloat</span> = <span class="number">0.0</span></div><div class="line">	   <span class="keyword">var</span> b: <span class="type">CGFloat</span> = <span class="number">0.0</span></div><div class="line">	   <span class="keyword">var</span> a: <span class="type">CGFloat</span> = <span class="number">0.0</span></div><div class="line">	   __getRed(red: &amp;r, green: &amp;g, blue: &amp;b, alpha: &amp;a)</div><div class="line">	   <span class="keyword">return</span> (red: r, green: g, blue: b, alpha: a)</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="在-Swift-中使-Objective-C-接口不可用"><a href="#在-Swift-中使-Objective-C-接口不可用" class="headerlink" title="在 Swift 中使 Objective-C 接口不可用"></a>在 Swift 中使 Objective-C 接口不可用</h3><p>一些 Objective-C 接口可能不适合或不需要作为 Swift 接口公开。要防止 Swift 导入 Objective-C 声明，请使用 <code>NS_SWIFT_UNAVAILABLE</code> 宏，并将消息传递给 API 调用者以使其可使用可能存在的其它替代方法。</p>
+<p>例如，一个 Objective-C 类提供了一个方便的初始值设定项，它为键 - 值对提供可变参数，可能会建议 Swift 使用者使用字典文字：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">instancetype</span>)collectionWithValues:(<span class="built_in">NSArray</span> *)values forKeys:(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSCopying</span>&gt; *)keys <span class="built_in">NS_SWIFT_UNAVAILABLE</span>(<span class="string">"Use a dictionary literal instead"</span>);</div></pre></td></tr></table></figure>
+<p>试图从 Swift 代码中调用 <code>+ collectionWithValues:forKeys:</code> 方法会导致编译器错误。</p>
+<p>要在编译时在 Swift 和 Objective-C 中使 Objective-C 声明不可用，请使用 <code>NS_UNAVAILABLE</code> 宏。该宏的行为与 <code>NS_SWIFT_UNAVAILABLE</code> 宏类似，只是它省略了可定制的错误消息，并且它限制了 Objective-C 代码中对声明的编译时访问。</p>
+<h3 id="将可用性信息添加到-Objective-C-API"><a href="#将可用性信息添加到-Objective-C-API" class="headerlink" title="将可用性信息添加到 Objective-C API"></a>将可用性信息添加到 Objective-C API</h3><p>在 Swift 中，可以用 <code>@available</code> 属性来控制在为特定目标平台构建应用程序时是否可以使用。同样，你可以使用可用条件 <code>#available</code> 根据所需的平台和版本条件有条件地执行代码。</p>
+<p>Objective-C 中提供了两种可用性说明符，使用以下示例中显示的相应语法。</p>
+<p>此示例显示 Swift 中的声明中使用的可用性信息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@available</span>(iOS <span class="number">11</span>, macOS <span class="number">10.13</span>, *)</div><div class="line">	<span class="function"><span class="keyword">func</span> <span class="title">newMethod</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="comment">// Use iOS 11 APIs.</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以下是 Objective-C 中添加相同可用性信息的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MyViewController</span> : <span class="title">UIViewController</span></span></div><div class="line">- (<span class="keyword">void</span>)newMethod API_AVAILABLE(ios(<span class="number">11</span>), macosx(<span class="number">10.13</span>));</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>下面的例子显示了 Swift 条件语句中使用的可用性信息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> #available(iOS <span class="number">11</span>, *) &#123;</div><div class="line">	<span class="comment">// Use iOS 11 APIs.</span></div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">	<span class="comment">// Alternative code for earlier versions of iOS.</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以下是 Objective-C 中如何使用相同的可用性信息：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (@available(iOS <span class="number">11</span>, *)) &#123;</div><div class="line">	<span class="comment">// Use iOS 11 APIs.</span></div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">	<span class="comment">// Alternative code for earlier versions of iOS.</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有关指定平台可用性的更多信息，请参阅 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097" target="_blank" rel="external">Swift 编程语言（Swift 4.1）</a>中的<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Attributes.html#//apple_ref/doc/uid/TP40014097-CH35-ID348" target="_blank" rel="external">声明属性</a>。</p>
+<h3 id="命名你的产品模块"><a href="#命名你的产品模块" class="headerlink" title=" 命名你的产品模块"></a><a id="Naming_Your_Product_Module"></a> 命名你的产品模块</h3><p>Swift 代码生成的 Xcode 生成头文件的名称以及 Xcode 为你创建的 Objective-C 桥接头名称是从你的产品模块名称中生成的。默认情况下，你的产品模块名称与你的产品名称相同。但是，如果你的产品名称包含任何非字母数字字符（如句点（.）），则它们将替换为产品模块名称中的下划线（_）。如果名称以数字开头，则第一个数字将替换为下划线。</p>
+<p>你还可以为产品模块名称提供自定义名称，Xcode 将在命名桥接和生成的标头时使用此名称。为此，请更改 “Product Module Name” 构建设置。</p>
+<blockquote>
+<p>注意<br>你无法覆盖框架的产品模块名称。</p>
+</blockquote>
+<h3 id="常见问题解答和提醒"><a href="#常见问题解答和提醒" class="headerlink" title="常见问题解答和提醒"></a>常见问题解答和提醒</h3><ul>
+<li>将你的 Swift 和 Objective-C 文件视为同一代码集合，并注意命名冲突。</li>
+<li>如果你正在使用框架，请确保打包下的 “Defines Module”（DEFINES_MODULE）构建设置设置为 “Yes”。</li>
+<li>如果你正在使用 Objective-C 桥接头，请确保 Swift 编译器 - 代码生成下的 Objective-C 桥接头（SWIFT_OBJC_BRIDGING_HEADER）编译设置设置为相对于你的项目的桥接头文件的路径（例如，”MyApp的/MyApp的桥接-Header.h”）。</li>
+<li>在为你的 Swift 代码命名 Objective-C 桥接标题和生成的标题时，Xcode 使用你的产品模块名称（PRODUCT_MODULE_NAME） -不是你的目标名称（TARGET_NAME）。有关产品模块命名的信息，请参阅 <a href="#Naming_Your_Product_Module">命名你的产品模块</a>。</li>
+<li>要在 Objective-C 中可访问和使用，Swift 类必须是Objective-C 类的子类（descendant），或者必须标记为 <code>@objc</code>。</li>
+<li>当你将 Swift 代码导入到 Objective-C 时，请记住 Objective-C 将无法翻译特定于 Swift 的某些功能。有关列表，请参阅<a href="#Using_Swift_from_Objective-C">从 Objective-C 使用 Swift</a>。</li>
+<li>如果在 Swift 代码中使用自己的 Objective-C 类型，请确保在将 Swift 生成的头文件导入要使用 Swift 代码的 Objective-C .m 文件中之前，为这些类型导入 Objective-C 头文件。</li>
+<li>使用 <code>private</code> 或 <code>fileprivate</code> 修饰符标记的 Swift 声明不会出现在生成的头文件中。除非明确用 <code>@IBAction</code>，<code>@IBOutlet</code> 或 <code>@objc</code> 标记私有声明，否则它们不会暴露给 Objective-C。</li>
+<li>对于应用程序 Target，如果应用程序 Target 具有 Objective-C 桥接标头，则使用 <code>internal</code> 修饰符标记的声明将出现在生成的标头中。</li>
+<li>对于框架 Target，只有具有 <code>public</code> 或 <code>open</code> 修饰符的声明出现在生成的头文件中。只要它们在继承自 Objective-C 类的类中声明，仍然可以使用框架的 Objective-C 部分由 <code>internal</code> 修饰符标记的 Swift 方法和属性。有关访问级别修饰符的更多信息，请参阅 <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097" target="_blank" rel="external">Swift 编程语言（Swift 4.1）</a>中的<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html#//apple_ref/doc/uid/TP40014097-CH41" target="_blank" rel="external">访问控制</a>。</li>
+</ul>
+<h4 id="译自苹果官方编程指南：Swift-and-Objective-C-in-the-Same-Project"><a href="#译自苹果官方编程指南：Swift-and-Objective-C-in-the-Same-Project" class="headerlink" title="译自苹果官方编程指南：Swift and Objective-C in the Same Project"></a><strong><em>译自苹果官方编程指南：<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html#//apple_ref/doc/uid/TP40014216-CH10-ID136" target="_blank" rel="external">Swift and Objective-C in the Same Project</a></em></strong></h4>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://oonis1a4c.bkt.clouddn.com/20171002-00-blog.png?imageView/2/w/600/q/80&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Swift 与 Objective-C 的兼容性使你可以创建一个包含
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+      <category term="Swift" scheme="http://yoursite.com/categories/iOS/Swift/"/>
+    
+    
+      <category term="Objective-C" scheme="http://yoursite.com/tags/Objective-C/"/>
+    
+      <category term="Swift" scheme="http://yoursite.com/tags/Swift/"/>
+    
+      <category term="混编" scheme="http://yoursite.com/tags/%E6%B7%B7%E7%BC%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>上传自己的 CocoaPods 依赖库</title>
     <link href="http://yoursite.com/2017/09/03/cocoaPods-notes/"/>
     <id>http://yoursite.com/2017/09/03/cocoaPods-notes/</id>
